@@ -1,0 +1,31 @@
+<?php
+if (defined('DEBUG')) {    
+}
+else {
+    define('DEBUG', true);
+}
+
+function texvox_form_alter(&$form, &$form_state, $form_id) {
+  // dpm($form_id);
+}
+
+
+function texvox_form_ivr_node_form_alter(&$form, &$form_state) {
+  // dpm($form);
+  foreach ($form['field_ivrscreen']['und']['entities'] as $key => $screen) {
+    if(is_numeric($key)){
+      $menus = $screen['#entity']->field_menus['und'];
+      $show_menus = array();
+      $show_menus['#type'] = 'submit';
+      $show_menus['#value'] = 'Show Menus';
+      $show_menus['#name'] = str_replace('remove', 'menus', $screen['actions']['ief_entity_remove']['#name']);
+      $show_menus['#limit_validation_errors'] = array();
+      $show_menus['#ajax'] = array();
+      $show_menus['#submit'] = array();
+      // $show_menus['ief_row_delta'] = 0;
+      // $show_menus['ief_row_form'] = 'menus';
+      $form['field_ivrscreen']['und']['entities'][$key]['actions']['ief_entity_menus'] = $show_menus;
+      dpm($form['field_ivrscreen']['und']['entities'][$key]);
+    }
+  }
+}

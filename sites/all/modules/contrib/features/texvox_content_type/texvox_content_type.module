@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Texvox: Content type feature.
+ */
+
+include_once 'texvox_content_type.features.inc';
