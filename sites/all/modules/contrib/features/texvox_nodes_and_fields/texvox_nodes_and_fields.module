@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Texvox: nodes and fields feature.
+ */
+
+include_once 'texvox_nodes_and_fields.features.inc';

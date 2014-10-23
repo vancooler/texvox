@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * texvox_content_type.features.field_instance.inc
+ * texvox_nodes_and_fields.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function texvox_content_type_field_default_field_instances() {
+function texvox_nodes_and_fields_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance: 'field_collection_item-field_menu-field_action'

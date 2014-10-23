@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * texvox_content_type.features.field_base.inc
+ * texvox_nodes_and_fields.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function texvox_content_type_field_default_field_bases() {
+function texvox_nodes_and_fields_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_action'
