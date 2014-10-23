@@ -248,7 +248,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 0,
     ),
   );
 
@@ -558,7 +558,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_ivr_screen',
     'label' => 'IVR Screen',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -704,7 +704,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_menu',
     'label' => 'Menu',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
