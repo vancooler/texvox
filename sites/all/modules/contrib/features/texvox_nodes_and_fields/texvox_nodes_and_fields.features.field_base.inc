@@ -83,6 +83,49 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_close_ivr'
+  $field_bases['field_close_ivr'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_close_ivr',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'ivr' => 'ivr',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_display_subtitle'
   $field_bases['field_display_subtitle'] = array(
     'active' => 1,
@@ -185,6 +228,36 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_holidays'
+  $field_bases['field_holidays'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_holidays',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'date',
+    'settings' => array(
+      'cache_count' => 4,
+      'cache_enabled' => 0,
+      'granularity' => array(
+        'day' => 'day',
+        'hour' => 0,
+        'minute' => 0,
+        'month' => 'month',
+        'second' => 0,
+        'year' => 'year',
+      ),
+      'timezone_db' => '',
+      'todate' => '',
+      'tz_handling' => 'none',
+    ),
+    'translatable' => 0,
+    'type' => 'date',
   );
 
   // Exported field_base: 'field_ivr_screen'
@@ -500,6 +573,72 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text',
+  );
+
+  // Exported field_base: 'field_opening_hours'
+  $field_bases['field_opening_hours'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_opening_hours',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'office_hours',
+    'settings' => array(
+      'cardinality' => 1,
+      'granularity' => 1,
+      'hoursformat' => 2,
+      'limitend' => '',
+      'limitstart' => '',
+      'valhrs' => 0,
+    ),
+    'translatable' => 0,
+    'type' => 'office_hours',
+  );
+
+  // Exported field_base: 'field_opening_ivr'
+  $field_bases['field_opening_ivr'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_opening_ivr',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'ivr' => 'ivr',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_organization'

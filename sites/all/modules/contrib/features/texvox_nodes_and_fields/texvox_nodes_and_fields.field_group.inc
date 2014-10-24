@@ -43,6 +43,36 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_basic|node|branch|form';
+  $field_group->group_name = 'group_basic';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'branch';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_branch';
+  $field_group->data = array(
+    'label' => 'Basic Info',
+    'weight' => '10',
+    'children' => array(
+      0 => 'field_logo',
+      1 => 'field_phone_number',
+      2 => 'field_organization',
+      3 => 'title',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-basic field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_basic|node|branch|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_basic|node|ivr|form';
   $field_group->group_name = 'group_basic';
   $field_group->entity_type = 'node';
@@ -100,6 +130,33 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_branch|node|branch|form';
+  $field_group->group_name = 'group_branch';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'branch';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Branch Form',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_basic',
+      1 => 'group_location',
+      2 => 'group_opening_hours',
+    ),
+    'format_type' => 'tabs',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => 'group-branch field-group-tabs',
+      ),
+    ),
+  );
+  $export['group_branch|node|branch|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_ivr_form|node|ivr|form';
   $field_group->group_name = 'group_ivr_form';
   $field_group->entity_type = 'node';
@@ -122,6 +179,33 @@ function texvox_nodes_and_fields_field_group_info() {
     ),
   );
   $export['group_ivr_form|node|ivr|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_location|node|branch|form';
+  $field_group->group_name = 'group_location';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'branch';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_branch';
+  $field_group->data = array(
+    'label' => 'Location',
+    'weight' => '11',
+    'children' => array(
+      0 => 'field_location',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-location field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_location|node|branch|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -175,6 +259,36 @@ function texvox_nodes_and_fields_field_group_info() {
     ),
   );
   $export['group_menu|field_collection_item|field_menu|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_opening_hours|node|branch|form';
+  $field_group->group_name = 'group_opening_hours';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'branch';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_branch';
+  $field_group->data = array(
+    'label' => 'Opening hours',
+    'weight' => '12',
+    'children' => array(
+      0 => 'field_opening_ivr',
+      1 => 'field_close_ivr',
+      2 => 'field_opening_hours',
+      3 => 'field_holidays',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-opening-hours field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_opening_hours|node|branch|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
