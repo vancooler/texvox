@@ -166,7 +166,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_title_in_multi_languages',
-    'label' => 'Title in multi-languages',
+    'label' => 'Title',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -177,7 +177,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -718,46 +718,6 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-screen-field_screen_code'
-  $field_instances['node-screen-field_screen_code'] = array(
-    'bundle' => 'screen',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_screen_code',
-    'label' => 'Screen Code',
-    'required' => 1,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 5,
-    ),
-  );
-
   // Exported field_instance: 'node-screen-field_screen_type'
   $field_instances['node-screen-field_screen_type'] = array(
     'bundle' => 'screen',
@@ -795,7 +755,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 4,
+      'weight' => -4,
     ),
   );
 
@@ -828,7 +788,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_subtitle_in_multi_language',
-    'label' => 'Subtitle in multi-languages',
+    'label' => 'Subtitle',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -839,7 +799,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 7,
+      'weight' => -1,
     ),
   );
 
@@ -872,7 +832,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_title_in_multi_languages',
-    'label' => 'Title in multi-languages',
+    'label' => 'Title ',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -883,7 +843,50 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 6,
+      'weight' => -2,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-title_field'
+  $field_instances['node-screen-title_field'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'title_field',
+    'label' => 'Screen Code',
+    'required' => 1,
+    'settings' => array(
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
     ),
   );
 
@@ -906,8 +909,9 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Phone Number');
   t('Screen Code');
   t('Screen Type');
-  t('Subtitle in multi-languages');
-  t('Title in multi-languages');
+  t('Subtitle');
+  t('Title');
+  t('Title ');
 
   return $field_instances;
 }

@@ -13,6 +13,36 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_basic|field_collection_item|field_menu|form';
+  $field_group->group_name = 'group_basic';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_menu';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_menu';
+  $field_group->data = array(
+    'label' => 'Basic Info',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_key',
+      1 => 'field_menu_type',
+      2 => 'field_action',
+      3 => 'field_go_to_screen',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-basic field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_basic|field_collection_item|field_menu|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_basic|node|ivr|form';
   $field_group->group_name = 'group_basic';
   $field_group->entity_type = 'node';
@@ -27,14 +57,13 @@ function texvox_nodes_and_fields_field_group_info() {
       1 => 'field_ivr_type',
       2 => 'title',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'tab',
     'format_settings' => array(
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => 'group-basic field-group-htab',
+        'classes' => '',
         'required_fields' => 1,
-        'id' => '',
       ),
     ),
   );
@@ -54,21 +83,16 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_screen_type',
-      1 => 'field_title_in_multi_languages',
-      2 => 'field_subtitle_in_multi_language',
-      3 => 'field_screen_code',
-      4 => 'title',
+      1 => 'title_field',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'tab',
     'format_settings' => array(
-      'label' => 'Basic Info',
+      'formatter' => 'closed',
       'instance_settings' => array(
-        'required_fields' => 1,
-        'id' => '',
-        'classes' => '',
         'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
       ),
-      'formatter' => 'open',
     ),
   );
   $export['group_basic|node|screen|form'] = $field_group;
@@ -89,11 +113,11 @@ function texvox_nodes_and_fields_field_group_info() {
       0 => 'group_basic',
       1 => 'group_screens',
     ),
-    'format_type' => 'htabs',
+    'format_type' => 'tabs',
     'format_settings' => array(
       'formatter' => '',
       'instance_settings' => array(
-        'classes' => 'group-ivr-form field-group-htabs',
+        'classes' => '',
       ),
     ),
   );
@@ -110,22 +134,47 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Menus',
-    'weight' => '2',
+    'weight' => '4',
     'children' => array(
       0 => 'field_menu',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'tab',
     'format_settings' => array(
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
         'classes' => '',
         'required_fields' => 1,
-        'id' => '',
       ),
     ),
   );
   $export['group_menus|node|screen|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_menu|field_collection_item|field_menu|form';
+  $field_group->group_name = 'group_menu';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_menu';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Menu Form',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_basic',
+      1 => 'group_title',
+    ),
+    'format_type' => 'tabs',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => 'group-menu field-group-tabs',
+      ),
+    ),
+  );
+  $export['group_menu|field_collection_item|field_menu|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -142,8 +191,10 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'group_basic',
       1 => 'group_menus',
+      2 => 'group_title',
+      3 => 'group_subtitle',
     ),
-    'format_type' => 'htabs',
+    'format_type' => 'tabs',
     'format_settings' => array(
       'formatter' => '',
       'instance_settings' => array(
@@ -168,18 +219,98 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'field_ivr_screen',
     ),
-    'format_type' => 'htab',
+    'format_type' => 'tab',
     'format_settings' => array(
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => 'group-screens field-group-htab',
+        'classes' => '',
         'required_fields' => 1,
-        'id' => '',
       ),
     ),
   );
   $export['group_screens|node|ivr|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_subtitle|node|screen|form';
+  $field_group->group_name = 'group_subtitle';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_screen_form';
+  $field_group->data = array(
+    'label' => 'Subtitle in multi-languages',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_subtitle_in_multi_language',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-subtitle field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_subtitle|node|screen|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_title|field_collection_item|field_menu|form';
+  $field_group->group_name = 'group_title';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_menu';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_menu';
+  $field_group->data = array(
+    'label' => 'Title in multi-languages',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_title_in_multi_languages',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-title field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_title|field_collection_item|field_menu|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_title|node|screen|form';
+  $field_group->group_name = 'group_title';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_screen_form';
+  $field_group->data = array(
+    'label' => 'Title in multi-languages',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_title_in_multi_languages',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_title|node|screen|form'] = $field_group;
 
   return $export;
 }
