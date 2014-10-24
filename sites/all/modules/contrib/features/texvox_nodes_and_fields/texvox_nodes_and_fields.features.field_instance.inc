@@ -680,6 +680,43 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-branch-field_timezone'
+  $field_instances['node-branch-field_timezone'] = array(
+    'bundle' => 'branch',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'tzfield',
+        'settings' => array(),
+        'type' => 'tzfield_default',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_timezone',
+    'label' => 'Timezone',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-ivr-field_branch'
   $field_instances['node-ivr-field_branch'] = array(
     'bundle' => 'ivr',
@@ -1101,6 +1138,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Screen Code');
   t('Screen Type');
   t('Subtitle');
+  t('Timezone');
   t('Title');
   t('Title ');
 

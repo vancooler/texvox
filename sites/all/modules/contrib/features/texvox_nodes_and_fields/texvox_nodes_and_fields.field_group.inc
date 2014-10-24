@@ -194,6 +194,7 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '11',
     'children' => array(
       0 => 'field_location',
+      1 => 'field_timezone',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

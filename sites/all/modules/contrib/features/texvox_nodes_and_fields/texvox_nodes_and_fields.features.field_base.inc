@@ -771,6 +771,28 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
+  // Exported field_base: 'field_timezone'
+  $field_bases['field_timezone'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_timezone',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'tzfield',
+    'settings' => array(
+      'exclude' => array(),
+    ),
+    'translatable' => 0,
+    'type' => 'tzfield',
+  );
+
   // Exported field_base: 'field_title_in_multi_languages'
   $field_bases['field_title_in_multi_languages'] = array(
     'active' => 1,
