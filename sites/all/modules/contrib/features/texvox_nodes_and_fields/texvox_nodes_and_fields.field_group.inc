@@ -84,8 +84,9 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_branch',
-      1 => 'field_ivr_type',
-      2 => 'title',
+      1 => 'field_ivr_working_time',
+      2 => 'field_ivr_type',
+      3 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

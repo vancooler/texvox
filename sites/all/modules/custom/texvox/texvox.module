@@ -5,9 +5,13 @@ else {
     define('DEBUG', true);
 }
 
+//////////////////////////////////////////////////////////////////////
+//
+// Form alter to customize the user interface of content managemeng
+//
+//////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
   
-
   //filter for menu goto screens
   if($form_id == "ivr_node_form"){
     $current_screens = $form['field_ivr_screen']['und']['entities'];
@@ -28,7 +32,6 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
         foreach ($menus as $mkey => $menu) {
           if(is_numeric($mkey) and isset($menu['field_go_to_screen']) and !empty($menu['field_go_to_screen'])){
             $options = $menu['field_go_to_screen']['und']['#options'];
-            // dpm($options);
             $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menu']['und'][$mkey]['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
           }
         }
@@ -37,17 +40,47 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-
+//////////////////////////////////////////////////////////////////////
+//
+// Define API calls for app to get info from server.
+//
+//////////////////////////////////////////////////////////////////////
 function texvox_menu(){
   
-  $items['api/all-info'] = array(
-    'page callback' => 'texvox_api_all',
+  $items['api/all-nodes'] = array(
+    'page callback' => 'texvox_api_all_nodes',
     'access callback' => true,
     'delivery callback' => 'drupal_json_output'
   );
+  return $items;
 }
 
-function texvox_api_all(){
+//////////////////////////////////////////////////////////////////////
+//
+// Call Drupal view to collect all nodes info in json format and 
+// send it back to app.
+//
+//////////////////////////////////////////////////////////////////////
+function texvox_api_all_nodes(){
   
+  $view = views_get_view('new_content');
+  $view->set_display('page');
+
+  if(isset($_GET['last_update_time'])){
+    $last_update_time = $_GET['last_update_time'];
+    $view->set_arguments(array($last_update_time));
+  }
+  $view->pre_execute();
+  $view->execute();
+  $view->render();
+  $result = $view->result;
+  dpm($result);
+  watchdog('API', '<pre>'. print_r('hehe', TRUE) .'</pre>');
+  return $result;
 }
+
+
+
+
+
 

@@ -323,45 +323,6 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-branch-field_close_ivr'
-  $field_instances['node-branch-field_close_ivr'] = array(
-    'bundle' => 'branch',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 5,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_close_ivr',
-    'label' => 'Close IVR',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 15,
-    ),
-  );
-
   // Exported field_instance: 'node-branch-field_holidays'
   $field_instances['node-branch-field_holidays'] = array(
     'bundle' => 'branch',
@@ -560,45 +521,6 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-branch-field_opening_ivr'
-  $field_instances['node-branch-field_opening_ivr'] = array(
-    'bundle' => 'branch',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_opening_ivr',
-    'label' => 'Opening IVR',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 14,
-    ),
-  );
-
   // Exported field_instance: 'node-branch-field_organization'
   $field_instances['node-branch-field_organization'] = array(
     'bundle' => 'branch',
@@ -753,7 +675,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -818,7 +740,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -832,7 +754,6 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'label' => 'IVR Type',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -843,7 +764,44 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-ivr-field_ivr_working_time'
+  $field_instances['node-ivr-field_ivr_working_time'] = array(
+    'bundle' => 'ivr',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_ivr_working_time',
+    'label' => 'IVR Working Time',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 4,
     ),
   );
 
@@ -1118,13 +1076,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Action');
   t('Branch');
-  t('Close IVR');
   t('Display Subtitle');
   t('Display Title');
   t('Go To Screen');
   t('Holidays');
   t('IVR Screen');
   t('IVR Type');
+  t('IVR Working Time');
   t('Key');
   t('Language');
   t('Location');
@@ -1132,7 +1090,6 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Menu');
   t('Menu Type');
   t('Opening Hours');
-  t('Opening IVR');
   t('Organization');
   t('Phone Number');
   t('Screen Code');

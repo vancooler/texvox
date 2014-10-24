@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the Texvox: View and Json API Response feature.
  */
+
+include_once 'texvox_view_and_json_api_response.features.inc';
