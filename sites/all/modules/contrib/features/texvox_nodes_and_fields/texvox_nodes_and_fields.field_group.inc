@@ -56,7 +56,8 @@ function texvox_nodes_and_fields_field_group_info() {
       0 => 'field_screen_type',
       1 => 'field_title_in_multi_languages',
       2 => 'field_subtitle_in_multi_language',
-      3 => 'title',
+      3 => 'field_screen_code',
+      4 => 'title',
     ),
     'format_type' => 'htab',
     'format_settings' => array(

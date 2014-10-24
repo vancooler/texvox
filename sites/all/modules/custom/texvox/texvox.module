@@ -6,5 +6,48 @@ else {
 }
 
 function texvox_form_alter(&$form, &$form_state, $form_id) {
-  // dpm($form_id);
+  
+
+  //filter for menu goto screens
+  if($form_id == "ivr_node_form"){
+    $current_screens = $form['field_ivr_screen']['und']['entities'];
+    $current_screen_menu_options = array();
+    $current_screen_menu_options['_none'] = "- None -";
+    //get screen ids in this IVR
+    foreach ($current_screens as $key => $screen) {
+      if(is_numeric($key) and isset($screen['#entity']) and !empty($screen['#entity'])){
+        $index = intval($screen['#entity']->nid);
+        $current_screen_menu_options[$index] = $screen['#entity']->title;
+      }
+    }
+
+    $screens = $form['field_ivr_screen']['und']['entities'];
+    foreach ($screens as $skey => $screen) {
+      if(is_numeric($skey) and isset($screen['form']) and !empty($screen['form'])){
+        $menus = $screen['form']['field_menu']['und'];
+        foreach ($menus as $mkey => $menu) {
+          if(is_numeric($mkey) and isset($menu['field_go_to_screen']) and !empty($menu['field_go_to_screen'])){
+            $options = $menu['field_go_to_screen']['und']['#options'];
+            // dpm($options);
+            $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menu']['und'][$mkey]['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+          }
+        }
+      }
+    }
+  }
 }
+
+
+function texvox_menu(){
+  
+  $items['api/all-info'] = array(
+    'page callback' => 'texvox_api_all',
+    'access callback' => true,
+    'delivery callback' => 'drupal_json_output'
+  );
+}
+
+function texvox_api_all(){
+  
+}
+
