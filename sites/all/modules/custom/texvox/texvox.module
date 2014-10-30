@@ -11,8 +11,7 @@ else {
 //
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
-  
-  //filter for menu goto screens
+  //filter for menu goto screens in IVR form
   if($form_id == "ivr_node_form"){
     $current_screens = $form['field_ivr_screen']['und']['entities'];
     $current_screen_menu_options = array();
@@ -24,20 +23,105 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
         $current_screen_menu_options[$index] = $screen['#entity']->title;
       }
     }
-
-    $screens = $form['field_ivr_screen']['und']['entities'];
-    foreach ($screens as $skey => $screen) {
-      if(is_numeric($skey) and isset($screen['form']) and !empty($screen['form'])){
-        $menus = $screen['form']['field_menu']['und'];
-        foreach ($menus as $mkey => $menu) {
-          if(is_numeric($mkey) and isset($menu['field_go_to_screen']) and !empty($menu['field_go_to_screen'])){
-            $options = $menu['field_go_to_screen']['und']['#options'];
-            $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menu']['und'][$mkey]['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+    // dpm($current_screen_menu_options);
+    // dpm($form);
+    $screens_count = count($current_screen_menu_options) - 1;
+    if($screens_count > 0){
+      //already has screens in this IVR
+      $screens = $form['field_ivr_screen']['und']['entities'];
+      foreach ($screens as $skey => $screen) {
+        if(is_numeric($skey) and isset($screen['form']) and !empty($screen['form'])){
+          $menus = $screen['form']['field_menus'];
+          // For menus as nodes
+          if(isset($menus) and isset($menus['und'])){
+            $menu_form = $menus['und']['form'];
+            if(isset($menu_form)){
+              // create a new menu
+              $options = $menu_form['field_go_to_screen']['und']['#options'];
+              $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+            }
+            else{
+              // edit an exist menu
+              foreach ($menus['und']['entities'] as $mkey => $deep_menu) {            
+                if(is_numeric($mkey) and isset($deep_menu['form']) and !empty($deep_menu['form'])){
+                  // dpm($mkey);
+                  $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+                }
+              }
+            }
           }
+
+          // For menus as field collections
+          // foreach ($menus as $mkey => $menu) {
+          //   if(is_numeric($mkey) and isset($menu['field_go_to_screen']) and !empty($menu['field_go_to_screen'])){
+          //     $options = $menu['field_go_to_screen']['und']['#options'];
+          //     $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und'][$mkey]['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+          //   }
+          // }
         }
       }
     }
+    else{
+      //No screens in this IVR
+      $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+    }
   }
+
+  // //filter for menu goto screens in screen form
+  // if($form_id == "screen_node_form"){
+  //   dpm($form);
+  //   if(isset($form['#node']->nid)){
+  //     // edit form
+  //     $nid = intval($form['#node']->nid);
+  //     $query="SELECT entity_id FROM field_data_field_ivr_screen WHERE entity_type ='node' AND bundle='ivr' AND field_ivr_screen_target_id=$nid LIMIT 1";
+  //     $result=db_query($query);
+  //     foreach ($result as $row) {
+  //       $IVR_ID = intval($row->entity_id);
+  //     }
+  //     $menu = $form['field_menus']['und'];
+  //     if(isset($IVR_ID)){
+  //       $query="SELECT field_ivr_screen_target_id FROM field_data_field_ivr_screen WHERE entity_type ='node' AND bundle='ivr' AND entity_id=$IVR_ID";
+  //       $result=db_query($query);
+  //       $screen_ids = array();
+  //       foreach ($result as $row) {
+  //         $screen_ids[] = intval($row->field_ivr_screen_target_id);
+  //       }
+  //       // dpm($screen_ids);
+        
+  //       if(isset($menu['form'])){
+  //         $options = $form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'];
+  //         foreach ($options as $key => $op) {
+  //           if(intval($key) > 0 and !in_array(intval($key), $screen_ids)){
+  //             unset($form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'][$key]);
+  //           }
+  //         }
+  //       }
+  //     }
+  //     else{
+  //       if(isset($menu['form'])){
+  //         $current_screen_menu_options = array();
+  //         $current_screen_menu_options['_none'] = "- None -";
+  //         $form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+  //       }
+  //     }
+  //   }
+  //   else{
+  //     // new form
+  //     $menu = $form['field_menus']['und'];
+  //     if(isset($menu['form'])){
+  //       // $options = $form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'];
+  //       // foreach ($options as $key => $op) {
+  //       //   if(intval($key) > 0){
+  //       //     unset($form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'][$key]);
+  //       //   }
+  //       // }
+
+  //       $current_screen_menu_options = array();
+  //       $current_screen_menu_options['_none'] = "- None -";
+  //       $form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+  //     }
+  //   }
+  // }
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -74,9 +158,36 @@ function texvox_api_all_nodes(){
   $view->execute();
   $view->render();
   $result = $view->result;
-  dpm($result);
-  watchdog('API', '<pre>'. print_r('hehe', TRUE) .'</pre>');
   return $result;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function texvox_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'texvox'),
+  );
+}
+
+/**
+ * Implementation of hook_views_query_alter
+ * @param $view
+ * @param $query
+ */
+function texvox_views_query_alter(&$view, &$query) {
+  if ($view->name == 'new_content') {
+    $url = request_uri();
+    $temp = explode('/', $url);
+    $timestamp = intval($temp[(count($temp)-1)]);
+    $view->query->where[1]['conditions'][0]['field']="node.changed";
+    $view->query->where[1]['conditions'][0]['value']=$timestamp;
+    $view->query->where[1]['conditions'][0]['operator']=">=";
+
+    // dpm($view);
+    
+  }
 }
 
 

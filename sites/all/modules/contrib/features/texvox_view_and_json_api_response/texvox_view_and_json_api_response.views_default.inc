@@ -27,6 +27,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['pure_distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'views_json';
@@ -80,13 +81,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     'image_style' => '',
     'image_link' => '',
   );
-  /* Field: Content: Phone Number */
-  $handler->display->display_options['fields']['field_phone_number']['id'] = 'field_phone_number';
-  $handler->display->display_options['fields']['field_phone_number']['table'] = 'field_data_field_phone_number';
-  $handler->display->display_options['fields']['field_phone_number']['field'] = 'field_phone_number';
-  $handler->display->display_options['fields']['field_phone_number']['label'] = 'Phone Numbers';
-  $handler->display->display_options['fields']['field_phone_number']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_phone_number']['delta_offset'] = '0';
   /* Field: Location: Street */
   $handler->display->display_options['fields']['street']['id'] = 'street';
   $handler->display->display_options['fields']['street']['table'] = 'location';
@@ -119,6 +113,20 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['postal_code']['table'] = 'location';
   $handler->display->display_options['fields']['postal_code']['field'] = 'postal_code';
   $handler->display->display_options['fields']['postal_code']['hide_empty'] = TRUE;
+  /* Field: Location: Latitude */
+  $handler->display->display_options['fields']['latitude']['id'] = 'latitude';
+  $handler->display->display_options['fields']['latitude']['table'] = 'location';
+  $handler->display->display_options['fields']['latitude']['field'] = 'latitude';
+  $handler->display->display_options['fields']['latitude']['label'] = 'lat';
+  $handler->display->display_options['fields']['latitude']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['latitude']['style'] = 'dd';
+  /* Field: Location: Longitude */
+  $handler->display->display_options['fields']['longitude']['id'] = 'longitude';
+  $handler->display->display_options['fields']['longitude']['table'] = 'location';
+  $handler->display->display_options['fields']['longitude']['field'] = 'longitude';
+  $handler->display->display_options['fields']['longitude']['label'] = 'lon';
+  $handler->display->display_options['fields']['longitude']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['longitude']['style'] = 'dd';
   /* Field: Content: Timezone */
   $handler->display->display_options['fields']['field_timezone']['id'] = 'field_timezone';
   $handler->display->display_options['fields']['field_timezone']['table'] = 'field_data_field_timezone';
@@ -185,35 +193,45 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_ivr_working_time']['id'] = 'field_ivr_working_time';
   $handler->display->display_options['fields']['field_ivr_working_time']['table'] = 'field_data_field_ivr_working_time';
   $handler->display->display_options['fields']['field_ivr_working_time']['field'] = 'field_ivr_working_time';
-  /* Field: Content: Menu */
-  $handler->display->display_options['fields']['field_menu']['id'] = 'field_menu';
-  $handler->display->display_options['fields']['field_menu']['table'] = 'field_data_field_menu';
-  $handler->display->display_options['fields']['field_menu']['field'] = 'field_menu';
-  $handler->display->display_options['fields']['field_menu']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_menu']['settings'] = array(
+  $handler->display->display_options['fields']['field_ivr_working_time']['hide_empty'] = TRUE;
+  /* Field: Content: rgbHEX */
+  $handler->display->display_options['fields']['field_rgbhex']['id'] = 'field_rgbhex';
+  $handler->display->display_options['fields']['field_rgbhex']['table'] = 'field_data_field_rgbhex';
+  $handler->display->display_options['fields']['field_rgbhex']['field'] = 'field_rgbhex';
+  $handler->display->display_options['fields']['field_rgbhex']['hide_empty'] = TRUE;
+  /* Field: Content: Organization */
+  $handler->display->display_options['fields']['field_organization']['id'] = 'field_organization';
+  $handler->display->display_options['fields']['field_organization']['table'] = 'field_data_field_organization';
+  $handler->display->display_options['fields']['field_organization']['field'] = 'field_organization';
+  $handler->display->display_options['fields']['field_organization']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_organization']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_organization']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Content: Search Base */
+  $handler->display->display_options['fields']['field_search_base']['id'] = 'field_search_base';
+  $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
+  $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
+  $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
+  /* Field: Content: Phone Numbers */
+  $handler->display->display_options['fields']['field_phone_numbers']['id'] = 'field_phone_numbers';
+  $handler->display->display_options['fields']['field_phone_numbers']['table'] = 'field_data_field_phone_numbers';
+  $handler->display->display_options['fields']['field_phone_numbers']['field'] = 'field_phone_numbers';
+  $handler->display->display_options['fields']['field_phone_numbers']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_phone_numbers']['settings'] = array(
     'edit' => '',
     'delete' => '',
     'add' => '',
     'description' => 0,
     'view_mode' => 'full',
   );
-  $handler->display->display_options['fields']['field_menu']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_phone_numbers']['delta_limit'] = '';
+  $handler->display->display_options['fields']['field_phone_numbers']['delta_offset'] = '0';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: Updated date */
-  $handler->display->display_options['arguments']['changed_fulldate']['id'] = 'changed_fulldate';
-  $handler->display->display_options['arguments']['changed_fulldate']['table'] = 'node';
-  $handler->display->display_options['arguments']['changed_fulldate']['field'] = 'changed_fulldate';
-  $handler->display->display_options['arguments']['changed_fulldate']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['changed_fulldate']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['changed_fulldate']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['changed_fulldate']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['changed_fulldate']['relative_dates'] = 1;
-  $handler->display->display_options['arguments']['changed_fulldate']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['changed_fulldate']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -239,13 +257,14 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('IVR Screen'),
     t('Logo Thumbnail'),
     t('Logo Wallpaper'),
-    t('Phone Numbers'),
     t('Street1'),
     t('Street2'),
     t('City'),
     t('Province'),
     t('Country'),
     t('Postal Code'),
+    t('lat'),
+    t('lon'),
     t('Timezone'),
     t('Opening Hours'),
     t('Holidays'),
@@ -253,8 +272,10 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Screen Type'),
     t('IVR Type'),
     t('IVR Working Time'),
-    t('Menu'),
-    t('All'),
+    t('rgbHEX'),
+    t('Organization'),
+    t('Search Base'),
+    t('Phone Numbers'),
     t('Page'),
   );
   $export['new_content'] = $view;

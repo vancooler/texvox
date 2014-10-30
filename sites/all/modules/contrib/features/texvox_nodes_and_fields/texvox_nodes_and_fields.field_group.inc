@@ -56,7 +56,10 @@ function texvox_nodes_and_fields_field_group_info() {
       0 => 'field_logo',
       1 => 'field_phone_number',
       2 => 'field_organization',
-      3 => 'title',
+      3 => 'field_rgbhex',
+      4 => 'field_search_base',
+      5 => 'field_phone_numbers',
+      6 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -99,6 +102,36 @@ function texvox_nodes_and_fields_field_group_info() {
     ),
   );
   $export['group_basic|node|ivr|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_basic|node|screen_menu|form';
+  $field_group->group_name = 'group_basic';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen_menu';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Basic Info',
+    'weight' => '1',
+    'children' => array(
+      0 => 'title_field',
+      1 => 'field_menu_type',
+      2 => 'field_action',
+      3 => 'field_go_to_screen',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-basic field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_basic|node|screen_menu|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -154,6 +187,33 @@ function texvox_nodes_and_fields_field_group_info() {
     ),
   );
   $export['group_branch|node|branch|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_display_title|node|screen_menu|form';
+  $field_group->group_name = 'group_display_title';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen_menu';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Display Title',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_title_in_multi_languages',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-display-title field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_display_title|node|screen_menu|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -222,7 +282,7 @@ function texvox_nodes_and_fields_field_group_info() {
     'label' => 'Menus',
     'weight' => '4',
     'children' => array(
-      0 => 'field_menu',
+      0 => 'field_menus',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -275,10 +335,8 @@ function texvox_nodes_and_fields_field_group_info() {
     'label' => 'Opening hours',
     'weight' => '12',
     'children' => array(
-      0 => 'field_opening_ivr',
-      1 => 'field_close_ivr',
-      2 => 'field_opening_hours',
-      3 => 'field_holidays',
+      0 => 'field_opening_hours',
+      1 => 'field_holidays',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
