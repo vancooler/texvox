@@ -52,6 +52,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_ivr_screen']['id'] = 'field_ivr_screen';
   $handler->display->display_options['fields']['field_ivr_screen']['table'] = 'field_data_field_ivr_screen';
   $handler->display->display_options['fields']['field_ivr_screen']['field'] = 'field_ivr_screen';
+  $handler->display->display_options['fields']['field_ivr_screen']['label'] = 'Screens in this IVR';
   $handler->display->display_options['fields']['field_ivr_screen']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_ivr_screen']['type'] = 'entityreference_entity_id';
   $handler->display->display_options['fields']['field_ivr_screen']['settings'] = array(
@@ -267,6 +268,17 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['multi_type'] = 'ol';
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['separator'] = '';
+  /* Field: Content: Menus */
+  $handler->display->display_options['fields']['field_menus']['id'] = 'field_menus';
+  $handler->display->display_options['fields']['field_menus']['table'] = 'field_data_field_menus';
+  $handler->display->display_options['fields']['field_menus']['field'] = 'field_menus';
+  $handler->display->display_options['fields']['field_menus']['label'] = 'Menus in this screen';
+  $handler->display->display_options['fields']['field_menus']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_menus']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_menus']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['field_menus']['delta_offset'] = '0';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -294,7 +306,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Desc'),
     t('Node ID'),
     t('Node Type'),
-    t('IVR Screen'),
+    t('Screens in this IVR'),
     t('Logo Thumbnail'),
     t('Logo Wallpaper'),
     t('Street1'),
@@ -320,6 +332,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Search Base'),
     t('Title'),
     t('Subtitle'),
+    t('Menus in this screen'),
     t('Page'),
   );
   $export['new_content'] = $view;

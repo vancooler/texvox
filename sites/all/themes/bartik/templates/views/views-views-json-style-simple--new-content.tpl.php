@@ -138,6 +138,20 @@ foreach ($rows['nodes'] as $key => $node) {
       unset($rows['nodes'][$key]['node']['title']);
     }
 
+    // rewrite "Menus in this screen" as an array
+    if(isset($rows['nodes'][$key]['node']['Menus in this screen']) and !empty($rows['nodes'][$key]['node']['Menus in this screen'])){
+      $menu_array = array();
+      $menu_string = $node['node']['Menus in this screen'];
+      $pieces = explode(", ", $menu_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $menu_array[] = $element;
+        }
+      }
+      $rows['nodes'][$key]['node']['Menus in this screen'] = $menu_array;
+      
+    }
+
   }  
 
   ///////////////////////////////////////////
@@ -146,19 +160,14 @@ foreach ($rows['nodes'] as $key => $node) {
   //                                       //
   ///////////////////////////////////////////
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen Menu"){
-    dpm($key);
     // Rewrite titles as an array
     if(isset($rows['nodes'][$key]['node']['Title']) and !empty($rows['nodes'][$key]['node']['Title'])){
       $title_array = array();
       $title_string = str_replace('\n', '', $node['node']['Title']);
       $pieces = explode("Language:", $title_string);
-      dpm("PIECES");
-      dpm($pieces);
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){
           $parts = explode("Display Title:", $element);
-          dpm("PARTS");
-          dpm($parts);
           if(count($parts) == 2){          
             $title_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
             $title_array[($skey-1)]['Title'] = substr(trim($parts[1]), 2);
@@ -175,8 +184,30 @@ foreach ($rows['nodes'] as $key => $node) {
       unset($rows['nodes'][$key]['node']['title']);
     }
   }  
+
+  ///////////////////////////////////////////
+  //                                       //
+  // REWRITE some fields in IVR            //
+  //                                       //
+  ///////////////////////////////////////////
+  if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "IVR"){
+    // Rewrite "Screens in this IVR" as an array
+    if(isset($rows['nodes'][$key]['node']['Screens in this IVR']) and !empty($rows['nodes'][$key]['node']['Screens in this IVR'])){
+      $screen_array = array();
+      $screen_string = $node['node']['Screens in this IVR'];
+      $pieces = explode(", ", $screen_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $screen_array[] = $element;
+        }
+      }
+      $rows['nodes'][$key]['node']['Screens in this IVR'] = $screen_array;
+    }
+
+    
+  }  
 }
-dpm($rows);
+// dpm($rows);
 if ($view->override_path) {
   // We're inside a live preview where the JSON is pretty-printed.
   $json = _views_json_encode_formatted($rows, $options);
