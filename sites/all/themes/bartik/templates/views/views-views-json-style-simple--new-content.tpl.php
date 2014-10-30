@@ -146,7 +146,7 @@ foreach ($rows['nodes'] as $key => $node) {
   //                                       //
   ///////////////////////////////////////////
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen Menu"){
-    
+    dpm($key);
     // Rewrite titles as an array
     if(isset($rows['nodes'][$key]['node']['Title']) and !empty($rows['nodes'][$key]['node']['Title'])){
       $title_array = array();
@@ -176,7 +176,7 @@ foreach ($rows['nodes'] as $key => $node) {
     }
   }  
 }
-// dpm($rows);
+dpm($rows);
 if ($view->override_path) {
   // We're inside a live preview where the JSON is pretty-printed.
   $json = _views_json_encode_formatted($rows, $options);
