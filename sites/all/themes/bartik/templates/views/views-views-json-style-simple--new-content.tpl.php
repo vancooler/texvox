@@ -152,9 +152,13 @@ foreach ($rows['nodes'] as $key => $node) {
       $title_array = array();
       $title_string = str_replace('\n', '', $node['node']['Title']);
       $pieces = explode("Language:", $title_string);
+      dpm("PIECES");
+      dpm($pieces);
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){
           $parts = explode("Display Title:", $element);
+          dpm("PARTS");
+          dpm($parts);
           if(count($parts) == 2){          
             $title_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
             $title_array[($skey-1)]['Title'] = substr(trim($parts[1]), 2);
