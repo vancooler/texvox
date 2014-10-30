@@ -1,7 +1,7 @@
 name = Texvox: nodes and fields
 core = 7.x
 package = Texvox
-version = 7.x-1.5
+version = 7.x-1.6
 project = texvox_nodes_and_fields
 dependencies[] = ctools
 dependencies[] = date

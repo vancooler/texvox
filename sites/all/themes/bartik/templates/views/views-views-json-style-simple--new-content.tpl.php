@@ -50,7 +50,7 @@ foreach ($rows['nodes'] as $key => $node) {
       }
       $rows['nodes'][$key]['node']['Holidays'] = $holidays;
     }
-    
+
     // Rewrite phone numbers as an array
     if(isset($node['node']['Phone Numbers']) and !empty($node['node']['Phone Numbers'])){
 
@@ -72,6 +72,11 @@ foreach ($rows['nodes'] as $key => $node) {
       $rows['nodes'][$key]['node']['Phone Numbers'] = $phone_array;
     }
 
+    // Rewrite search base as default 0 if empty
+    if(!isset($node['node']['Search Base']) or empty($node['node']['Search Base'])){
+      $rows['nodes'][$key]['node']['Search Base'] = '0';
+    }
+
     // Find organization rgbHEX if branch have nothing
     if(!isset($node['node']['rgbHEX'])){
       $org_id = intval($node['node']['Organization']);
@@ -85,8 +90,87 @@ foreach ($rows['nodes'] as $key => $node) {
         $rows['nodes'][$key]['node']['rgbHEX'] = $RGB;      
       }
     }
-
   }
+
+  ///////////////////////////////////////////
+  //                                       //
+  // REWRITE some fields in SCREEN         //
+  //                                       //
+  ///////////////////////////////////////////
+  if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen"){
+    // Rewrite subtitles as an array
+    if(isset($rows['nodes'][$key]['node']['Subtitle']) and !empty($rows['nodes'][$key]['node']['Subtitle'])){
+      $subtitle_array = array();
+      $subtitle_string = str_replace('\n', '', $node['node']['Subtitle']);
+      $pieces = explode("Language:", $subtitle_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $parts = explode("Display Subtitle:", $element);
+          if(count($parts) == 2){          
+            $subtitle_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
+            $subtitle_array[($skey-1)]['Subtitle'] = substr(trim($parts[1]), 2);
+          }
+        }
+      }
+      $rows['nodes'][$key]['node']['Subtitle'] = $subtitle_array;
+    }
+
+    // Rewrite titles as an array
+    if(isset($rows['nodes'][$key]['node']['Title']) and !empty($rows['nodes'][$key]['node']['Title'])){
+      $title_array = array();
+      $title_string = str_replace('\n', '', $node['node']['Title']);
+      $pieces = explode("Language:", $title_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $parts = explode("Display Title:", $element);
+          if(count($parts) == 2){          
+            $title_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
+            $title_array[($skey-1)]['Title'] = substr(trim($parts[1]), 2);
+          }
+        }
+      }
+      $rows['nodes'][$key]['node']['Title'] = $title_array;
+    }
+    // rewrite the "title" with "Screen Code"
+    if(isset($rows['nodes'][$key]['node']['title']) and !empty($rows['nodes'][$key]['node']['title'])){
+      
+      $rows['nodes'][$key]['node']['Screen Code'] = $rows['nodes'][$key]['node']['title'];
+      unset($rows['nodes'][$key]['node']['title']);
+    }
+
+  }  
+
+  ///////////////////////////////////////////
+  //                                       //
+  // REWRITE some fields in SCREEN MENU    //
+  //                                       //
+  ///////////////////////////////////////////
+  if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen Menu"){
+    
+    // Rewrite titles as an array
+    if(isset($rows['nodes'][$key]['node']['Title']) and !empty($rows['nodes'][$key]['node']['Title'])){
+      $title_array = array();
+      $title_string = str_replace('\n', '', $node['node']['Title']);
+      $pieces = explode("Language:", $title_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $parts = explode("Display Title:", $element);
+          if(count($parts) == 2){          
+            $title_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
+            $title_array[($skey-1)]['Title'] = substr(trim($parts[1]), 2);
+          }
+        }
+      }
+      $rows['nodes'][$key]['node']['Title'] = $title_array;
+    }
+
+    // rewrite the "title" with "key"
+    if(isset($rows['nodes'][$key]['node']['title']) and !empty($rows['nodes'][$key]['node']['title'])){
+      
+      $rows['nodes'][$key]['node']['Key'] = $rows['nodes'][$key]['node']['title'];
+      unset($rows['nodes'][$key]['node']['title']);
+    }
+  }  
 }
 // dpm($rows);
 if ($view->override_path) {

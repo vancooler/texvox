@@ -208,11 +208,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_organization']['settings'] = array(
     'link' => 0,
   );
-  /* Field: Content: Search Base */
-  $handler->display->display_options['fields']['field_search_base']['id'] = 'field_search_base';
-  $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
-  $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
-  $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
   /* Field: Content: Phone Numbers */
   $handler->display->display_options['fields']['field_phone_numbers']['id'] = 'field_phone_numbers';
   $handler->display->display_options['fields']['field_phone_numbers']['table'] = 'field_data_field_phone_numbers';
@@ -227,6 +222,51 @@ function texvox_view_and_json_api_response_views_default_views() {
   );
   $handler->display->display_options['fields']['field_phone_numbers']['delta_limit'] = '';
   $handler->display->display_options['fields']['field_phone_numbers']['delta_offset'] = '0';
+  /* Field: Content: Branch Type */
+  $handler->display->display_options['fields']['field_branch_type']['id'] = 'field_branch_type';
+  $handler->display->display_options['fields']['field_branch_type']['table'] = 'field_data_field_branch_type';
+  $handler->display->display_options['fields']['field_branch_type']['field'] = 'field_branch_type';
+  $handler->display->display_options['fields']['field_branch_type']['hide_empty'] = TRUE;
+  /* Field: Content: Organization Type */
+  $handler->display->display_options['fields']['field_organization_type']['id'] = 'field_organization_type';
+  $handler->display->display_options['fields']['field_organization_type']['table'] = 'field_data_field_organization_type';
+  $handler->display->display_options['fields']['field_organization_type']['field'] = 'field_organization_type';
+  $handler->display->display_options['fields']['field_organization_type']['hide_empty'] = TRUE;
+  /* Field: Content: Search Base */
+  $handler->display->display_options['fields']['field_search_base']['id'] = 'field_search_base';
+  $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
+  $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
+  $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_search_base']['type'] = 'list_key';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['settings'] = array(
+    'edit' => '',
+    'delete' => '',
+    'add' => '',
+    'description' => 0,
+    'view_mode' => 'full',
+  );
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['multi_type'] = 'ol';
+  /* Field: Content: Subtitle */
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['id'] = 'field_subtitle_in_multi_language';
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['table'] = 'field_data_field_subtitle_in_multi_language';
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['field'] = 'field_subtitle_in_multi_language';
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['settings'] = array(
+    'edit' => '',
+    'delete' => '',
+    'add' => '',
+    'description' => 0,
+    'view_mode' => 'full',
+  );
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['multi_type'] = 'ol';
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['separator'] = '';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -274,8 +314,12 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('IVR Working Time'),
     t('rgbHEX'),
     t('Organization'),
-    t('Search Base'),
     t('Phone Numbers'),
+    t('Branch Type'),
+    t('Organization Type'),
+    t('Search Base'),
+    t('Title'),
+    t('Subtitle'),
     t('Page'),
   );
   $export['new_content'] = $view;
