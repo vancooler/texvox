@@ -754,26 +754,17 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_rgbhex',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
+    'foreign keys' => array(),
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'rgb' => array(
+        0 => 'rgb',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
+    'module' => 'colorfield',
+    'settings' => array(),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'colorfield',
   );
 
   // Exported field_base: 'field_screen_type'

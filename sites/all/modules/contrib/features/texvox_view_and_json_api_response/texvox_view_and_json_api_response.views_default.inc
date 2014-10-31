@@ -200,6 +200,8 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_rgbhex']['table'] = 'field_data_field_rgbhex';
   $handler->display->display_options['fields']['field_rgbhex']['field'] = 'field_rgbhex';
   $handler->display->display_options['fields']['field_rgbhex']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_rgbhex']['type'] = 'colorfield_raw_rgb';
+  $handler->display->display_options['fields']['field_rgbhex']['group_column'] = 'value';
   /* Field: Content: Organization */
   $handler->display->display_options['fields']['field_organization']['id'] = 'field_organization';
   $handler->display->display_options['fields']['field_organization']['table'] = 'field_data_field_organization';

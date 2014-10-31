@@ -54,12 +54,11 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '10',
     'children' => array(
       0 => 'field_logo',
-      1 => 'field_phone_number',
-      2 => 'field_organization',
-      3 => 'field_rgbhex',
-      4 => 'field_search_base',
-      5 => 'field_phone_numbers',
-      6 => 'title',
+      1 => 'field_organization',
+      2 => 'field_search_base',
+      3 => 'field_phone_numbers',
+      4 => 'field_rgbhex',
+      5 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

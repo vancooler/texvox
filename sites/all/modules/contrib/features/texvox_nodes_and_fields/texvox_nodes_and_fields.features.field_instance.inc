@@ -944,7 +944,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 7,
+      'weight' => 5,
     ),
   );
 
@@ -957,45 +957,45 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
+        'module' => 'colorfield',
+        'settings' => array(
+          'display_hash' => TRUE,
+        ),
+        'type' => 'colorfield_raw_rgb',
+        'weight' => 12,
       ),
       'diff_standard' => array(
         'label' => 'above',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'full' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
+        'module' => 'colorfield',
+        'settings' => array(
+          'display_hash' => TRUE,
+        ),
+        'type' => 'colorfield_raw_rgb',
+        'weight' => 0,
       ),
       'rss' => array(
         'label' => 'above',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search_index' => array(
         'label' => 'above',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search_result' => array(
         'label' => 'above',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1009,17 +1009,23 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'label' => 'rgbHEX',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'colorfield_colorpicker_type' => 'farbtastic',
+      'colorfield_enable_colorpicker' => TRUE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'text',
+      'module' => 'colorfield',
       'settings' => array(
-        'size' => 60,
+        'colorfield_colorpicker_type' => 'farbtastic',
+        'colorfield_enable_colorpicker' => TRUE,
+        'colorfield_options' => array(
+          'colorfield_colorpicker_type' => 'farbtastic',
+          'colorfield_enable_colorpicker' => 1,
+        ),
       ),
-      'type' => 'text_textfield',
-      'weight' => 4,
+      'type' => 'colorfield_unified_textfield',
+      'weight' => 6,
     ),
   );
 
@@ -1095,7 +1101,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 4,
     ),
   );
 
@@ -1351,6 +1357,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 3,
       ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 3,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1381,6 +1394,16 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+      'full' => array(
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
@@ -1439,6 +1462,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 2,
       ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1471,10 +1501,21 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 1,
+        'module' => 'colorfield',
+        'settings' => array(
+          'display_hash' => TRUE,
+        ),
+        'type' => 'colorfield_raw_rgb',
+        'weight' => 4,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'colorfield',
+        'settings' => array(
+          'display_hash' => TRUE,
+        ),
+        'type' => 'colorfield_raw_rgb',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1488,17 +1529,23 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'label' => 'rgbHEX',
     'required' => 1,
     'settings' => array(
-      'text_processing' => 0,
+      'colorfield_colorpicker_type' => 'farbtastic',
+      'colorfield_enable_colorpicker' => TRUE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'text',
+      'module' => 'colorfield',
       'settings' => array(
-        'size' => 60,
+        'colorfield_colorpicker_type' => 'farbtastic',
+        'colorfield_enable_colorpicker' => TRUE,
+        'colorfield_options' => array(
+          'colorfield_colorpicker_type' => 'farbtastic',
+          'colorfield_enable_colorpicker' => 1,
+        ),
       ),
-      'type' => 'text_textfield',
-      'weight' => 31,
+      'type' => 'colorfield_unified_textfield',
+      'weight' => 35,
     ),
   );
 

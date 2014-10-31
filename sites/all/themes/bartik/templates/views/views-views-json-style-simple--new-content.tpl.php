@@ -81,10 +81,10 @@ foreach ($rows['nodes'] as $key => $node) {
     if(!isset($node['node']['rgbHEX'])){
       $org_id = intval($node['node']['Organization']);
 
-      $query="SELECT field_rgbhex_value FROM field_data_field_rgbhex WHERE entity_type ='node' AND bundle='organization' AND entity_id=$org_id LIMIT 1";
+      $query="SELECT field_rgbhex_rgb FROM field_data_field_rgbhex WHERE entity_type ='node' AND bundle='organization' AND entity_id=$org_id LIMIT 1";
       $result=db_query($query);
       foreach ($result as $row) {
-        $RGB = $row->field_rgbhex_value;
+        $RGB = $row->field_rgbhex_rgb;
       }
       if(isset($RGB) and !empty($RGB)){
         $rows['nodes'][$key]['node']['rgbHEX'] = $RGB;      
