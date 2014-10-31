@@ -1,7 +1,7 @@
 name = Texvox: dependencies and configurations
 core = 7.x
 package = Texvox
-version = 7.x-1.0
+version = 7.x-1.1
 project = texvox_dependencies_and_configurations
 dependencies[] = admin_menu
 dependencies[] = backup_migrate
@@ -10,6 +10,7 @@ dependencies[] = devel
 dependencies[] = devel_generate
 dependencies[] = diff
 dependencies[] = entity
+dependencies[] = entity_delete_log
 dependencies[] = entity_token
 dependencies[] = entityreference
 dependencies[] = field_collection

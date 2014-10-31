@@ -207,6 +207,23 @@ foreach ($rows['nodes'] as $key => $node) {
     
   }  
 }
+
+////////////////////////////////////////////////
+//
+// Show deleted nodes id since the timestamp
+//
+////////////////////////////////////////////////
+
+$deleted_node_ids = array();
+$url = request_uri();
+$temp = explode('/', $url);
+$timestamp = intval($temp[(count($temp)-1)]);
+$query="SELECT entity_id FROM entity_delete_log WHERE entity_type ='node' AND entity_bundle IN ('organization', 'ivr', 'screen', 'branch', 'screen_menu') ORDER BY entity_id ASC";
+$result=db_query($query);
+foreach ($result as $row) {
+  $deleted_node_ids[] = $row->entity_id;
+}
+$rows['deleted'] = $deleted_node_ids;
 // dpm($rows);
 if ($view->override_path) {
   // We're inside a live preview where the JSON is pretty-printed.

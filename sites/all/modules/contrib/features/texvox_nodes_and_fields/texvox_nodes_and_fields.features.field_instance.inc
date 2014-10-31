@@ -1254,7 +1254,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'fields' => array(),
         'type_settings' => array(
           'allow_existing' => 0,
-          'delete_references' => 0,
+          'delete_references' => 1,
           'label_plural' => 'nodes',
           'label_singular' => 'node',
           'match_operator' => 'CONTAINS',
@@ -1585,7 +1585,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'fields' => array(),
         'type_settings' => array(
           'allow_existing' => 0,
-          'delete_references' => 0,
+          'delete_references' => 1,
           'label_plural' => 'nodes',
           'label_singular' => 'node',
           'match_operator' => 'CONTAINS',
