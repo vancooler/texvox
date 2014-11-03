@@ -238,7 +238,7 @@ foreach ($rows['nodes'] as $key => $node) {
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Organization"){
     $branch_ids = $rows['nodes'][$key]['node']['Branch IDs'];
     if(count($branch_ids) > 0){
-      $$rows['nodes'][$key]['node']['Branches'] = array();
+      $rows['nodes'][$key]['node']['Branches'] = array();
       $branches_key = array();
       foreach ($branch_ids as $bkey => $bid) {
         $branch_id = intval($bid);
