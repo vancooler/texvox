@@ -14,7 +14,7 @@
 $jsonp_prefix = $options['jsonp_prefix'];
 
 
-//Change output format 
+///////////////////////////// - AGW change json output format - ///////////////////////////////////
 foreach ($rows['nodes'] as $key => $node) {
   ///////////////////////////////////////////
   //                                       //
@@ -202,29 +202,95 @@ foreach ($rows['nodes'] as $key => $node) {
         }
       }
       $rows['nodes'][$key]['node']['Screens in this IVR'] = $screen_array;
-    }
+    } 
+  }  
 
-    
+  ///////////////////////////////////////////
+  //                                       //
+  // REWRITE some fields in organization   //
+  //                                       //
+  ///////////////////////////////////////////
+  if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Organization"){
+    // Add "Branches" as an array
+    $org_id = intval($node['node']['Node ID']);
+    $query="SELECT entity_id FROM field_data_field_organization WHERE entity_type ='node' AND bundle = 'branch' AND field_organization_target_id = $org_id ORDER BY entity_id ASC";
+    $result=db_query($query);
+    $branch_ids = array();
+    foreach ($result as $row) {
+      $branch_ids[] = $row->entity_id;
+    }
+    $rows['nodes'][$key]['node']['Branch IDs'] = $branch_ids;
   }  
 }
+
+////////////////////////////////////////////////
+//
+// Put all branches under organization
+//
+////////////////////////////////////////////////
+$all_branches = array();
+foreach ($rows['nodes'] as $lkey => $loop_node) {
+  if(isset($loop_node['node']) and isset($loop_node['node']['Node Type']) and $loop_node['node']['Node Type'] == "Branch"){
+    $all_branches[$lkey] = $loop_node;
+  }
+}
+foreach ($rows['nodes'] as $key => $node) {
+  if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Organization"){
+    $branch_ids = $rows['nodes'][$key]['node']['Branch IDs'];
+    if(count($branch_ids) > 0){
+      $$rows['nodes'][$key]['node']['Branches'] = array();
+      $branches_key = array();
+      foreach ($branch_ids as $bkey => $bid) {
+        $branch_id = intval($bid);
+        foreach ($all_branches as $lkey => $loop_node) {
+          $loop_branch_id = intval($loop_node['node']['Node ID']);
+          if($loop_branch_id == $branch_id){
+            // add branch to this organization
+            $rows['nodes'][$key]['node']['Branches'][$bkey] = $loop_node;
+            // log that node id
+            $branches_key[] = $lkey;
+          }
+        }
+      }
+      // remove the branches
+      foreach ($branches_key as $dkey => $node_key) {
+        unset($rows['nodes'][$node_key]);
+      }
+    }
+  }
+}
+$tmp_rows = array();
+$tmp_rows['nodes'] = array();
+foreach ($rows['nodes'] as $key => $node) {
+  $tmp_rows['nodes'][] = $node;
+}
+$rows = $tmp_rows;
+
 
 ////////////////////////////////////////////////
 //
 // Show deleted nodes id since the timestamp
 //
 ////////////////////////////////////////////////
-
 $deleted_node_ids = array();
 $url = request_uri();
 $temp = explode('/', $url);
 $timestamp = intval($temp[(count($temp)-1)]);
-$query="SELECT entity_id FROM entity_delete_log WHERE entity_type ='node' AND entity_bundle IN ('organization', 'ivr', 'screen', 'branch', 'screen_menu') ORDER BY entity_id ASC";
+$query="SELECT entity_id FROM entity_delete_log WHERE entity_type ='node' AND entity_bundle IN ('organization', 'ivr', 'screen', 'branch', 'screen_menu') AND deleted >= $timestamp ORDER BY entity_id ASC";
 $result=db_query($query);
 foreach ($result as $row) {
   $deleted_node_ids[] = $row->entity_id;
 }
-$rows['deleted'] = $deleted_node_ids;
+$rows['Deleted Nodes'] = $deleted_node_ids;
+
 // dpm($rows);
+
+
+
+
+
+
+////////////////////////////////// - Drupal theme default - //////////////////////////////////
 if ($view->override_path) {
   // We're inside a live preview where the JSON is pretty-printed.
   $json = _views_json_encode_formatted($rows, $options);
