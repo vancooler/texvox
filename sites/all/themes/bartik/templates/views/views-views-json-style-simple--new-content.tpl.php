@@ -320,8 +320,8 @@ else {
     drupal_add_http_header("Content-Type", "$content_type; charset=utf-8");
     print $json;
     drupal_page_footer();
+    $ruendend = microtime(true);
+    dpm(($ruendend - $ruend));
     exit;
   }
 }
-$ruendend = microtime(true);
-dpm(($ruendend - $ruend));
