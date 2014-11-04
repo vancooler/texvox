@@ -323,7 +323,7 @@ else {
     print $json;
     drupal_page_footer();
     $ruendend = microtime(true);
-    dpm(strval($ruendend - $ruend));
+    watchdog('Node list time', '<pre>'. print_r(($ruendend-$ruend), TRUE) .'</pre>');
     exit;
   }
 }
