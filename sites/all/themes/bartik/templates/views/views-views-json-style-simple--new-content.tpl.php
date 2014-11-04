@@ -298,6 +298,8 @@ if ($view->override_path) {
   $json = _views_json_encode_formatted($rows, $options);
   if ($jsonp_prefix) $json = "$jsonp_prefix($json)";
   print "<code>$json</code>";
+  $ruendend = microtime(true);
+  dpm(($ruendend - $ruend));
 }
 else {
   $json = _views_json_json_encode($rows, $bitmask);
