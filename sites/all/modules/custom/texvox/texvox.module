@@ -190,6 +190,87 @@ function texvox_views_query_alter(&$view, &$query) {
   }
 }
 
+/*
+  Use rule to delete related nodes
+*/
+
+function texvox_rules_action_info(){
+  $items['texvox_delete_ivr_when_delete_branch'] = array(
+    'label' => t('Delete all IVRs related to this branch'), 
+    'parameter' => array(
+      'node' => array(
+        'type' => 'node',
+        'label' => t('Node'),
+      ),        
+    ), 
+    'group' => t('Texvox Delete Nodes Rules'),
+    'callbacks' => array(
+      'execute' => 'texvox_delete_ivr_when_delete_branch',
+    ),
+    'base' => 'texvox_delete_ivr_when_delete_branch',
+  );
+  $items['texvox_delete_branch_when_delete_organization'] = array(
+    'label' => t('Delete all branches related to this organization'), 
+    'parameter' => array(
+      'node' => array(
+        'type' => 'node',
+        'label' => t('Node'),
+      ),        
+    ), 
+    'group' => t('Texvox Delete Nodes Rules'),
+    'callbacks' => array(
+      'execute' => 'texvox_delete_branch_when_delete_organization',
+    ),
+    'base' => 'texvox_delete_branch_when_delete_organization',
+  );
+  return $items;
+}
+
+/*
+ * DELETE ivrs when delete a branch
+ */
+function texvox_delete_ivr_when_delete_branch($node){
+
+  // watchdog('Node Delete', '<pre>'. print_r($node, TRUE) .'</pre>');
+  $nid = intval($node->nid);
+  $and = db_and()->condition('entity_type', 'node')->condition('bundle', 'ivr')->condition('field_branch_target_id', $nid);
+  
+  $result = db_select('field_data_field_branch', 'n')
+      ->fields('n', array('entity_id'))
+      ->condition($and)
+      ->execute();
+  
+  $node_id_array = array();
+  foreach ($result as $row) {
+    $ivrID = intval($row->entity_id);
+    $node_id_array[] = $ivrID;
+  }
+  node_delete_multiple($node_id_array);
+}
+
+/*
+ * DELETE ivrs when delete a branch
+ */
+function texvox_delete_branch_when_delete_organization($node){
+
+  // watchdog('Node Delete', '<pre>'. print_r($node, TRUE) .'</pre>');
+  $nid = intval($node->nid);
+  $and = db_and()->condition('entity_type', 'node')->condition('bundle', 'branch')->condition('field_organization_target_id', $nid);
+  
+  $result = db_select('field_data_field_organization', 'n')
+      ->fields('n', array('entity_id'))
+      ->condition($and)
+      ->execute();
+  
+  $node_id_array = array();
+  foreach ($result as $row) {
+    $ivrID = intval($row->entity_id);
+    $node_id_array[] = $ivrID;
+  }
+  node_delete_multiple($node_id_array);
+}
+
+
 
 
 

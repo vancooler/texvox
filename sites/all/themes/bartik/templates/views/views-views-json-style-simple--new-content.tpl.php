@@ -252,7 +252,7 @@ foreach ($rows['nodes'] as $key => $node) {
           }
         }
       }
-      // remove the branches
+      // remove the branches logged
       foreach ($branches_key as $dkey => $node_key) {
         unset($rows['nodes'][$node_key]);
       }
@@ -290,7 +290,7 @@ $rows['Deleted Nodes'] = $deleted_node_ids;
 
 
 
-////////////////////////////////// - Drupal theme default - //////////////////////////////////
+//////////////////////////////////// - Drupal theme default - ////////////////////////////////////
 if ($view->override_path) {
   // We're inside a live preview where the JSON is pretty-printed.
   $json = _views_json_encode_formatted($rows, $options);

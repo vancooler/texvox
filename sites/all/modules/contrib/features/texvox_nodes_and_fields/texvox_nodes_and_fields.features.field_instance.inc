@@ -35,7 +35,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_number',
     'label' => 'Number',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -826,7 +826,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_organization',
     'label' => 'Organization',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
