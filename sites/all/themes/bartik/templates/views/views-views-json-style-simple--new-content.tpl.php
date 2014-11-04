@@ -15,6 +15,7 @@ $jsonp_prefix = $options['jsonp_prefix'];
 
 
 ///////////////////////////// - AGW change json output format - ///////////////////////////////////
+$rustart = getrusage();
 foreach ($rows['nodes'] as $key => $node) {
   ///////////////////////////////////////////
   //                                       //
@@ -282,7 +283,8 @@ foreach ($result as $row) {
   $deleted_node_ids[] = $row->entity_id;
 }
 $rows['Deleted Nodes'] = $deleted_node_ids;
-
+$ruend = getrusage();
+dpm(rutime($ruend, $rustart, "stime"));
 // dpm($rows);
 
 
