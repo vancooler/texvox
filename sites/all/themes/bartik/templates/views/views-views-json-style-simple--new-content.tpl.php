@@ -91,6 +91,16 @@ foreach ($rows['nodes'] as $key => $node) {
         $rows['nodes'][$key]['node']['rgbHEX'] = $RGB;      
       }
     }
+
+    // Add "Branches" as an array
+    $branch_id = intval($node['node']['Node ID']);
+    $query="SELECT entity_id FROM field_data_field_branch WHERE entity_type ='node' AND bundle = 'ivr' AND field_branch_target_id = $branch_id ORDER BY entity_id ASC";
+    $result=db_query($query);
+    $branch_ids = array();
+    foreach ($result as $row) {
+      $branch_ids[] = $row->entity_id;
+    }
+    $rows['nodes'][$key]['node']['IVRs in this branch'] = $branch_ids;
   }
 
   ///////////////////////////////////////////
@@ -220,10 +230,10 @@ foreach ($rows['nodes'] as $key => $node) {
     foreach ($result as $row) {
       $branch_ids[] = $row->entity_id;
     }
-    $rows['nodes'][$key]['node']['Branch IDs'] = $branch_ids;
+    $rows['nodes'][$key]['node']['Branches in this organization'] = $branch_ids;
   }  
 }
-
+/*
 ////////////////////////////////////////////////
 //
 // Put all branches under organization
@@ -237,7 +247,7 @@ foreach ($rows['nodes'] as $lkey => $loop_node) {
 }
 foreach ($rows['nodes'] as $key => $node) {
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Organization"){
-    $branch_ids = $rows['nodes'][$key]['node']['Branch IDs'];
+    $branch_ids = $rows['nodes'][$key]['node']['Branches in this organization'];
     if(count($branch_ids) > 0){
       $rows['nodes'][$key]['node']['Branches'] = array();
       $branches_key = array();
@@ -266,7 +276,7 @@ foreach ($rows['nodes'] as $key => $node) {
   $tmp_rows['nodes'][] = $node;
 }
 $rows = $tmp_rows;
-
+*/
 
 ////////////////////////////////////////////////
 //
