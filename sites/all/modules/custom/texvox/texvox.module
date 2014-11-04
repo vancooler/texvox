@@ -11,6 +11,10 @@ else {
 //
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
+
+  if($form_id == "branch_node_form"){
+    $form['actions']['submit']['#submit'][] = 'texvox_branch_form_submit_nested_handler';
+  }
   //filter for menu goto screens in IVR form
   if($form_id == "ivr_node_form"){
     $current_screens = $form['field_ivr_screen']['und']['entities'];
@@ -25,6 +29,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     }
     // dpm($current_screen_menu_options);
     // dpm($form);
+    $form['actions']['submit']['#submit'][] = 'texvox_ivr_form_submit_nested_handler';
     $screens_count = count($current_screen_menu_options) - 1;
     if($screens_count > 0){
       //already has screens in this IVR
@@ -122,6 +127,36 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
   //     }
   //   }
   // }
+}
+
+/**
+ * change updated timestamp for referenced branch
+ */
+function texvox_ivr_form_submit_nested_handler($form, &$form_state){
+  $timestamp = time();
+  $branch_id = intval($form['field_branch']['und']['#value']);
+  watchdog('Node', '<pre>'. print_r(array($branch_id, $timestamp), TRUE) .'</pre>');
+  $result = db_update('node') // Table name no longer needs {}
+              ->fields(array(
+                'changed' => $timestamp,
+              ))
+              ->condition('nid', $branch_id, '=')
+              ->execute();
+}
+
+/**
+ * change updated timestamp for referenced organization
+ */
+function texvox_branch_form_submit_nested_handler($form, &$form_state){
+  $timestamp = time();
+  $org_id = intval($form['field_organization']['und']['#value']);
+  watchdog('Node', '<pre>'. print_r(array($org_id, $timestamp), TRUE) .'</pre>');
+  $result = db_update('node') // Table name no longer needs {}
+              ->fields(array(
+                'changed' => $timestamp,
+              ))
+              ->condition('nid', $org_id, '=')
+              ->execute();
 }
 
 /**
