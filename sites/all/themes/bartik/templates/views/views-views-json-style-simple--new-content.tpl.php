@@ -294,7 +294,7 @@ dpm(($ruend - $rustart));
 
 //////////////////////////////////// - Drupal theme default - ////////////////////////////////////
 if ($view->override_path) {
-  dpm(1);
+  dpm('1');
   // We're inside a live preview where the JSON is pretty-printed.
   $json = _views_json_encode_formatted($rows, $options);
   if ($jsonp_prefix) $json = "$jsonp_prefix($json)";
@@ -303,25 +303,27 @@ if ($view->override_path) {
   dpm(($ruendend - $ruend));
 }
 else {
-  dpm(11);
+  dpm('11');
   $json = _views_json_json_encode($rows, $bitmask);
   if ($options['remove_newlines']) {
-     $json = preg_replace(array('/\\\\n/'), '', $json);
+    dpm('1112');
+    $json = preg_replace(array('/\\\\n/'), '', $json);
   }
 
   if (isset($_GET[$jsonp_prefix]) && $jsonp_prefix) {
+    dpm('1113');
     $json = $_GET[$jsonp_prefix] . '(' . $json . ')';
   }
 
   if ($options['using_views_api_mode']) {
+    dpm('111');
     // We're in Views API mode.
-  dpm(111);
     print $json;
     $ruendend = microtime(true);
     dpm(($ruendend - $ruend));
   }
   else {
-  dpm(1111);
+    dpm('1111');
     // We want to send the JSON as a server response so switch the content
     // type and stop further processing of the page.
     $content_type = ($options['content_type'] == 'default') ? 'application/json' : $options['content_type'];
