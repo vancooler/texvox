@@ -92,7 +92,7 @@ foreach ($rows['nodes'] as $key => $node) {
       }
     }
 
-    // Add "Branches" as an array
+    // Add IVRs as an array
     $branch_id = intval($node['node']['Node ID']);
     $query="SELECT entity_id FROM field_data_field_branch WHERE entity_type ='node' AND bundle = 'ivr' AND field_branch_target_id = $branch_id ORDER BY entity_id ASC";
     $result=db_query($query);
