@@ -314,6 +314,8 @@ else {
   if ($options['using_views_api_mode']) {
     // We're in Views API mode.
     print $json;
+    $ruendend = microtime(true);
+    dpm(($ruendend - $ruend));
   }
   else {
     // We want to send the JSON as a server response so switch the content
