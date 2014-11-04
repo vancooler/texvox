@@ -299,31 +299,23 @@ if ($view->override_path) {
   $json = _views_json_encode_formatted($rows, $options);
   if ($jsonp_prefix) $json = "$jsonp_prefix($json)";
   print "<code>$json</code>";
-  $ruendend = microtime(true);
-  dpm(($ruendend - $ruend));
 }
 else {
   dpm('11');
   $json = _views_json_json_encode($rows, $bitmask);
   if ($options['remove_newlines']) {
-    dpm('1112');
-    $json = preg_replace(array('/\\\\n/'), '', $json);
+     $json = preg_replace(array('/\\\\n/'), '', $json);
   }
 
   if (isset($_GET[$jsonp_prefix]) && $jsonp_prefix) {
-    dpm('1113');
     $json = $_GET[$jsonp_prefix] . '(' . $json . ')';
   }
 
   if ($options['using_views_api_mode']) {
-    dpm('111');
     // We're in Views API mode.
     print $json;
-    $ruendend = microtime(true);
-    dpm(($ruendend - $ruend));
   }
   else {
-    dpm('1111');
     // We want to send the JSON as a server response so switch the content
     // type and stop further processing of the page.
     $content_type = ($options['content_type'] == 'default') ? 'application/json' : $options['content_type'];
@@ -331,7 +323,7 @@ else {
     print $json;
     drupal_page_footer();
     $ruendend = microtime(true);
-    dpm(($ruendend - $ruend));
+    dpm(strval($ruendend - $ruend));
     exit;
   }
 }
