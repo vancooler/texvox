@@ -284,7 +284,7 @@ foreach ($result as $row) {
 }
 $rows['Deleted Nodes'] = $deleted_node_ids;
 $ruend = microtime(true);
-dpm(($ruend - $rustart));
+watchdog('Node list time', '<pre>'. print_r(($ruend-$rustart), TRUE) .'</pre>');
 // dpm($rows);
 
 
@@ -294,14 +294,12 @@ dpm(($ruend - $rustart));
 
 //////////////////////////////////// - Drupal theme default - ////////////////////////////////////
 if ($view->override_path) {
-  dpm('1');
   // We're inside a live preview where the JSON is pretty-printed.
   $json = _views_json_encode_formatted($rows, $options);
   if ($jsonp_prefix) $json = "$jsonp_prefix($json)";
   print "<code>$json</code>";
 }
 else {
-  dpm('11');
   $json = _views_json_json_encode($rows, $bitmask);
   if ($options['remove_newlines']) {
      $json = preg_replace(array('/\\\\n/'), '', $json);
@@ -322,8 +320,6 @@ else {
     drupal_add_http_header("Content-Type", "$content_type; charset=utf-8");
     print $json;
     drupal_page_footer();
-    $ruendend = microtime(true);
-    watchdog('Node list time', '<pre>'. print_r(($ruendend-$ruend), TRUE) .'</pre>');
     exit;
   }
 }
