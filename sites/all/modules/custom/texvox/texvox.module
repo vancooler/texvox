@@ -124,43 +124,6 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
   // }
 }
 
-//////////////////////////////////////////////////////////////////////
-//
-// Define API calls for app to get info from server.
-//
-//////////////////////////////////////////////////////////////////////
-function texvox_menu(){
-  
-  $items['api/all-nodes'] = array(
-    'page callback' => 'texvox_api_all_nodes',
-    'access callback' => true,
-    'delivery callback' => 'drupal_json_output'
-  );
-  return $items;
-}
-
-//////////////////////////////////////////////////////////////////////
-//
-// Call Drupal view to collect all nodes info in json format and 
-// send it back to app.
-//
-//////////////////////////////////////////////////////////////////////
-function texvox_api_all_nodes(){
-  
-  $view = views_get_view('new_content');
-  $view->set_display('page');
-
-  if(isset($_GET['last_update_time'])){
-    $last_update_time = $_GET['last_update_time'];
-    $view->set_arguments(array($last_update_time));
-  }
-  $view->pre_execute();
-  $view->execute();
-  $view->render();
-  $result = $view->result;
-  return $result;
-}
-
 /**
  * Implements hook_views_api().
  */
@@ -183,16 +146,14 @@ function texvox_views_query_alter(&$view, &$query) {
     $timestamp = intval($temp[(count($temp)-1)]);
     $view->query->where[1]['conditions'][0]['field']="node.changed";
     $view->query->where[1]['conditions'][0]['value']=$timestamp;
-    $view->query->where[1]['conditions'][0]['operator']=">=";
-
-    // dpm($view);
-    
+    $view->query->where[1]['conditions'][0]['operator']=">=";    
   }
 }
 
-/*
-  Use rule to delete related nodes
-*/
+/**
+ * Implementation of hook_rules_action_info
+ * Use rule to delete related nodes
+ */
 
 function texvox_rules_action_info(){
   $items['texvox_delete_ivr_when_delete_branch'] = array(
@@ -249,7 +210,7 @@ function texvox_delete_ivr_when_delete_branch($node){
 }
 
 /*
- * DELETE ivrs when delete a branch
+ * DELETE branches when delete an organization
  */
 function texvox_delete_branch_when_delete_organization($node){
 

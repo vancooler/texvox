@@ -323,3 +323,5 @@ else {
     exit;
   }
 }
+$ruendend = microtime(true);
+dpm(($ruendend - $ruend));
