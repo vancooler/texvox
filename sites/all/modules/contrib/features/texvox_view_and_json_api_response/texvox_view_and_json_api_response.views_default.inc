@@ -291,6 +291,21 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_branch']['settings'] = array(
     'link' => 0,
   );
+  /* Field: Content: Action */
+  $handler->display->display_options['fields']['field_action']['id'] = 'field_action';
+  $handler->display->display_options['fields']['field_action']['table'] = 'field_data_field_action';
+  $handler->display->display_options['fields']['field_action']['field'] = 'field_action';
+  $handler->display->display_options['fields']['field_action']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_action']['type'] = 'list_key';
+  /* Field: Content: Go To Screen */
+  $handler->display->display_options['fields']['field_go_to_screen']['id'] = 'field_go_to_screen';
+  $handler->display->display_options['fields']['field_go_to_screen']['table'] = 'field_data_field_go_to_screen';
+  $handler->display->display_options['fields']['field_go_to_screen']['field'] = 'field_go_to_screen';
+  $handler->display->display_options['fields']['field_go_to_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_go_to_screen']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_go_to_screen']['settings'] = array(
+    'link' => 0,
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -346,6 +361,8 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Subtitle'),
     t('Menus in this screen'),
     t('Branch'),
+    t('Action'),
+    t('Go To Screen'),
     t('Page'),
   );
   $export['new_content'] = $view;
