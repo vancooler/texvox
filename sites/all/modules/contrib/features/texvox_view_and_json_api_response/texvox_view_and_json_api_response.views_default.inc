@@ -302,7 +302,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_go_to_screen']['table'] = 'field_data_field_go_to_screen';
   $handler->display->display_options['fields']['field_go_to_screen']['field'] = 'field_go_to_screen';
   $handler->display->display_options['fields']['field_go_to_screen']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_go_to_screen']['type'] = 'entityreference_entity_id';
   $handler->display->display_options['fields']['field_go_to_screen']['settings'] = array(
     'link' => 0,
   );
