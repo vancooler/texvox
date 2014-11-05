@@ -245,6 +245,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['label'] = 'Title';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_title_in_multi_languages']['settings'] = array(
     'edit' => '',
@@ -281,6 +282,15 @@ function texvox_view_and_json_api_response_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_menus']['delta_offset'] = '0';
+  /* Field: Content: Branch */
+  $handler->display->display_options['fields']['field_branch']['id'] = 'field_branch';
+  $handler->display->display_options['fields']['field_branch']['table'] = 'field_data_field_branch';
+  $handler->display->display_options['fields']['field_branch']['field'] = 'field_branch';
+  $handler->display->display_options['fields']['field_branch']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_branch']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_branch']['settings'] = array(
+    'link' => 0,
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -335,6 +345,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Title'),
     t('Subtitle'),
     t('Menus in this screen'),
+    t('Branch'),
     t('Page'),
   );
   $export['new_content'] = $view;
