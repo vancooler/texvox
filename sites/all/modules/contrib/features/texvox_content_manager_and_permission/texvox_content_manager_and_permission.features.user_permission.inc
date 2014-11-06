@@ -20,6 +20,16 @@ function texvox_content_manager_and_permission_user_default_permissions() {
     'module' => 'admin_menu',
   );
 
+  // Exported permission: 'access administration pages'.
+  $permissions['access administration pages'] = array(
+    'name' => 'access administration pages',
+    'roles' => array(
+      'Content Manager' => 'Content Manager',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'system',
+  );
+
   // Exported permission: 'access content'.
   $permissions['access content'] = array(
     'name' => 'access content',
