@@ -1,7 +1,7 @@
 name = Texvox: nodes and fields
 core = 7.x
 package = Texvox
-version = 7.x-1.10
+version = 7.x-1.11
 project = texvox_nodes_and_fields
 dependencies[] = colorfield
 dependencies[] = ctools
@@ -61,6 +61,7 @@ features[field_group][] = group_branch|node|branch|form
 features[field_group][] = group_display_title|node|screen_menu|form
 features[field_group][] = group_ivr_form|node|ivr|form
 features[field_group][] = group_location|node|branch|form
+features[field_group][] = group_menus|node|screen_menu|form
 features[field_group][] = group_menus|node|screen|form
 features[field_group][] = group_menu|field_collection_item|field_menu|form
 features[field_group][] = group_opening_hours|node|branch|form

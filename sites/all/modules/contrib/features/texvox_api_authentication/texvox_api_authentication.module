@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Texvox: API Authentication feature.
+ */
+
+include_once 'texvox_api_authentication.features.inc';
