@@ -291,26 +291,29 @@ foreach ($rows['nodes'] as $lkey => $loop_node) {
 }
 foreach ($rows['nodes'] as $key => $node) {
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen"){
-    $menu_ids = $rows['nodes'][$key]['node']['Menus in this screen'];
-    if(count($menu_ids) > 0){
-      $rows['nodes'][$key]['node']['Menus'] = array();
-      $menu_key = array();
-      foreach ($menu_ids as $bkey => $bid) {
-        $menu_id = intval($bid);
-        foreach ($all_menus as $lkey => $loop_node) {
-          $loop_menu_id = intval($loop_node['node']['Node ID']);
-          if($loop_menu_id == $menu_id){
-            // add branch to this organization
-            $rows['nodes'][$key]['node']['Menus'][$bkey] = $loop_node['node'];
-            // log that node id
-            $menu_key[] = $lkey;
+    if(isset($rows['nodes'][$key]['node']['Menus in this screen'])){
+      $menu_ids = $rows['nodes'][$key]['node']['Menus in this screen'];
+   
+      if(count($menu_ids) > 0){
+        $rows['nodes'][$key]['node']['Menus'] = array();
+        $menu_key = array();
+        foreach ($menu_ids as $bkey => $bid) {
+          $menu_id = intval($bid);
+          foreach ($all_menus as $lkey => $loop_node) {
+            $loop_menu_id = intval($loop_node['node']['Node ID']);
+            if($loop_menu_id == $menu_id){
+              // add branch to this organization
+              $rows['nodes'][$key]['node']['Menus'][$bkey] = $loop_node['node'];
+              // log that node id
+              $menu_key[] = $lkey;
+            }
           }
         }
-      }
-      // remove the branches logged
-      foreach ($menu_key as $dkey => $node_key) {
-        unset($rows['nodes'][$node_key]);
-      }
+        // remove the branches logged
+        foreach ($menu_key as $dkey => $node_key) {
+          unset($rows['nodes'][$node_key]);
+        }
+      } 
     }
   }
 }
@@ -381,7 +384,7 @@ foreach ($rows['nodes'] as $lkey => $loop_node) {
     $all_ivr [] = $loop_node['node'];
   }
 }
-$hash = hash();
+$hash = array();
 $hash['Organizations'] = $all_org;
 $hash['IVRs'] = $all_ivr;
 $rows = $hash;
