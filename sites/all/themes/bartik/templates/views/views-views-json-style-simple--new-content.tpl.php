@@ -247,25 +247,27 @@ foreach ($rows['nodes'] as $lkey => $loop_node) {
 }
 foreach ($rows['nodes'] as $key => $node) {
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Organization"){
-    $branch_ids = $rows['nodes'][$key]['node']['Branches in this organization'];
-    if(count($branch_ids) > 0){
-      $rows['nodes'][$key]['node']['Branches'] = array();
-      $branches_key = array();
-      foreach ($branch_ids as $bkey => $bid) {
-        $branch_id = intval($bid);
-        foreach ($all_branches as $lkey => $loop_node) {
-          $loop_branch_id = intval($loop_node['node']['Node ID']);
-          if($loop_branch_id == $branch_id){
-            // add branch to this organization
-            $rows['nodes'][$key]['node']['Branches'][$bkey] = $loop_node['node'];
-            // log that node id
-            $branches_key[] = $lkey;
+    if (isset($rows['nodes'][$key]['node']['Branches in this organization'])) {
+      $branch_ids = $rows['nodes'][$key]['node']['Branches in this organization'];
+      if(count($branch_ids) > 0){
+        $rows['nodes'][$key]['node']['Branches'] = array();
+        $branches_key = array();
+        foreach ($branch_ids as $bkey => $bid) {
+          $branch_id = intval($bid);
+          foreach ($all_branches as $lkey => $loop_node) {
+            $loop_branch_id = intval($loop_node['node']['Node ID']);
+            if($loop_branch_id == $branch_id){
+              // add branch to this organization
+              $rows['nodes'][$key]['node']['Branches'][$bkey] = $loop_node['node'];
+              // log that node id
+              $branches_key[] = $lkey;
+            }
           }
         }
-      }
-      // remove the branches logged
-      foreach ($branches_key as $dkey => $node_key) {
-        unset($rows['nodes'][$node_key]);
+        // remove the branches logged
+        foreach ($branches_key as $dkey => $node_key) {
+          unset($rows['nodes'][$node_key]);
+        }
       }
     }
   }
@@ -292,8 +294,7 @@ foreach ($rows['nodes'] as $lkey => $loop_node) {
 foreach ($rows['nodes'] as $key => $node) {
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen"){
     if(isset($rows['nodes'][$key]['node']['Menus in this screen'])){
-      $menu_ids = $rows['nodes'][$key]['node']['Menus in this screen'];
-   
+      $menu_ids = $rows['nodes'][$key]['node']['Menus in this screen'];  
       if(count($menu_ids) > 0){
         $rows['nodes'][$key]['node']['Menus'] = array();
         $menu_key = array();
@@ -337,25 +338,27 @@ foreach ($rows['nodes'] as $lkey => $loop_node) {
 }
 foreach ($rows['nodes'] as $key => $node) {
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "IVR"){
-    $screen_id = $rows['nodes'][$key]['node']['Screens in this IVR'];
-    if(count($screen_id) > 0){
-      $rows['nodes'][$key]['node']['Screen'] = array();
-      $screen_key = array();
-      foreach ($screen_id as $bkey => $bid) {
-        $screen_id = intval($bid);
-        foreach ($all_screens as $lkey => $loop_node) {
-          $loop_screen_id = intval($loop_node['node']['Node ID']);
-          if($loop_screen_id == $screen_id){
-            // add branch to this organization
-            $rows['nodes'][$key]['node']['Screen'][$bkey] = $loop_node['node'];
-            // log that node id
-            $screen_key[] = $lkey;
+    if(isset($rows['nodes'][$key]['node']['Screens in this IVR'])){
+      $screen_id = $rows['nodes'][$key]['node']['Screens in this IVR'];
+      if(count($screen_id) > 0){
+        $rows['nodes'][$key]['node']['Screen'] = array();
+        $screen_key = array();
+        foreach ($screen_id as $bkey => $bid) {
+          $screen_id = intval($bid);
+          foreach ($all_screens as $lkey => $loop_node) {
+            $loop_screen_id = intval($loop_node['node']['Node ID']);
+            if($loop_screen_id == $screen_id){
+              // add branch to this organization
+              $rows['nodes'][$key]['node']['Screen'][$bkey] = $loop_node['node'];
+              // log that node id
+              $screen_key[] = $lkey;
+            }
           }
         }
-      }
-      // remove the branches logged
-      foreach ($screen_key as $dkey => $node_key) {
-        unset($rows['nodes'][$node_key]);
+        // remove the branches logged
+        foreach ($screen_key as $dkey => $node_key) {
+          unset($rows['nodes'][$node_key]);
+        }
       }
     }
   }
