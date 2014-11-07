@@ -233,7 +233,7 @@ foreach ($rows['nodes'] as $key => $node) {
     $rows['nodes'][$key]['node']['Branches in this organization'] = $branch_ids;
   }  
 }
-/*
+
 ////////////////////////////////////////////////
 //
 // Put all branches under organization
@@ -257,7 +257,7 @@ foreach ($rows['nodes'] as $key => $node) {
           $loop_branch_id = intval($loop_node['node']['Node ID']);
           if($loop_branch_id == $branch_id){
             // add branch to this organization
-            $rows['nodes'][$key]['node']['Branches'][$bkey] = $loop_node;
+            $rows['nodes'][$key]['node']['Branches'][$bkey] = $loop_node['node'];
             // log that node id
             $branches_key[] = $lkey;
           }
@@ -276,7 +276,115 @@ foreach ($rows['nodes'] as $key => $node) {
   $tmp_rows['nodes'][] = $node;
 }
 $rows = $tmp_rows;
-*/
+
+
+////////////////////////////////////////////////
+//
+// Put all menus under screen
+//
+////////////////////////////////////////////////
+$all_menus = array();
+foreach ($rows['nodes'] as $lkey => $loop_node) {
+  if(isset($loop_node['node']) and isset($loop_node['node']['Node Type']) and $loop_node['node']['Node Type'] == "Screen Menu"){
+    $all_menus[$lkey] = $loop_node;
+  }
+}
+foreach ($rows['nodes'] as $key => $node) {
+  if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen"){
+    $menu_ids = $rows['nodes'][$key]['node']['Menus in this screen'];
+    if(count($menu_ids) > 0){
+      $rows['nodes'][$key]['node']['Menus'] = array();
+      $menu_key = array();
+      foreach ($menu_ids as $bkey => $bid) {
+        $menu_id = intval($bid);
+        foreach ($all_menus as $lkey => $loop_node) {
+          $loop_menu_id = intval($loop_node['node']['Node ID']);
+          if($loop_menu_id == $menu_id){
+            // add branch to this organization
+            $rows['nodes'][$key]['node']['Menus'][$bkey] = $loop_node['node'];
+            // log that node id
+            $menu_key[] = $lkey;
+          }
+        }
+      }
+      // remove the branches logged
+      foreach ($menu_key as $dkey => $node_key) {
+        unset($rows['nodes'][$node_key]);
+      }
+    }
+  }
+}
+$tmp_rows = array();
+$tmp_rows['nodes'] = array();
+foreach ($rows['nodes'] as $key => $node) {
+  $tmp_rows['nodes'][] = $node;
+}
+$rows = $tmp_rows;
+
+////////////////////////////////////////////////
+//
+// Put all screens under IVR
+//
+////////////////////////////////////////////////
+$all_screens = array();
+foreach ($rows['nodes'] as $lkey => $loop_node) {
+  if(isset($loop_node['node']) and isset($loop_node['node']['Node Type']) and $loop_node['node']['Node Type'] == "Screen"){
+    $all_screens[$lkey] = $loop_node;
+  }
+}
+foreach ($rows['nodes'] as $key => $node) {
+  if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "IVR"){
+    $screen_id = $rows['nodes'][$key]['node']['Screens in this IVR'];
+    if(count($screen_id) > 0){
+      $rows['nodes'][$key]['node']['Screen'] = array();
+      $screen_key = array();
+      foreach ($screen_id as $bkey => $bid) {
+        $screen_id = intval($bid);
+        foreach ($all_screens as $lkey => $loop_node) {
+          $loop_screen_id = intval($loop_node['node']['Node ID']);
+          if($loop_screen_id == $screen_id){
+            // add branch to this organization
+            $rows['nodes'][$key]['node']['Screen'][$bkey] = $loop_node['node'];
+            // log that node id
+            $screen_key[] = $lkey;
+          }
+        }
+      }
+      // remove the branches logged
+      foreach ($screen_key as $dkey => $node_key) {
+        unset($rows['nodes'][$node_key]);
+      }
+    }
+  }
+}
+$tmp_rows = array();
+$tmp_rows['nodes'] = array();
+foreach ($rows['nodes'] as $key => $node) {
+  $tmp_rows['nodes'][] = $node;
+}
+$rows = $tmp_rows;
+
+
+
+////////////////////////////////////////////////
+//
+// Rebuild the sturcture
+//
+////////////////////////////////////////////////
+$all_org = array();
+$all_ivr = array();
+foreach ($rows['nodes'] as $lkey => $loop_node) {
+  if(isset($loop_node['node']) and isset($loop_node['node']['Node Type']) and $loop_node['node']['Node Type'] == "Organization"){
+    $all_org[] = $loop_node['node'];
+  }
+  else if (isset($loop_node['node']) and isset($loop_node['node']['Node Type']) and $loop_node['node']['Node Type'] == "IVR"){
+    $all_ivr [] = $loop_node['node'];
+  }
+}
+$hash = hash();
+$hash['Organizations'] = $all_org;
+$hash['IVRs'] = $all_ivr;
+$rows = $hash;
 
 ////////////////////////////////////////////////
 //

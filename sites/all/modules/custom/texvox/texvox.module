@@ -11,9 +11,14 @@ else {
 //
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
-
   if($form_id == "branch_node_form"){
     $form['actions']['submit']['#submit'][] = 'texvox_branch_form_submit_nested_handler';
+  }
+  if($form_id == "screen_node_form"){
+    $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_nested_handler';
+  }
+  if($form_id == "screen_menu_node_form"){
+    $form['actions']['submit']['#submit'][] = 'texvox_screen_menu_form_submit_nested_handler';
   }
   //filter for menu goto screens in IVR form
   if($form_id == "ivr_node_form"){
@@ -129,20 +134,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
   // }
 }
 
-/**
- * change updated timestamp for referenced branch
- */
-function texvox_ivr_form_submit_nested_handler($form, &$form_state){
-  $timestamp = time();
-  $branch_id = intval($form['field_branch']['und']['#value']);
-  watchdog('Node', '<pre>'. print_r(array($branch_id, $timestamp), TRUE) .'</pre>');
-  $result = db_update('node') // Table name no longer needs {}
-              ->fields(array(
-                'changed' => $timestamp,
-              ))
-              ->condition('nid', $branch_id, '=')
-              ->execute();
-}
+
 
 /**
  * change updated timestamp for referenced organization
@@ -150,14 +142,135 @@ function texvox_ivr_form_submit_nested_handler($form, &$form_state){
 function texvox_branch_form_submit_nested_handler($form, &$form_state){
   $timestamp = time();
   $org_id = intval($form['field_organization']['und']['#value']);
-  watchdog('Node', '<pre>'. print_r(array($org_id, $timestamp), TRUE) .'</pre>');
   $result = db_update('node') // Table name no longer needs {}
               ->fields(array(
                 'changed' => $timestamp,
               ))
               ->condition('nid', $org_id, '=')
               ->execute();
+  // update all the other branches of this org
+  $sql = "UPDATE node as n 
+          left join field_data_field_organization as o on o.entity_id = n.nid
+          set n.changed = :updated
+          where o.field_organization_target_id = :org_id";
+
+  $args = array(':updated' => $timestamp, ':org_id' => $org_id);
+  $result = db_query($sql, $args);
 }
+
+
+/**
+ * change updated timestamp for referenced screens and menus
+ */
+function texvox_ivr_form_submit_nested_handler($form, &$form_state){
+  $timestamp = time();
+  $nid = intval($form_state['values']['nid']);  
+  // screen level
+  $sql_2 = "UPDATE field_data_field_ivr_screen as ss 
+          left join node as update_screen on update_screen.nid = ss.field_ivr_screen_target_id
+          set update_screen.changed = :updated
+          where ss.entity_id = :nid";
+
+  $args_2 = array(':updated' => $timestamp, ':nid' => $nid);
+  $result = db_query($sql_2, $args_2);
+
+  // menu level
+  $sql_3 = "UPDATE field_data_field_ivr_screen as ss 
+          left join field_data_field_menus as m on m.entity_id = ss.field_ivr_screen_target_id
+          left join node as menu on menu.nid = m.field_menus_target_id
+          set menu.changed = :updated
+          where ss.entity_id = :nid";
+
+  $args_3 = array(':updated' => $timestamp, ':nid' => $nid);
+  $result = db_query($sql_3, $args_3);
+}
+
+
+/**
+ * change updated timestamp for referenced ivr
+ */
+function texvox_screen_form_submit_nested_handler($form, &$form_state){
+  $timestamp = time();
+  $nid = intval($form_state['values']['nid']);
+  $sql = "UPDATE node as n 
+          left join field_data_field_ivr_screen as s on s.entity_id = n.nid
+          set n.changed = :updated
+          where s.field_ivr_screen_target_id = :nid";
+
+  $args = array(':updated' => $timestamp, ':nid' => $nid);
+  $result = db_query($sql, $args);
+
+  // screen level
+  $sql_2 = "UPDATE field_data_field_ivr_screen as s 
+          left join node as ivr on s.entity_id = ivr.nid 
+          left join field_data_field_ivr_screen as ss on ss.entity_id = ivr.nid
+          left join node as update_screen on update_screen.nid = ss.field_ivr_screen_target_id
+          set update_screen.changed = :updated
+          where s.field_ivr_screen_target_id = :nid";
+
+  $args_2 = array(':updated' => $timestamp, ':nid' => $nid);
+  $result = db_query($sql_2, $args_2);
+
+  // menu level
+  $sql_3 = "UPDATE field_data_field_ivr_screen as s 
+          left join node as ivr on s.entity_id = ivr.nid 
+          left join field_data_field_ivr_screen as ss on ss.entity_id = ivr.nid
+          left join field_data_field_menus as m on m.entity_id = ss.field_ivr_screen_target_id
+          left join node as menu on menu.nid = m.field_menus_target_id
+          set menu.changed = :updated
+          where s.field_ivr_screen_target_id = :nid";
+
+  $args_3 = array(':updated' => $timestamp, ':nid' => $nid);
+  $result = db_query($sql_3, $args_3);
+}
+
+
+/**
+ * change updated timestamp for referenced branch
+ */
+function texvox_screen_menu_form_submit_nested_handler($form, &$form_state){
+  $timestamp = time();
+  $nid = intval($form_state['values']['nid']);  
+  // Find IVR
+  $query = db_select('field_data_field_ivr_screen', 's');
+  $query->join('field_data_field_menus', 'm', 'm.entity_id = s.field_ivr_screen_target_id');
+  $result = $query->fields('s', array('entity_id'))
+             ->condition('m.field_menus_target_id', $nid, '=')
+             ->execute();
+  $ivrID = 0;
+  foreach ($result as $row) {
+    $ivrID = intval($row->entity_id);
+  }
+  if($ivrID > 0){
+    // ivr level
+    $result = db_update('node')
+                ->fields(array(
+                    'changed' => $timestamp,
+                  ))
+                ->condition('nid', $ivrID, '=')
+                ->execute();
+    // screen level
+    $sql_2 = "UPDATE field_data_field_ivr_screen as ss 
+            left join node as update_screen on update_screen.nid = ss.field_ivr_screen_target_id
+            set update_screen.changed = :updated
+            where ss.entity_id = :nid";
+
+    $args_2 = array(':updated' => $timestamp, ':nid' => $ivrID);
+    $result = db_query($sql_2, $args_2);
+
+    // menu level
+    $sql_3 = "UPDATE field_data_field_ivr_screen as ss 
+            left join field_data_field_menus as m on m.entity_id = ss.field_ivr_screen_target_id
+            left join node as menu on menu.nid = m.field_menus_target_id
+            set menu.changed = :updated
+            where ss.entity_id = :nid";
+
+    $args_3 = array(':updated' => $timestamp, ':nid' => $ivrID);
+    $result = db_query($sql_3, $args_3);
+  }
+}
+
+
 
 /**
  * Implements hook_views_api().
@@ -267,7 +380,49 @@ function texvox_delete_branch_when_delete_organization($node){
 }
 
 
-
+/*
+ * Register API:
+ * [POST] http://live-texvox.pantheon.io/api/user/register
+ * {
+ * "name":"username",
+ * "mail":"emailAddress",
+ * "pass":"plainText"
+ * }
+ * NOTE: Need to login once it response without error message, Drupal has some issues for auto 
+ * login after REST register
+ *
+ * Login API:
+ * [POST] http://live-texvox.pantheon.io/api/user/login
+ * {
+ * "username":"username",
+ * "password":"plainText" 
+ * }
+ * NOTE: App should keep the "token" and "user['uid']", and might need these to logout and reset 
+ * password
+ *
+ * Forget password API:
+ * [POST] http://live-texvox.pantheon.io/api/user/request_new_password
+ * {
+ * "name":"username"
+ * }
+ *
+ * Reset Password API:
+ * [PUT] http://live-texvox.pantheon.io/auth-api/user/:id
+ * - Headers:
+ *    X-CSRF-Token:TokenReceived 
+ * 
+ * - Payload:
+ *    {
+ *    "pass":"newPassword",
+ *    "current_pass":"oldPassword"
+ *    }
+ *
+ * Logout API:
+ * [POST] http://live-texvox.pantheon.io/auth-api/user/logout
+ * - Headers:
+ *    X-CSRF-Token:TokenReceived 
+ *
+ */
 
 
 
