@@ -341,7 +341,7 @@ foreach ($rows['nodes'] as $key => $node) {
     if(isset($rows['nodes'][$key]['node']['Screens in this IVR'])){
       $screen_id = $rows['nodes'][$key]['node']['Screens in this IVR'];
       if(count($screen_id) > 0){
-        $rows['nodes'][$key]['node']['Screen'] = array();
+        $rows['nodes'][$key]['node']['Screens'] = array();
         $screen_key = array();
         foreach ($screen_id as $bkey => $bid) {
           $screen_id = intval($bid);
@@ -349,7 +349,7 @@ foreach ($rows['nodes'] as $key => $node) {
             $loop_screen_id = intval($loop_node['node']['Node ID']);
             if($loop_screen_id == $screen_id){
               // add branch to this organization
-              $rows['nodes'][$key]['node']['Screen'][$bkey] = $loop_node['node'];
+              $rows['nodes'][$key]['node']['Screens'][$bkey] = $loop_node['node'];
               // log that node id
               $screen_key[] = $lkey;
             }
