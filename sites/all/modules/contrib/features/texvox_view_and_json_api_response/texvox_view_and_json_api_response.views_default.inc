@@ -305,6 +305,14 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_go_to_screen']['settings'] = array(
     'link' => 0,
   );
+  /* Field: Content: Default Screen */
+  $handler->display->display_options['fields']['field_default_screen']['id'] = 'field_default_screen';
+  $handler->display->display_options['fields']['field_default_screen']['table'] = 'field_data_field_default_screen';
+  $handler->display->display_options['fields']['field_default_screen']['field'] = 'field_default_screen';
+  $handler->display->display_options['fields']['field_default_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_default_screen']['settings'] = array(
+    'link' => 0,
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -362,6 +370,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Branch'),
     t('Action'),
     t('Go To Screen'),
+    t('Default Screen'),
     t('Page'),
   );
   $export['new_content'] = $view;

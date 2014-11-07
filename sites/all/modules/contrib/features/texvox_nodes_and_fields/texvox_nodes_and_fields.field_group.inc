@@ -414,6 +414,7 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '2',
     'children' => array(
       0 => 'field_ivr_screen',
+      1 => 'field_default_screen',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
