@@ -354,20 +354,21 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_branch';
   $field_group->data = array(
-    'label' => 'Opening hours',
+    'label' => 'Timeslots',
     'weight' => '12',
     'children' => array(
-      0 => 'field_opening_hours',
-      1 => 'field_holidays',
+      0 => 'field_holidays',
+      1 => 'field_timeslots',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Timeslots',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-opening-hours field-group-tab',
         'required_fields' => 1,
+        'classes' => 'group-opening-hours field-group-tab',
+        'description' => '',
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_opening_hours|node|branch|form'] = $field_group;

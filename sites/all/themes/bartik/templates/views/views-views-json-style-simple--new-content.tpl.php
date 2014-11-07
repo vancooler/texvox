@@ -39,6 +39,34 @@ foreach ($rows['nodes'] as $key => $node) {
       $rows['nodes'][$key]['node']['Opening Hours'] = $opening_hours;
     }
 
+    /*
+      Rewrite the timeslot
+    */
+    if(isset($node['node']['Timeslots']) and !empty($node['node']['Timeslots'])){
+      $timeslot = array();
+      $oh_string = $node['node']['Timeslots'];
+      $pieces = explode(", ", $oh_string);
+      foreach ($pieces as $skey => $value) {
+        $rewrite_value = str_replace('dayOfTheWeek', 'dayOfTheWeek:', $value);
+        $rewrite_value = str_replace('startTime', ', startTime:', $rewrite_value);
+        $rewrite_value = str_replace('Duration', ', Duration:', $rewrite_value);
+        $rewrite_value = str_replace('IVR', ', IVR:', $rewrite_value);
+
+        if(!empty($rewrite_value)){
+          $attributes = explode(", ", $rewrite_value);
+          foreach ($attributes as $akey => $attribute) {
+            $pair = explode("::", $attribute);
+            if(count($pair) == 2){          
+              $timeslot[$skey][$pair[0]] = substr(trim($pair[1]), 2);
+            }
+            
+          }
+        }
+      }
+      $rows['nodes'][$key]['node']['Timeslots'] = $timeslot;
+    }
+
+
     // Rewrite holidays
     if(isset($node['node']['Holidays']) and !empty($node['node']['Holidays'])){
       $holidays = array();

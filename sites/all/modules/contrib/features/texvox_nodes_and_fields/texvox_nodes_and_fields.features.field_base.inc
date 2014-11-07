@@ -112,6 +112,37 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'list_text',
   );
 
+  // Exported field_base: 'field_dayoftheweek'
+  $field_bases['field_dayoftheweek'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_dayoftheweek',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Sunday',
+        1 => 'Monday',
+        2 => 'Tuesday',
+        3 => 'Wednesday',
+        4 => 'Thursday',
+        5 => 'Friday',
+        6 => 'Saturday',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_integer',
+  );
+
   // Exported field_base: 'field_default_screen'
   $field_bases['field_default_screen'] = array(
     'active' => 1,
@@ -215,6 +246,22 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_duration'
+  $field_bases['field_duration'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_duration',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_go_to_screen'
   $field_bases['field_go_to_screen'] = array(
     'active' => 1,
@@ -287,6 +334,49 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'date',
+  );
+
+  // Exported field_base: 'field_ivr'
+  $field_bases['field_ivr'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_ivr',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'ivr' => 'ivr',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_ivr_screen'
@@ -640,29 +730,6 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_opening_hours'
-  $field_bases['field_opening_hours'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_opening_hours',
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'office_hours',
-    'settings' => array(
-      'cardinality' => 1,
-      'granularity' => 1,
-      'hoursformat' => 2,
-      'limitend' => '',
-      'limitstart' => '',
-      'valhrs' => 0,
-    ),
-    'translatable' => 0,
-    'type' => 'office_hours',
-  );
-
   // Exported field_base: 'field_organization'
   $field_bases['field_organization'] = array(
     'active' => 1,
@@ -868,6 +935,78 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'list_integer',
   );
 
+  // Exported field_base: 'field_starttime'
+  $field_bases['field_starttime'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_starttime',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '00:00',
+        30 => '00:30',
+        100 => '01:00',
+        130 => '01:30',
+        200 => '02:00',
+        230 => '02:30',
+        300 => '0300',
+        330 => '03:30',
+        400 => '04:00',
+        430 => '04:30',
+        500 => '05:00',
+        530 => '05:30',
+        600 => '06:00',
+        630 => '06:30',
+        700 => '07:00',
+        730 => '07:30',
+        800 => '08:00',
+        830 => '08:30',
+        900 => '09:00',
+        930 => '09:30',
+        1000 => '10:00',
+        1030 => '10:30',
+        1100 => '11:00',
+        1130 => '11:30',
+        1200 => '12:00',
+        1230 => '12:30',
+        1300 => '13:00',
+        1330 => '13:30',
+        1400 => '14:00',
+        1430 => '14:30',
+        1500 => '15:00',
+        1530 => '15:30',
+        1600 => '16:00',
+        1630 => '16:30',
+        1700 => '17:00',
+        1730 => '17:30',
+        1800 => '18:00',
+        1830 => '18:30',
+        1900 => '19:00',
+        1930 => '19:30',
+        2000 => '20:00',
+        2030 => '20:30',
+        2100 => '21:00',
+        2130 => '21:30',
+        2200 => '22:00',
+        2230 => '22:30',
+        2300 => '23:00',
+        2330 => '23:30',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_integer',
+  );
+
   // Exported field_base: 'field_subtitle_in_multi_language'
   $field_bases['field_subtitle_in_multi_language'] = array(
     'active' => 1,
@@ -885,6 +1024,29 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'module' => 'field_collection',
     'settings' => array(
       'entity_translation_sync' => FALSE,
+      'hide_blank_items' => 1,
+      'path' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'field_collection',
+  );
+
+  // Exported field_base: 'field_timeslots'
+  $field_bases['field_timeslots'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_timeslots',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'field_collection',
+    'settings' => array(
       'hide_blank_items' => 1,
       'path' => '',
     ),

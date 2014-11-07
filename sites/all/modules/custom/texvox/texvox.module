@@ -11,16 +11,41 @@ else {
 //
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
+  // Alter IVR only for this branch
   if($form_id == "branch_node_form"){
+    $nid = $form['nid']['#value'];
+    $ivr_array = array("_none"=>"- Select a value -");
+    if(isset($nid) and !empty($nid)){
+      $query = db_select('field_data_field_branch', 'b');
+      $query->join('node', 'n', 'n.nid = b.entity_id');
+      $result = $query->fields('n', array('nid', 'title'))
+                 ->condition('b.field_branch_target_id', $nid, '=')
+                 ->orderBy("n.title", "ASC")
+                 ->execute();
+      // dpm($result);
+      foreach ($result as $row) {
+        $ivr_array[$row->nid] = $row->title;
+      }
+    }
+    $timeslots = $form['field_timeslots']['und'];
+    if(isset($timeslots) and !empty($timeslots)){
+      foreach ($timeslots as $key => $timeslot) {
+        if(is_numeric($key) and isset($timeslot['field_ivr']) and isset($timeslot['field_ivr']['und']) and isset($timeslot['field_ivr']['und']['#options'])){
+          $form['field_timeslots']['und'][$key]['field_ivr']['und']['#options'] = $ivr_array;
+        }
+      }
+    }
     $form['actions']['submit']['#submit'][] = 'texvox_branch_form_submit_nested_handler';
   }
+
   if($form_id == "screen_node_form"){
     $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_nested_handler';
   }
   if($form_id == "screen_menu_node_form"){
     $form['actions']['submit']['#submit'][] = 'texvox_screen_menu_form_submit_nested_handler';
   }
-  //filter for menu goto screens in IVR form
+
+  // alter ivr form
   if($form_id == "ivr_node_form"){
     $current_screens = $form['field_ivr_screen']['und']['entities'];
     $current_screen_menu_options = array();
@@ -32,9 +57,13 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
         $current_screen_menu_options[$index] = $screen['#entity']->title;
       }
     }
-    // dpm($current_screen_menu_options);
     // dpm($form);
     $form['actions']['submit']['#submit'][] = 'texvox_ivr_form_submit_nested_handler';
+
+
+    /*
+      Screens options update
+    */
     $screens_count = count($current_screen_menu_options) - 1;
     if($screens_count > 0){
       //already has screens in this IVR
@@ -384,7 +413,6 @@ function texvox_delete_branch_when_delete_organization($node){
   node_delete_multiple($node_id_array);
 }
 
-
 /*
  * Register API:
  * [POST] http://live-texvox.pantheon.io/api/user/register
@@ -429,6 +457,23 @@ function texvox_delete_branch_when_delete_organization($node){
  *
  */
 
-
+/*
+branch{
+  timeslots[
+    {
+      dayOfTheWeek: Monday,
+      startTime: 9:00,
+      duration: 28800,   -- in seconds
+      IVR: 4             -- IVR Node ID
+    },
+    {
+      dayOfTheWeek: Monday,
+      startTime: 17:00,
+      duration: 57600,   -- in seconds
+      IVR: 5             -- IVR Node ID
+    }
+  ]
+}
+*/
 
 

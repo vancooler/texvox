@@ -133,32 +133,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_timezone']['table'] = 'field_data_field_timezone';
   $handler->display->display_options['fields']['field_timezone']['field'] = 'field_timezone';
   $handler->display->display_options['fields']['field_timezone']['hide_empty'] = TRUE;
-  /* Field: Content: Opening Hours */
-  $handler->display->display_options['fields']['field_opening_hours']['id'] = 'field_opening_hours';
-  $handler->display->display_options['fields']['field_opening_hours']['table'] = 'field_data_field_opening_hours';
-  $handler->display->display_options['fields']['field_opening_hours']['field'] = 'field_opening_hours';
-  $handler->display->display_options['fields']['field_opening_hours']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_opening_hours']['click_sort_column'] = 'day';
-  $handler->display->display_options['fields']['field_opening_hours']['settings'] = array(
-    'showclosed' => 'all',
-    'date_first_day' => '0',
-    'daysformat' => 'long',
-    'hoursformat' => '2',
-    'compress' => 0,
-    'grouped' => 0,
-    'closedformat' => 'Closed',
-    'separator_days' => '; ',
-    'separator_grouped_days' => ' - ',
-    'separator_day_hours' => ': ',
-    'separator_hours_hours' => '-',
-    'separator_more_hours' => ', ',
-    'current_status' => array(
-      'position' => 'hide',
-      'open_text' => 'Currently open!',
-      'closed_text' => 'Currently closed',
-    ),
-  );
-  $handler->display->display_options['fields']['field_opening_hours']['delta_offset'] = '0';
   /* Field: Content: Holidays */
   $handler->display->display_options['fields']['field_holidays']['id'] = 'field_holidays';
   $handler->display->display_options['fields']['field_holidays']['table'] = 'field_data_field_holidays';
@@ -245,7 +219,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
-  $handler->display->display_options['fields']['field_title_in_multi_languages']['label'] = 'Title';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_title_in_multi_languages']['settings'] = array(
     'edit' => '',
@@ -313,6 +286,19 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_default_screen']['settings'] = array(
     'link' => 0,
   );
+  /* Field: Content: Timeslots */
+  $handler->display->display_options['fields']['field_timeslots']['id'] = 'field_timeslots';
+  $handler->display->display_options['fields']['field_timeslots']['table'] = 'field_data_field_timeslots';
+  $handler->display->display_options['fields']['field_timeslots']['field'] = 'field_timeslots';
+  $handler->display->display_options['fields']['field_timeslots']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_timeslots']['settings'] = array(
+    'edit' => '',
+    'delete' => '',
+    'add' => '',
+    'description' => 0,
+    'view_mode' => 'full',
+  );
+  $handler->display->display_options['fields']['field_timeslots']['delta_offset'] = '0';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -352,7 +338,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('lat'),
     t('lon'),
     t('Timezone'),
-    t('Opening Hours'),
     t('Holidays'),
     t('Updated date'),
     t('Screen Type'),
@@ -371,6 +356,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Action'),
     t('Go To Screen'),
     t('Default Screen'),
+    t('Timeslots'),
     t('Page'),
   );
   $export['new_content'] = $view;
