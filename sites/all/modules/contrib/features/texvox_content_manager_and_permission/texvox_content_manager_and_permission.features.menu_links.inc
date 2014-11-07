@@ -10,24 +10,6 @@
 function texvox_content_manager_and_permission_menu_default_menu_links() {
   $menu_links = array();
 
-  // Exported menu link: management_navigation:admin/structure/menu/manage/navigation
-  $menu_links['management_navigation:admin/structure/menu/manage/navigation'] = array(
-    'menu_name' => 'management',
-    'link_path' => 'admin/structure/menu/manage/navigation',
-    'router_path' => 'admin/structure/menu/manage/%',
-    'link_title' => 'Navigation',
-    'options' => array(
-      'identifier' => 'management_navigation:admin/structure/menu/manage/navigation',
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'customized' => 0,
-    'parent_identifier' => 'management_menus:admin/structure/menu',
-  );
   // Exported menu link: navigation_article:node/add/article
   $menu_links['navigation_article:node/add/article'] = array(
     'menu_name' => 'navigation',
@@ -110,7 +92,6 @@ function texvox_content_manager_and_permission_menu_default_menu_links() {
   // Included for use with string extractors like potx.
   t('Article');
   t('Basic page');
-  t('Navigation');
   t('Screen');
   t('Screen Menu');
 
