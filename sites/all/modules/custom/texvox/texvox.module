@@ -38,6 +38,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     $screens_count = count($current_screen_menu_options) - 1;
     if($screens_count > 0){
       //already has screens in this IVR
+      $form['field_default_screen']['und']['#options'] = $current_screen_menu_options;
       $screens = $form['field_ivr_screen']['und']['entities'];
       foreach ($screens as $skey => $screen) {
         if(is_numeric($skey) and isset($screen['form']) and !empty($screen['form'])){
@@ -56,6 +57,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
                 if(is_numeric($mkey) and isset($deep_menu['form']) and !empty($deep_menu['form'])){
                   // dpm($mkey);
                   $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+                  $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#description'] = "* Please save IVR to see all the new screens created in this IVR";
                 }
               }
             }
@@ -74,7 +76,10 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     else{
       //No screens in this IVR
       $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+      $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#description'] = "* Please save IVR to see all the new screens created in this IVR";
+      $form['field_default_screen']['und']['#options'] = $current_screen_menu_options;
     }
+    $form['field_default_screen']['und']['#description'] = "* Please save IVR to see all the new screens created in this IVR";
   }
 
   // //filter for menu goto screens in screen form
