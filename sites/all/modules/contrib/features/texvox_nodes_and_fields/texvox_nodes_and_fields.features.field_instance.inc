@@ -218,59 +218,45 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 1,
+      'weight' => 0,
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_timeslots-field_duration'
-  $field_instances['field_collection_item-field_timeslots-field_duration'] = array(
+  // Exported field_instance: 'field_collection_item-field_timeslots-field_endtime'
+  $field_instances['field_collection_item-field_timeslots-field_endtime'] = array(
     'bundle' => 'field_timeslots',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please set the duration in seconds.',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => 1,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
-        'weight' => 2,
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 4,
       ),
       'full' => array(
         'label' => 'above',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => 1,
-          'scale' => 0,
-          'thousand_separator' => '',
-        ),
-        'type' => 'number_integer',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
         'weight' => 2,
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_duration',
-    'label' => 'Duration',
+    'field_name' => 'field_endtime',
+    'label' => 'endTime',
     'required' => 1,
     'settings' => array(
-      'max' => 86400,
-      'min' => 1,
-      'prefix' => '',
-      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'number',
+      'active' => 1,
+      'module' => 'options',
       'settings' => array(),
-      'type' => 'number',
-      'weight' => 3,
+      'type' => 'options_select',
+      'weight' => 2,
     ),
   );
 
@@ -299,7 +285,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_ivr',
     'label' => 'IVR',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -308,7 +294,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -346,7 +332,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -1641,6 +1627,52 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-screen-field_display_delay'
+  $field_instances['node-screen-field_display_delay'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Number of seconds before app should display this screen',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_display_delay',
+    'label' => 'Display Delay',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => 0,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 32,
+    ),
+  );
+
   // Exported field_instance: 'node-screen-field_menus'
   $field_instances['node-screen-field_menus'] = array(
     'bundle' => 'screen',
@@ -1686,6 +1718,130 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
       'type' => 'inline_entity_form',
       'weight' => 31,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-field_no_input_delay'
+  $field_instances['node-screen-field_no_input_delay'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Number of seconds before app perform No-Input-Action',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_no_input_delay',
+    'label' => 'No Input Delay',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => 0,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 34,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-field_no_input_goto_screen'
+  $field_instances['node-screen-field_no_input_goto_screen'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Node id of the screen we display after NoInputDelay has passed',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 10,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_no_input_goto_screen',
+    'label' => 'No Input Goto Screen',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 35,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-field_prelude_screen_code'
+  $field_instances['node-screen-field_prelude_screen_code'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'The screen we display during the delay time, before showing this screen',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_prelude_screen_code',
+    'label' => 'Prelude Screen Code',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 33,
     ),
   );
 
@@ -1898,6 +2054,133 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-screen_menu-field_action_delay_screen_code'
+  $field_instances['node-screen_menu-field_action_delay_screen_code'] = array(
+    'bundle' => 'screen_menu',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Node id of the screen we display during the delay time, before showing the next screen',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_action_delay_screen_code',
+    'label' => 'Action Delay Screen Code',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen_menu-field_action_delay_time'
+  $field_instances['node-screen_menu-field_action_delay_time'] = array(
+    'bundle' => 'screen_menu',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Number of seconds delayed before app should show the next screen',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_action_delay_time',
+    'label' => 'Action Delay Time',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => 0,
+      'prefix' => '',
+      'suffix' => 'second|seconds',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen_menu-field_description'
+  $field_instances['node-screen_menu-field_description'] = array(
+    'bundle' => 'screen_menu',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_description',
+    'label' => 'Description',
+    'required' => 0,
+    'settings' => array(
+      'display_summary' => 0,
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'node-screen_menu-field_go_to_screen'
   $field_instances['node-screen_menu-field_go_to_screen'] = array(
     'bundle' => 'screen_menu',
@@ -1974,6 +2257,47 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen_menu-field_set_language'
+  $field_instances['node-screen_menu-field_set_language'] = array(
+    'bundle' => 'screen_menu',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Language code we should set to IVR after selecting this menu item. Used when Action is set to “Set Language and Goto Screen”',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'name' => 'name',
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_set_language',
+    'label' => 'Set Language',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 6,
     ),
   );
 
@@ -2066,12 +2390,15 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Action');
+  t('Action Delay Screen Code');
+  t('Action Delay Time');
   t('Branch');
   t('Branch Type');
   t('Default Screen');
+  t('Description');
+  t('Display Delay');
   t('Display Subtitle');
   t('Display Title');
-  t('Duration');
   t('Go To Screen');
   t('Holidays');
   t('IVR');
@@ -2080,26 +2407,37 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('IVR Working Time');
   t('Key');
   t('Language');
+  t('Language code we should set to IVR after selecting this menu item. Used when Action is set to “Set Language and Goto Screen”');
   t('Location');
   t('Logo');
   t('Menu Type');
   t('Menus');
+  t('No Input Delay');
+  t('No Input Goto Screen');
+  t('Node id of the screen we display after NoInputDelay has passed');
+  t('Node id of the screen we display during the delay time, before showing the next screen');
   t('Number');
+  t('Number of seconds before app perform No-Input-Action');
+  t('Number of seconds before app should display this screen');
+  t('Number of seconds delayed before app should show the next screen');
   t('Organization');
   t('Organization Type');
   t('Phone Number Type');
   t('Phone Numbers');
   t('Please create IVR first and select it as the IVR for this time slot');
-  t('Please set the duration in seconds.');
+  t('Prelude Screen Code');
   t('Screen Code');
   t('Screen Type');
   t('Search Base');
+  t('Set Language');
   t('Subtitle');
+  t('The screen we display during the delay time, before showing this screen');
   t('Timeslots');
   t('Timezone');
   t('Title');
   t('Title ');
   t('dayOfTheWeek');
+  t('endTime');
   t('rgbHEX');
   t('startTime');
 

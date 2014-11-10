@@ -37,6 +37,65 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'list_integer',
   );
 
+  // Exported field_base: 'field_action_delay_screen_code'
+  $field_bases['field_action_delay_screen_code'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_action_delay_screen_code',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'screen' => 'screen',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_action_delay_time'
+  $field_bases['field_action_delay_time'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_action_delay_time',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_branch'
   $field_bases['field_branch'] = array(
     'active' => 1,
@@ -186,6 +245,49 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_description'
+  $field_bases['field_description'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_description',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_with_summary',
+  );
+
+  // Exported field_base: 'field_display_delay'
+  $field_bases['field_display_delay'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_display_delay',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_display_subtitle'
   $field_bases['field_display_subtitle'] = array(
     'active' => 1,
@@ -246,20 +348,76 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_duration'
-  $field_bases['field_duration'] = array(
+  // Exported field_base: 'field_endtime'
+  $field_bases['field_endtime'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_duration',
+    'field_name' => 'field_endtime',
     'foreign keys' => array(),
-    'indexes' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'number',
-    'settings' => array(),
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '00:00',
+        30 => '00:30',
+        100 => '01:00',
+        130 => '01:30',
+        200 => '02:00',
+        230 => '02:30',
+        300 => '0300',
+        330 => '03:30',
+        400 => '04:00',
+        430 => '04:30',
+        500 => '05:00',
+        530 => '05:30',
+        600 => '06:00',
+        630 => '06:30',
+        700 => '07:00',
+        730 => '07:30',
+        800 => '08:00',
+        830 => '08:30',
+        900 => '09:00',
+        930 => '09:30',
+        1000 => '10:00',
+        1030 => '10:30',
+        1100 => '11:00',
+        1130 => '11:30',
+        1200 => '12:00',
+        1230 => '12:30',
+        1300 => '13:00',
+        1330 => '13:30',
+        1400 => '14:00',
+        1430 => '14:30',
+        1500 => '15:00',
+        1530 => '15:30',
+        1600 => '16:00',
+        1630 => '16:30',
+        1700 => '17:00',
+        1730 => '17:30',
+        1800 => '18:00',
+        1830 => '18:30',
+        1900 => '19:00',
+        1930 => '19:30',
+        2000 => '20:00',
+        2030 => '20:30',
+        2100 => '21:00',
+        2130 => '21:30',
+        2200 => '22:00',
+        2230 => '22:30',
+        2300 => '23:00',
+        2330 => '23:30',
+      ),
+      'allowed_values_function' => '',
+    ),
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'list_integer',
   );
 
   // Exported field_base: 'field_go_to_screen'
@@ -701,6 +859,65 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_no_input_delay'
+  $field_bases['field_no_input_delay'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_no_input_delay',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_no_input_goto_screen'
+  $field_bases['field_no_input_goto_screen'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_no_input_goto_screen',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'screen' => 'screen',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_number'
   $field_bases['field_number'] = array(
     'active' => 1,
@@ -857,6 +1074,49 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
+  // Exported field_base: 'field_prelude_screen_code'
+  $field_bases['field_prelude_screen_code'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_prelude_screen_code',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'screen' => 'screen',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_rgbhex'
   $field_bases['field_rgbhex'] = array(
     'active' => 1,
@@ -933,6 +1193,36 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'list_integer',
+  );
+
+  // Exported field_base: 'field_set_language'
+  $field_bases['field_set_language'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_set_language',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'languagefield',
+    'settings' => array(
+      'enabled' => 1,
+      'excluded_languages' => array(),
+      'format' => array(
+        'iso' => 'iso',
+        'name' => 'name',
+        'name_native' => 0,
+      ),
+      'groups' => '',
+      'languages' => array(),
+    ),
+    'translatable' => 0,
+    'type' => 'language_field',
   );
 
   // Exported field_base: 'field_starttime'

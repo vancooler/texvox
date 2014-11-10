@@ -110,7 +110,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen_menu';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_menus';
   $field_group->data = array(
     'label' => 'Basic Info',
     'weight' => '1',
@@ -119,6 +119,8 @@ function texvox_nodes_and_fields_field_group_info() {
       1 => 'field_menu_type',
       2 => 'field_action',
       3 => 'field_go_to_screen',
+      4 => 'field_description',
+      5 => 'field_set_language',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -190,12 +192,68 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_delay|node|screen_menu|form';
+  $field_group->group_name = 'group_delay';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen_menu';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_menus';
+  $field_group->data = array(
+    'label' => 'Action Delay',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_action_delay_time',
+      1 => 'field_action_delay_screen_code',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-delay field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_delay|node|screen_menu|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_delay|node|screen|form';
+  $field_group->group_name = 'group_delay';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_screen_form';
+  $field_group->data = array(
+    'label' => 'Delay Settings',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_display_delay',
+      1 => 'field_prelude_screen_code',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-delay field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_delay|node|screen|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_display_title|node|screen_menu|form';
   $field_group->group_name = 'group_display_title';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen_menu';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_menus';
   $field_group->data = array(
     'label' => 'Display Title',
     'weight' => '2',
@@ -280,7 +338,11 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->data = array(
     'label' => 'Menu Form',
     'weight' => '0',
-    'children' => array(),
+    'children' => array(
+      0 => 'group_basic',
+      1 => 'group_display_title',
+      2 => 'group_delay',
+    ),
     'format_type' => 'tabs',
     'format_settings' => array(
       'formatter' => '',
@@ -347,6 +409,34 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_no_input|node|screen|form';
+  $field_group->group_name = 'group_no_input';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_screen_form';
+  $field_group->data = array(
+    'label' => 'No Input Settings',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_no_input_delay',
+      1 => 'field_no_input_goto_screen',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-no-input field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_no_input|node|screen|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_opening_hours|node|branch|form';
   $field_group->group_name = 'group_opening_hours';
   $field_group->entity_type = 'node';
@@ -390,6 +480,8 @@ function texvox_nodes_and_fields_field_group_info() {
       1 => 'group_menus',
       2 => 'group_title',
       3 => 'group_subtitle',
+      4 => 'group_delay',
+      5 => 'group_no_input',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(

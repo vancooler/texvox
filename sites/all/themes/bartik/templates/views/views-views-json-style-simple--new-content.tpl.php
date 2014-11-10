@@ -49,7 +49,7 @@ foreach ($rows['nodes'] as $key => $node) {
       foreach ($pieces as $skey => $value) {
         $rewrite_value = str_replace('dayOfTheWeek', 'dayOfTheWeek:', $value);
         $rewrite_value = str_replace('startTime', ', startTime:', $rewrite_value);
-        $rewrite_value = str_replace('Duration', ', Duration:', $rewrite_value);
+        $rewrite_value = str_replace('endTime', ', endTime:', $rewrite_value);
         $rewrite_value = str_replace('IVR', ', IVR:', $rewrite_value);
 
         if(!empty($rewrite_value)){
@@ -62,6 +62,19 @@ foreach ($rows['nodes'] as $key => $node) {
             
           }
         }
+        // calculate duration
+        $start_pieces = explode(':', $timeslot[$skey]['startTime']);
+        $start_seconds = intval($start_pieces[0]) * 3600 + intval($start_pieces[1]) * 60;
+        $end_pieces = explode(':', $timeslot[$skey]['endTime']);
+        $end_seconds = intval($end_pieces[0]) * 3600 + intval($end_pieces[1]) * 60;
+        if($start_seconds < $end_seconds){
+          $duration = $end_seconds - $start_seconds;
+        }
+        else{
+          $duration = 24 * 3600 + $end_seconds - $start_seconds;
+        }
+        $timeslot[$skey]['duration'] = $duration;
+        unset($timeslot[$skey]['endTime']);
       }
       $rows['nodes'][$key]['node']['Timeslots'] = $timeslot;
     }
