@@ -433,27 +433,27 @@ function texvox_rules_action_info(){
   return $items;
 }
 
-// /*
-//  * DELETE ivrs when delete a branch
-//  */
-// function texvox_delete_ivr_when_delete_branch($node){
+/*
+ * DELETE ivrs when delete a branch
+ */
+function texvox_delete_ivr_when_delete_branch($node){
 
-//   // watchdog('Node Delete', '<pre>'. print_r($node, TRUE) .'</pre>');
-//   $nid = intval($node->nid);
-//   $and = db_and()->condition('entity_type', 'node')->condition('bundle', 'ivr')->condition('field_branch_target_id', $nid);
+  // watchdog('Node Delete', '<pre>'. print_r($node, TRUE) .'</pre>');
+  $nid = intval($node->nid);
+  $and = db_and()->condition('entity_type', 'node')->condition('bundle', 'ivr')->condition('field_branch_target_id', $nid);
   
-//   $result = db_select('field_data_field_branch', 'n')
-//       ->fields('n', array('entity_id'))
-//       ->condition($and)
-//       ->execute();
+  $result = db_select('field_data_field_branch', 'n')
+      ->fields('n', array('entity_id'))
+      ->condition($and)
+      ->execute();
   
-//   $node_id_array = array();
-//   foreach ($result as $row) {
-//     $ivrID = intval($row->entity_id);
-//     $node_id_array[] = $ivrID;
-//   }
-//   node_delete_multiple($node_id_array);
-// }
+  $node_id_array = array();
+  foreach ($result as $row) {
+    $ivrID = intval($row->entity_id);
+    $node_id_array[] = $ivrID;
+  }
+  node_delete_multiple($node_id_array);
+}
 
 /*
  * DELETE branches when delete an organization
