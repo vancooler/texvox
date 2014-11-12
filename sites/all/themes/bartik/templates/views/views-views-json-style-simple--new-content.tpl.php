@@ -314,16 +314,16 @@ foreach ($rows['nodes'] as $key => $node) {
     }
 
     // Rewrite titles as an array
-    if(isset($rows['nodes'][$key]['node']['Title']) and !empty($rows['nodes'][$key]['node']['Title'])){
+    if(isset($rows['nodes'][$key]['node']['ScreenName']) and !empty($rows['nodes'][$key]['node']['ScreenName'])){
       $title_array = array();
-      $title_string = str_replace('\n', '', $node['node']['Title']);
+      $title_string = str_replace('\n', '', $node['node']['ScreenName']);
       $pieces = explode("Language:", $title_string);
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){
-          $parts = explode("Display Title:", $element);
+          $parts = explode("Display ScreenName:", $element);
           if(count($parts) == 2){          
             $title_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
-            $title_array[($skey-1)]['Title'] = substr(trim($parts[1]), 2);
+            $title_array[($skey-1)]['ScreenName'] = substr(trim($parts[1]), 2);
           }
         }
       }
