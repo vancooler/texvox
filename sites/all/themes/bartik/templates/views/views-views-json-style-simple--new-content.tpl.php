@@ -248,6 +248,7 @@ foreach ($rows['nodes'] as $key => $node) {
     if(isset($rows['nodes'][$key]['node']['BodyText']) and !empty($rows['nodes'][$key]['node']['BodyText'])){
       $body_array = array();
       $body_string = str_replace('\n', '', $node['node']['BodyText']);
+      dpm($body_string);
       $pieces = explode("Language:", $body_string);
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){
@@ -328,6 +329,7 @@ foreach ($rows['nodes'] as $key => $node) {
         }
       }
       $rows['nodes'][$key]['node']['Title'] = $title_array;
+      unset($rows['nodes'][$key]['node']['ScreenName']);
     }
 
     // rewrite the "title" with "key"
