@@ -204,7 +204,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
   $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
   $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_search_base']['type'] = 'list_key';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
@@ -267,7 +266,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_action']['table'] = 'field_data_field_action';
   $handler->display->display_options['fields']['field_action']['field'] = 'field_action';
   $handler->display->display_options['fields']['field_action']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_action']['type'] = 'list_key';
   /* Field: Content: Go To Screen */
   $handler->display->display_options['fields']['field_go_to_screen']['id'] = 'field_go_to_screen';
   $handler->display->display_options['fields']['field_go_to_screen']['table'] = 'field_data_field_go_to_screen';
@@ -297,6 +295,65 @@ function texvox_view_and_json_api_response_views_default_views() {
     'view_mode' => 'full',
   );
   $handler->display->display_options['fields']['field_timeslots']['delta_offset'] = '0';
+  /* Field: Content: No Input Action */
+  $handler->display->display_options['fields']['field_no_input_action']['id'] = 'field_no_input_action';
+  $handler->display->display_options['fields']['field_no_input_action']['table'] = 'field_data_field_no_input_action';
+  $handler->display->display_options['fields']['field_no_input_action']['field'] = 'field_no_input_action';
+  $handler->display->display_options['fields']['field_no_input_action']['hide_empty'] = TRUE;
+  /* Field: Content: No Input Language */
+  $handler->display->display_options['fields']['field_no_input_language']['id'] = 'field_no_input_language';
+  $handler->display->display_options['fields']['field_no_input_language']['table'] = 'field_data_field_no_input_language';
+  $handler->display->display_options['fields']['field_no_input_language']['field'] = 'field_no_input_language';
+  $handler->display->display_options['fields']['field_no_input_language']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_no_input_language']['settings'] = array(
+    'format' => array(
+      'iso' => 'iso',
+      'name' => 0,
+      'name_native' => 0,
+    ),
+  );
+  /* Field: Content: Input Count */
+  $handler->display->display_options['fields']['field_input_count']['id'] = 'field_input_count';
+  $handler->display->display_options['fields']['field_input_count']['table'] = 'field_data_field_input_count';
+  $handler->display->display_options['fields']['field_input_count']['field'] = 'field_input_count';
+  $handler->display->display_options['fields']['field_input_count']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_input_count']['settings'] = array(
+    'thousand_separator' => '',
+    'prefix_suffix' => 0,
+  );
+  /* Field: Content: Display Image */
+  $handler->display->display_options['fields']['field_display_image']['id'] = 'field_display_image';
+  $handler->display->display_options['fields']['field_display_image']['table'] = 'field_data_field_display_image';
+  $handler->display->display_options['fields']['field_display_image']['field'] = 'field_display_image';
+  $handler->display->display_options['fields']['field_display_image']['label'] = 'Image URL';
+  $handler->display->display_options['fields']['field_display_image']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_display_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_display_image']['settings'] = array(
+    'image_style' => '',
+    'image_link' => '',
+  );
+  /* Field: Content: End Key */
+  $handler->display->display_options['fields']['field_end_key']['id'] = 'field_end_key';
+  $handler->display->display_options['fields']['field_end_key']['table'] = 'field_data_field_end_key';
+  $handler->display->display_options['fields']['field_end_key']['field'] = 'field_end_key';
+  $handler->display->display_options['fields']['field_end_key']['hide_empty'] = TRUE;
+  /* Field: Content: No Input Delay */
+  $handler->display->display_options['fields']['field_no_input_delay']['id'] = 'field_no_input_delay';
+  $handler->display->display_options['fields']['field_no_input_delay']['table'] = 'field_data_field_no_input_delay';
+  $handler->display->display_options['fields']['field_no_input_delay']['field'] = 'field_no_input_delay';
+  $handler->display->display_options['fields']['field_no_input_delay']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_no_input_delay']['settings'] = array(
+    'thousand_separator' => '',
+    'prefix_suffix' => 0,
+  );
+  /* Field: Content: No Input Goto Screen */
+  $handler->display->display_options['fields']['field_no_input_goto_screen']['id'] = 'field_no_input_goto_screen';
+  $handler->display->display_options['fields']['field_no_input_goto_screen']['table'] = 'field_data_field_no_input_goto_screen';
+  $handler->display->display_options['fields']['field_no_input_goto_screen']['field'] = 'field_no_input_goto_screen';
+  $handler->display->display_options['fields']['field_no_input_goto_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_no_input_goto_screen']['settings'] = array(
+    'link' => 0,
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -353,6 +410,13 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Go To Screen'),
     t('Default Screen'),
     t('Timeslots'),
+    t('No Input Action'),
+    t('No Input Language'),
+    t('Input Count'),
+    t('Image URL'),
+    t('End Key'),
+    t('No Input Delay'),
+    t('No Input Goto Screen'),
     t('Page'),
   );
   $export['new_content'] = $view;

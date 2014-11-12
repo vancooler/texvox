@@ -114,9 +114,26 @@ foreach ($rows['nodes'] as $key => $node) {
       $rows['nodes'][$key]['node']['Phone Numbers'] = $phone_array;
     }
 
-    // Rewrite search base as default 0 if empty
-    if(!isset($node['node']['Search Base']) or empty($node['node']['Search Base'])){
-      $rows['nodes'][$key]['node']['Search Base'] = '0';
+    // Rewrite search base as integer
+    if(isset($node['node']['Search Base']) and !empty($node['node']['Search Base'])){
+      $type = $rows['nodes'][$key]['node']['Search Base'];
+      switch (substr($type, 0, 2)) {
+        case 'Lo':
+          $rows['nodes'][$key]['node']['Search Base'] = '0';
+          break;
+        case 'Ci':
+          $rows['nodes'][$key]['node']['Search Base'] = '1';
+          break;
+        case 'Re':
+          $rows['nodes'][$key]['node']['Search Base'] = '2';
+          break;
+        case 'Co':
+          $rows['nodes'][$key]['node']['Search Base'] = '3';
+          break;
+        default:
+          # code...
+          break;
+      }
     }
 
     // Find organization rgbHEX if branch have nothing
@@ -150,6 +167,49 @@ foreach ($rows['nodes'] as $key => $node) {
   //                                       //
   ///////////////////////////////////////////
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen"){
+    // Rewrite screen type as integer
+    if(isset($node['node']['Screen Type']) and !empty($node['node']['Screen Type'])){
+      $type = $rows['nodes'][$key]['node']['Screen Type'];
+      switch (substr($type, 0, 1)) {
+        case 'D':
+          $rows['nodes'][$key]['node']['Screen Type'] = '0';
+          break;
+        case 'O':
+          $rows['nodes'][$key]['node']['Screen Type'] = '1';
+          break;
+        case 'I':
+          $rows['nodes'][$key]['node']['Screen Type'] = '2';
+          break;
+        default:
+          # code...
+          break;
+      }
+    }
+    // Rewrite no input action as integer
+    if(isset($node['node']['No Input Action']) and !empty($node['node']['No Input Action'])){
+      $action = $rows['nodes'][$key]['node']['No Input Action'];
+      switch (substr($action, 0, 1)) {
+        case 'G':
+          $rows['nodes'][$key]['node']['No Input Action'] = '0';
+          break;
+        case 'C':
+          $rows['nodes'][$key]['node']['No Input Action'] = '1';
+          break;
+        case 'E':
+          $rows['nodes'][$key]['node']['No Input Action'] = '2';
+          break;
+        case 'S':
+          $rows['nodes'][$key]['node']['No Input Action'] = '3';
+          break;
+        default:
+          # code...
+          break;
+      }
+    }
+    
+  
+
+
     // Rewrite subtitles as an array
     if(isset($rows['nodes'][$key]['node']['HeaderText']) and !empty($rows['nodes'][$key]['node']['HeaderText'])){
       $subtitle_array = array();
@@ -231,6 +291,28 @@ foreach ($rows['nodes'] as $key => $node) {
   //                                       //
   ///////////////////////////////////////////
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen Menu"){
+    // Rewrite action as integer
+    if(isset($node['node']['Action']) and !empty($node['node']['Action'])){
+      $action = $rows['nodes'][$key]['node']['Action'];
+      switch (substr($action, 0, 1)) {
+        case 'G':
+          $rows['nodes'][$key]['node']['Action'] = '0';
+          break;
+        case 'C':
+          $rows['nodes'][$key]['node']['Action'] = '1';
+          break;
+        case 'E':
+          $rows['nodes'][$key]['node']['Action'] = '2';
+          break;
+        case 'S':
+          $rows['nodes'][$key]['node']['Action'] = '3';
+          break;
+        default:
+          # code...
+          break;
+      }
+    }
+
     // Rewrite titles as an array
     if(isset($rows['nodes'][$key]['node']['Title']) and !empty($rows['nodes'][$key]['node']['Title'])){
       $title_array = array();

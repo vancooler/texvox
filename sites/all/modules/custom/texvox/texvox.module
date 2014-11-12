@@ -174,8 +174,8 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
           // For menus as nodes
           $menus = $screen['form']['field_menus'];
           if(isset($menus) and isset($menus['und'])){
-            $menu_form = $menus['und']['form'];
-            if(isset($menu_form)){
+            if(isset($menus['und']['form'])){
+              $menu_form = $menus['und']['form'];
               // create a new menu
               $options = $menu_form['field_go_to_screen']['und']['#options'];
               $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $real_options;

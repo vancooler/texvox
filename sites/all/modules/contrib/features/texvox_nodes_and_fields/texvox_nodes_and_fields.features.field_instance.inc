@@ -1926,7 +1926,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'label' => 'above',
         'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
+        'type' => 'list_key',
         'weight' => 12,
       ),
       'teaser' => array(
