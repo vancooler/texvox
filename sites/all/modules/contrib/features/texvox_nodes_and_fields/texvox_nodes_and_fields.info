@@ -1,7 +1,7 @@
 name = Texvox: nodes and fields
 core = 7.x
 package = Texvox
-version = 7.x-1.19
+version = 7.x-1.20
 project = texvox_nodes_and_fields
 dependencies[] = colorfield
 dependencies[] = ctools

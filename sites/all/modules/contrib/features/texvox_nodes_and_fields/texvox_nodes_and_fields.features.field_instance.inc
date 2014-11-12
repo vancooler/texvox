@@ -22,7 +22,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'full' => array(
         'label' => 'above',
@@ -71,7 +71,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
           ),
         ),
         'type' => 'language_default',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'full' => array(
         'label' => 'above',
