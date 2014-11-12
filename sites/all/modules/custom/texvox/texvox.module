@@ -71,7 +71,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     }
     //get screen ids in this IVR
     foreach ($current_screens as $key => $screen) {
-      if(is_numeric($key) and isset($screen['#entity']) and !empty($screen['#entity'])){
+      if(is_numeric($key) and isset($screen['#entity']) and !empty($screen['#entity']) and isset($screen['#entity']->nid)){
         $index = intval($screen['#entity']->nid);
         $current_screen_menu_options[$index] = $screen['#entity']->title;
       }
