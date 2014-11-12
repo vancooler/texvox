@@ -1320,7 +1320,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_ivr_screen',
     'label' => 'IVR Screen',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -1661,7 +1661,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'max' => '',
       'min' => 0,
       'prefix' => '',
-      'suffix' => '',
+      'suffix' => 'second|seconds',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1755,7 +1755,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'max' => '',
       'min' => 0,
       'prefix' => '',
-      'suffix' => '',
+      'suffix' => 'second|seconds',
       'user_register_form' => FALSE,
     ),
     'widget' => array(

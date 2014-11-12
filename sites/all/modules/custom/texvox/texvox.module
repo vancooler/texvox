@@ -5,6 +5,7 @@ else {
     define('DEBUG', true);
 }
 
+
 //////////////////////////////////////////////////////////////////////
 //
 // Form alter to customize the user interface of content managemeng
@@ -50,6 +51,23 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     $current_screens = $form['field_ivr_screen']['und']['entities'];
     $current_screen_menu_options = array();
     $current_screen_menu_options['_none'] = "- None -";
+    $real_options = array();
+    $real_options['_none'] = "- None -";
+    if(isset($form['nid']['#value']) and !empty($form['nid']['#value']) and intval($form['nid']['#value']) > 0){
+      $action = 'edit';
+      // fetch all screen code and nid in this IVR
+      $query = db_select('field_data_field_ivr_screen', 's');
+      $query->join('node', 'n', 'n.nid = s.field_ivr_screen_target_id');
+      $result = $query->fields('n', array('nid', 'title'))
+                 ->condition('s.entity_id', intval($form['nid']['#value']), '=')
+                 ->execute();
+      foreach ($result as $row) {
+        $real_options[$row->nid] = $row->title;
+      }
+    }
+    else{
+      $action = 'new';
+    }
     //get screen ids in this IVR
     foreach ($current_screens as $key => $screen) {
       if(is_numeric($key) and isset($screen['#entity']) and !empty($screen['#entity'])){
@@ -57,7 +75,6 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
         $current_screen_menu_options[$index] = $screen['#entity']->title;
       }
     }
-    // dpm($form);
     $form['actions']['submit']['#submit'][] = 'texvox_ivr_form_submit_nested_handler';
 
 
@@ -65,110 +82,156 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       Screens options update
     */
     $screens_count = count($current_screen_menu_options) - 1;
-    if($screens_count > 0){
-      //already has screens in this IVR
-      $form['field_default_screen']['und']['#options'] = $current_screen_menu_options;
-      $screens = $form['field_ivr_screen']['und']['entities'];
-      foreach ($screens as $skey => $screen) {
-        if(is_numeric($skey) and isset($screen['form']) and !empty($screen['form'])){
-          $menus = $screen['form']['field_menus'];
-          // For menus as nodes
-          if(isset($menus) and isset($menus['und'])){
-            $menu_form = $menus['und']['form'];
-            if(isset($menu_form)){
-              // create a new menu
-              $options = $menu_form['field_go_to_screen']['und']['#options'];
-              $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
-            }
-            else{
-              // edit an exist menu
-              foreach ($menus['und']['entities'] as $mkey => $deep_menu) {            
-                if(is_numeric($mkey) and isset($deep_menu['form']) and !empty($deep_menu['form'])){
-                  // dpm($mkey);
-                  $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
-                  $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#description'] = "* Please save IVR to see all the new screens created in this IVR";
+    // dpm($form);
+
+    /**
+     * Hide menus tab if the screen is not solid yet
+     */
+    if($action == "new"){
+      if(isset($form['field_ivr_screen']['und']['form'])){
+        $form['field_ivr_screen']['und']['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
+        foreach ($form['field_ivr_screen']['und']['form']['#group_children'] as $field => $group) {
+          if ($group == 'group_menus') {
+            $form[$field]['#access'] = FALSE;
+          }
+        }
+        $form['field_ivr_screen']['und']['form']['field_menus']['#access'] = FALSE;
+      }
+      if(isset($form['field_ivr_screen']['und']['entities'])){
+        foreach ($form['field_ivr_screen']['und']['entities'] as $key => $screen) {
+          if(is_numeric($key) and isset($screen['form']) and isset($screen['#entity'])){
+            $entity = $screen['#entity'];
+            if(isset($entity->is_new) and $entity->is_new){
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
+              foreach ($form['field_ivr_screen']['und']['entities'][$key]['form']['#group_children'] as $field => $group) {
+                if ($group == 'group_menus') {
+                  $form[$field]['#access'] = FALSE;
                 }
               }
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['field_menus']['#access'] = FALSE;
             }
           }
-
-          // For menus as field collections
-          // foreach ($menus as $mkey => $menu) {
-          //   if(is_numeric($mkey) and isset($menu['field_go_to_screen']) and !empty($menu['field_go_to_screen'])){
-          //     $options = $menu['field_go_to_screen']['und']['#options'];
-          //     $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und'][$mkey]['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+          // if(is_numeric($key) and isset($screen['#entity'])){
+          //   $entity = $screen['#entity'];
+          //   if(isset($entity->is_new) and $entity->is_new){
+          //     $tmp_entity = $entity;
+          //     $tmp_entity->status = 0;
+          //     $form['field_ivr_screen']['und']['entities'][$key]['#entity'] = $tmp_entity;
           //   }
           // }
         }
       }
     }
+    else if($action == 'edit'){
+      if(isset($form['field_ivr_screen']['und']['form'])){
+        $form['field_ivr_screen']['und']['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
+        foreach ($form['field_ivr_screen']['und']['form']['#group_children'] as $field => $group) {
+          if ($group == 'group_menus') {
+            $form[$field]['#access'] = FALSE;
+          }
+        }
+        $form['field_ivr_screen']['und']['form']['field_menus']['#access'] = FALSE;
+      }
+      if(isset($form['field_ivr_screen']['und']['entities'])){
+        foreach ($form['field_ivr_screen']['und']['entities'] as $key => $screen) {
+          if(is_numeric($key) and isset($screen['form']) and isset($screen['#entity'])){
+            $entity = $screen['#entity'];
+            if(isset($entity->is_new) and $entity->is_new){
+
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
+              foreach ($form['field_ivr_screen']['und']['entities'][$key]['form']['#group_children'] as $field => $group) {
+                if ($group == 'group_menus') {
+                  $form[$field]['#access'] = FALSE;
+                }
+              }
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['field_menus']['#access'] = FALSE;
+            }
+          }
+          // if(is_numeric($key) and isset($screen['#entity'])){
+          //   $entity = $screen['#entity'];
+          //   if(isset($entity->is_new) and $entity->is_new){
+          //     $tmp_entity = $entity;
+          //     $tmp_entity->status = 0;
+          //     $form['field_ivr_screen']['und']['entities'][$key]['#entity'] = $tmp_entity;
+          //   }
+          // }
+        }
+      }
+    }
+
+    /**
+     * Change default options 
+     */
+    if($screens_count > 0){
+      //already has screens in this IVR
+      $form['field_default_screen']['und']['#options'] = $real_options;
+      $screens = $form['field_ivr_screen']['und']['entities'];
+      foreach ($screens as $skey => $screen) {
+        if(is_numeric($skey) and isset($screen['form']) and !empty($screen['form'])){
+          $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_prelude_screen_code']['und']['#options'] = $real_options;
+          $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_no_input_goto_screen']['und']['#options'] = $real_options;
+          // For menus as nodes
+          $menus = $screen['form']['field_menus'];
+          if(isset($menus) and isset($menus['und'])){
+            $menu_form = $menus['und']['form'];
+            if(isset($menu_form)){
+              // create a new menu
+              $options = $menu_form['field_go_to_screen']['und']['#options'];
+              $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $real_options;
+              $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'] = $real_options;
+            }
+            else{
+              // edit an exist menu
+              foreach ($menus['und']['entities'] as $mkey => $deep_menu) {            
+                if(is_numeric($mkey) and isset($deep_menu['form']) and !empty($deep_menu['form'])){
+                  $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] = $real_options;
+                  $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'] = $real_options;
+                  $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#description'] = "* Please save IVR to see all the new screens created in this IVR";
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     else{
+      $form['field_default_screen']['und']['#options'] = $real_options;
+      if(isset($form['field_ivr_screen']['und']['form']['field_menus']['und']['entities'])){
+        $menus = $form['field_ivr_screen']['und']['form']['field_menus']['und']['entities'];
+        foreach ($menus as $mkey => $deep_menu) {
+          if(is_numeric($mkey) and isset($form['field_ivr_screen']['und']['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'])){
+            $form['field_ivr_screen']['und']['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] = $real_options;
+            $form['field_ivr_screen']['und']['form']['field_menus']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'] = $real_options;
+          }
+        }
+      }
+    }
+    if(isset($form['field_ivr_screen']['und']['form'])){
       //No screens in this IVR
-      $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
+      $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $real_options;
       $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#description'] = "* Please save IVR to see all the new screens created in this IVR";
-      $form['field_default_screen']['und']['#options'] = $current_screen_menu_options;
+      $form['field_default_screen']['und']['#options'] = $real_options;
+      $form['field_ivr_screen']['und']['form']['field_prelude_screen_code']['und']['#options'] = $real_options;
+      $form['field_ivr_screen']['und']['form']['field_no_input_goto_screen']['und']['#options'] = $real_options;
+      $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'] = $real_options;
+      // $menus = $form['field_ivr_screen']['und']['form']['field_menus']['und']['entities'];
+      // foreach ($menus as $dmkey => $menu) {
+      //   unset($form['field_ivr_screen']['und']['form']['field_menus']['und']['entities'][$dmkey]);
+      // }
     }
     $form['field_default_screen']['und']['#description'] = "* Please save IVR to see all the new screens created in this IVR";
   }
 
-  // //filter for menu goto screens in screen form
-  // if($form_id == "screen_node_form"){
-  //   dpm($form);
-  //   if(isset($form['#node']->nid)){
-  //     // edit form
-  //     $nid = intval($form['#node']->nid);
-  //     $query="SELECT entity_id FROM field_data_field_ivr_screen WHERE entity_type ='node' AND bundle='ivr' AND field_ivr_screen_target_id=$nid LIMIT 1";
-  //     $result=db_query($query);
-  //     foreach ($result as $row) {
-  //       $IVR_ID = intval($row->entity_id);
-  //     }
-  //     $menu = $form['field_menus']['und'];
-  //     if(isset($IVR_ID)){
-  //       $query="SELECT field_ivr_screen_target_id FROM field_data_field_ivr_screen WHERE entity_type ='node' AND bundle='ivr' AND entity_id=$IVR_ID";
-  //       $result=db_query($query);
-  //       $screen_ids = array();
-  //       foreach ($result as $row) {
-  //         $screen_ids[] = intval($row->field_ivr_screen_target_id);
-  //       }
-  //       // dpm($screen_ids);
-        
-  //       if(isset($menu['form'])){
-  //         $options = $form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'];
-  //         foreach ($options as $key => $op) {
-  //           if(intval($key) > 0 and !in_array(intval($key), $screen_ids)){
-  //             unset($form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'][$key]);
-  //           }
-  //         }
-  //       }
-  //     }
-  //     else{
-  //       if(isset($menu['form'])){
-  //         $current_screen_menu_options = array();
-  //         $current_screen_menu_options['_none'] = "- None -";
-  //         $form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
-  //       }
-  //     }
-  //   }
-  //   else{
-  //     // new form
-  //     $menu = $form['field_menus']['und'];
-  //     if(isset($menu['form'])){
-  //       // $options = $form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'];
-  //       // foreach ($options as $key => $op) {
-  //       //   if(intval($key) > 0){
-  //       //     unset($form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'][$key]);
-  //       //   }
-  //       // }
-
-  //       $current_screen_menu_options = array();
-  //       $current_screen_menu_options['_none'] = "- None -";
-  //       $form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $current_screen_menu_options;
-  //     }
-  //   }
-  // }
 }
 
 
+/*
+ * redirect to edit page to add screens
+ */
+function texvox_ivr_form_submit_redirect_handler($form, &$form_state){
+  $nid = intval($form_state['values']['nid']);
+  $form_state['redirect'] = 'node/' . $nid . '/edit';
+}
 
 /**
  * change updated timestamp for referenced organization
@@ -456,24 +519,5 @@ function texvox_delete_branch_when_delete_organization($node){
  *    X-CSRF-Token:TokenReceived 
  *
  */
-
-/*
-branch{
-  timeslots[
-    {
-      dayOfTheWeek: Monday,
-      startTime: 9:00,
-      duration: 28800,   -- in seconds
-      IVR: 4             -- IVR Node ID
-    },
-    {
-      dayOfTheWeek: Monday,
-      startTime: 17:00,
-      duration: 57600,   -- in seconds
-      IVR: 5             -- IVR Node ID
-    }
-  ]
-}
-*/
 
 
