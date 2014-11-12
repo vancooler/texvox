@@ -1,7 +1,7 @@
 name = Texvox: nodes and fields
 core = 7.x
 package = Texvox
-version = 7.x-1.17
+version = 7.x-1.18
 project = texvox_nodes_and_fields
 dependencies[] = colorfield
 dependencies[] = ctools
@@ -151,4 +151,5 @@ features[node][] = organization
 features[node][] = screen
 features[node][] = screen_menu
 features[rules_config][] = rules_delete_branch_when_delete_organization
+features[rules_config][] = rules_delete_ivr_when_delete_branch
 features_exclude[dependencies][options] = options
