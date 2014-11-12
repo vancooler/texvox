@@ -133,15 +133,15 @@ foreach ($rows['nodes'] as $key => $node) {
       }
     }
 
-    // Add IVRs as an array
-    $branch_id = intval($node['node']['Node ID']);
-    $query="SELECT entity_id FROM field_data_field_branch WHERE entity_type ='node' AND bundle = 'ivr' AND field_branch_target_id = $branch_id ORDER BY entity_id ASC";
-    $result=db_query($query);
-    $branch_ids = array();
-    foreach ($result as $row) {
-      $branch_ids[] = $row->entity_id;
-    }
-    $rows['nodes'][$key]['node']['IVRs in this branch'] = $branch_ids;
+    // // Add IVRs as an array
+    // $branch_id = intval($node['node']['Node ID']);
+    // $query="SELECT entity_id FROM field_data_field_branch WHERE entity_type ='node' AND bundle = 'ivr' AND field_branch_target_id = $branch_id ORDER BY entity_id ASC";
+    // $result=db_query($query);
+    // $branch_ids = array();
+    // foreach ($result as $row) {
+    //   $branch_ids[] = $row->entity_id;
+    // }
+    // $rows['nodes'][$key]['node']['IVRs in this branch'] = $branch_ids;
   }
 
   ///////////////////////////////////////////
@@ -151,38 +151,57 @@ foreach ($rows['nodes'] as $key => $node) {
   ///////////////////////////////////////////
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen"){
     // Rewrite subtitles as an array
-    if(isset($rows['nodes'][$key]['node']['Subtitle']) and !empty($rows['nodes'][$key]['node']['Subtitle'])){
+    if(isset($rows['nodes'][$key]['node']['HeaderText']) and !empty($rows['nodes'][$key]['node']['HeaderText'])){
       $subtitle_array = array();
-      $subtitle_string = str_replace('\n', '', $node['node']['Subtitle']);
+      $subtitle_string = str_replace('\n', '', $node['node']['HeaderText']);
       $pieces = explode("Language:", $subtitle_string);
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){
           $parts = explode("Display Subtitle:", $element);
           if(count($parts) == 2){          
             $subtitle_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
-            $subtitle_array[($skey-1)]['Subtitle'] = substr(trim($parts[1]), 2);
+            $subtitle_array[($skey-1)]['HeaderText'] = substr(trim($parts[1]), 2);
           }
         }
       }
-      $rows['nodes'][$key]['node']['Subtitle'] = $subtitle_array;
+      $rows['nodes'][$key]['node']['HeaderText'] = $subtitle_array;
     }
 
     // Rewrite titles as an array
-    if(isset($rows['nodes'][$key]['node']['Title']) and !empty($rows['nodes'][$key]['node']['Title'])){
+    if(isset($rows['nodes'][$key]['node']['ScreenName']) and !empty($rows['nodes'][$key]['node']['ScreenName'])){
       $title_array = array();
-      $title_string = str_replace('\n', '', $node['node']['Title']);
+      $title_string = str_replace('\n', '', $node['node']['ScreenName']);
       $pieces = explode("Language:", $title_string);
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){
           $parts = explode("Display Title:", $element);
           if(count($parts) == 2){          
             $title_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
-            $title_array[($skey-1)]['Title'] = substr(trim($parts[1]), 2);
+            $title_array[($skey-1)]['ScreenName'] = substr(trim($parts[1]), 2);
           }
         }
       }
-      $rows['nodes'][$key]['node']['Title'] = $title_array;
+      $rows['nodes'][$key]['node']['ScreenName'] = $title_array;
     }
+
+    // Rewrite bodyText as an array
+    if(isset($rows['nodes'][$key]['node']['BodyText']) and !empty($rows['nodes'][$key]['node']['BodyText'])){
+      $body_array = array();
+      $body_string = str_replace('\n', '', $node['node']['BodyText']);
+      $pieces = explode("Language:", $body_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $parts = explode("Body Text:", $element);
+          if(count($parts) == 2){          
+            $body_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
+            $body_array[($skey-1)]['BodyText'] = substr(trim($parts[1]), 2);
+          }
+        }
+      }
+      $rows['nodes'][$key]['node']['BodyText'] = $body_array;
+    }
+
+
     // rewrite the "title" with "Screen Code"
     if(isset($rows['nodes'][$key]['node']['title']) and !empty($rows['nodes'][$key]['node']['title'])){
       

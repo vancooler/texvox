@@ -27,8 +27,10 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 0,
-        1 => 1,
+        0 => 'Goto Screen',
+        1 => 'Connect Call',
+        2 => 'End Call',
+        3 => 'Set Language and Goto Screen',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -96,50 +98,54 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
-  // Exported field_base: 'field_branch'
-  $field_bases['field_branch'] = array(
+  // Exported field_base: 'field_body_text'
+  $field_bases['field_body_text'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_branch',
+    'field_name' => 'field_body_text',
     'foreign keys' => array(
-      'node' => array(
+      'format' => array(
         'columns' => array(
-          'target_id' => 'nid',
+          'format' => 'format',
         ),
-        'table' => 'node',
+        'table' => 'filter_format',
       ),
     ),
     'indexes' => array(
-      'target_id' => array(
-        0 => 'target_id',
+      'format' => array(
+        0 => 'format',
       ),
     ),
     'locked' => 0,
-    'module' => 'entityreference',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'direction' => 'DESC',
-          'field' => 'field_organization:target_id',
-          'type' => 'field',
-        ),
-        'target_bundles' => array(
-          'branch' => 'branch',
-        ),
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_with_summary',
+  );
+
+  // Exported field_base: 'field_bodytext_in_multi_language'
+  $field_bases['field_bodytext_in_multi_language'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_bodytext_in_multi_language',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'revision_id' => array(
+        0 => 'revision_id',
       ),
-      'target_type' => 'node',
+    ),
+    'locked' => 0,
+    'module' => 'field_collection',
+    'settings' => array(
+      'hide_blank_items' => 1,
+      'path' => '',
     ),
     'translatable' => 0,
-    'type' => 'entityreference',
+    'type' => 'field_collection',
   );
 
   // Exported field_base: 'field_branch_type'
@@ -288,6 +294,36 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
+  // Exported field_base: 'field_display_image'
+  $field_bases['field_display_image'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_display_image',
+    'foreign keys' => array(
+      'fid' => array(
+        'columns' => array(
+          'fid' => 'fid',
+        ),
+        'table' => 'file_managed',
+      ),
+    ),
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
   // Exported field_base: 'field_display_subtitle'
   $field_bases['field_display_subtitle'] = array(
     'active' => 1,
@@ -342,6 +378,35 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'module' => 'text',
     'settings' => array(
       'entity_translation_sync' => FALSE,
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_end_key'
+  $field_bases['field_end_key'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_end_key',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
       'max_length' => 255,
     ),
     'translatable' => 0,
@@ -494,6 +559,22 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'date',
   );
 
+  // Exported field_base: 'field_input_count'
+  $field_bases['field_input_count'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_input_count',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_ivr'
   $field_bases['field_ivr'] = array(
     'active' => 1,
@@ -579,61 +660,6 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'entityreference',
-  );
-
-  // Exported field_base: 'field_ivr_type'
-  $field_bases['field_ivr_type'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_ivr_type',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_ivr_working_time'
-  $field_bases['field_ivr_working_time'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_ivr_working_time',
-    'foreign keys' => array(),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        'Opening Hours' => 'Opening Hours',
-        'Closed Hours' => 'Closed Hours',
-      ),
-      'allowed_values_function' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'list_text',
   );
 
   // Exported field_base: 'field_language'
@@ -859,6 +885,34 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_no_input_action'
+  $field_bases['field_no_input_action'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_no_input_action',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Goto Screen',
+        1 => 'Connect Call',
+        2 => 'End Call',
+        3 => 'Set Language and Goto Screen',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_integer',
+  );
+
   // Exported field_base: 'field_no_input_delay'
   $field_bases['field_no_input_delay'] = array(
     'active' => 1,
@@ -918,6 +972,36 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_no_input_language'
+  $field_bases['field_no_input_language'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_no_input_language',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'languagefield',
+    'settings' => array(
+      'enabled' => 1,
+      'excluded_languages' => array(),
+      'format' => array(
+        'iso' => 'iso',
+        'name' => 'name',
+        'name_native' => 0,
+      ),
+      'groups' => '',
+      'languages' => array(),
+    ),
+    'translatable' => 0,
+    'type' => 'language_field',
+  );
+
   // Exported field_base: 'field_number'
   $field_bases['field_number'] = array(
     'active' => 1,
@@ -945,6 +1029,49 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text',
+  );
+
+  // Exported field_base: 'field_only_for_organization'
+  $field_bases['field_only_for_organization'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_only_for_organization',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'organization' => 'organization',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_organization'
@@ -1144,27 +1271,24 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_screen_type',
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
+    'foreign keys' => array(),
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'value' => array(
+        0 => 'value',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'list',
     'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max_length' => 255,
+      'allowed_values' => array(
+        0 => 'Display screen: should have Screen name, header text and image url. The rest of the keys will be ignored.',
+        1 => 'Option screen: will show only menu options',
+        2 => 'Input screen: will show text field input and menu options',
+      ),
+      'allowed_values_function' => '',
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'list_integer',
   );
 
   // Exported field_base: 'field_search_base'

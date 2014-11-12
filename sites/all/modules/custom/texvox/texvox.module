@@ -12,15 +12,16 @@ else {
 //
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
-  // Alter IVR only for this branch
+  // Alter IVR only for this branch's organization
   if($form_id == "branch_node_form"){
     $nid = $form['nid']['#value'];
     $ivr_array = array("_none"=>"- Select a value -");
     if(isset($nid) and !empty($nid)){
-      $query = db_select('field_data_field_branch', 'b');
+      $query = db_select('field_data_field_only_for_organization', 'b');
+      $query->join('field_data_field_organization', 'o', 'o.field_organization_target_id = b.field_only_for_organization_target_id');
       $query->join('node', 'n', 'n.nid = b.entity_id');
       $result = $query->fields('n', array('nid', 'title'))
-                 ->condition('b.field_branch_target_id', $nid, '=')
+                 ->condition('o.entity_id', $nid, '=')
                  ->orderBy("n.title", "ASC")
                  ->execute();
       // dpm($result);
@@ -432,27 +433,27 @@ function texvox_rules_action_info(){
   return $items;
 }
 
-/*
- * DELETE ivrs when delete a branch
- */
-function texvox_delete_ivr_when_delete_branch($node){
+// /*
+//  * DELETE ivrs when delete a branch
+//  */
+// function texvox_delete_ivr_when_delete_branch($node){
 
-  // watchdog('Node Delete', '<pre>'. print_r($node, TRUE) .'</pre>');
-  $nid = intval($node->nid);
-  $and = db_and()->condition('entity_type', 'node')->condition('bundle', 'ivr')->condition('field_branch_target_id', $nid);
+//   // watchdog('Node Delete', '<pre>'. print_r($node, TRUE) .'</pre>');
+//   $nid = intval($node->nid);
+//   $and = db_and()->condition('entity_type', 'node')->condition('bundle', 'ivr')->condition('field_branch_target_id', $nid);
   
-  $result = db_select('field_data_field_branch', 'n')
-      ->fields('n', array('entity_id'))
-      ->condition($and)
-      ->execute();
+//   $result = db_select('field_data_field_branch', 'n')
+//       ->fields('n', array('entity_id'))
+//       ->condition($and)
+//       ->execute();
   
-  $node_id_array = array();
-  foreach ($result as $row) {
-    $ivrID = intval($row->entity_id);
-    $node_id_array[] = $ivrID;
-  }
-  node_delete_multiple($node_id_array);
-}
+//   $node_id_array = array();
+//   foreach ($result as $row) {
+//     $ivrID = intval($row->entity_id);
+//     $node_id_array[] = $ivrID;
+//   }
+//   node_delete_multiple($node_id_array);
+// }
 
 /*
  * DELETE branches when delete an organization

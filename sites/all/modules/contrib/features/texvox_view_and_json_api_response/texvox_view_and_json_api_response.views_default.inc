@@ -159,16 +159,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_screen_type']['table'] = 'field_data_field_screen_type';
   $handler->display->display_options['fields']['field_screen_type']['field'] = 'field_screen_type';
   $handler->display->display_options['fields']['field_screen_type']['hide_empty'] = TRUE;
-  /* Field: Content: IVR Type */
-  $handler->display->display_options['fields']['field_ivr_type']['id'] = 'field_ivr_type';
-  $handler->display->display_options['fields']['field_ivr_type']['table'] = 'field_data_field_ivr_type';
-  $handler->display->display_options['fields']['field_ivr_type']['field'] = 'field_ivr_type';
-  $handler->display->display_options['fields']['field_ivr_type']['hide_empty'] = TRUE;
-  /* Field: Content: IVR Working Time */
-  $handler->display->display_options['fields']['field_ivr_working_time']['id'] = 'field_ivr_working_time';
-  $handler->display->display_options['fields']['field_ivr_working_time']['table'] = 'field_data_field_ivr_working_time';
-  $handler->display->display_options['fields']['field_ivr_working_time']['field'] = 'field_ivr_working_time';
-  $handler->display->display_options['fields']['field_ivr_working_time']['hide_empty'] = TRUE;
   /* Field: Content: rgbHEX */
   $handler->display->display_options['fields']['field_rgbhex']['id'] = 'field_rgbhex';
   $handler->display->display_options['fields']['field_rgbhex']['table'] = 'field_data_field_rgbhex';
@@ -219,6 +209,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
+  $handler->display->display_options['fields']['field_title_in_multi_languages']['label'] = 'ScreenName';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_title_in_multi_languages']['settings'] = array(
     'edit' => '',
@@ -233,6 +224,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['id'] = 'field_subtitle_in_multi_language';
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['table'] = 'field_data_field_subtitle_in_multi_language';
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['field'] = 'field_subtitle_in_multi_language';
+  $handler->display->display_options['fields']['field_subtitle_in_multi_language']['label'] = 'HeaderText';
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['settings'] = array(
     'edit' => '',
@@ -244,6 +236,21 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['multi_type'] = 'ol';
   $handler->display->display_options['fields']['field_subtitle_in_multi_language']['separator'] = '';
+  /* Field: Content: Body Text */
+  $handler->display->display_options['fields']['field_bodytext_in_multi_language']['id'] = 'field_bodytext_in_multi_language';
+  $handler->display->display_options['fields']['field_bodytext_in_multi_language']['table'] = 'field_data_field_bodytext_in_multi_language';
+  $handler->display->display_options['fields']['field_bodytext_in_multi_language']['field'] = 'field_bodytext_in_multi_language';
+  $handler->display->display_options['fields']['field_bodytext_in_multi_language']['label'] = 'BodyText';
+  $handler->display->display_options['fields']['field_bodytext_in_multi_language']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_bodytext_in_multi_language']['settings'] = array(
+    'edit' => '',
+    'delete' => '',
+    'add' => '',
+    'description' => 0,
+    'view_mode' => 'full',
+  );
+  $handler->display->display_options['fields']['field_bodytext_in_multi_language']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_bodytext_in_multi_language']['multi_type'] = 'ol';
   /* Field: Content: Menus */
   $handler->display->display_options['fields']['field_menus']['id'] = 'field_menus';
   $handler->display->display_options['fields']['field_menus']['table'] = 'field_data_field_menus';
@@ -255,15 +262,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_menus']['delta_offset'] = '0';
-  /* Field: Content: Branch */
-  $handler->display->display_options['fields']['field_branch']['id'] = 'field_branch';
-  $handler->display->display_options['fields']['field_branch']['table'] = 'field_data_field_branch';
-  $handler->display->display_options['fields']['field_branch']['field'] = 'field_branch';
-  $handler->display->display_options['fields']['field_branch']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_branch']['type'] = 'entityreference_entity_id';
-  $handler->display->display_options['fields']['field_branch']['settings'] = array(
-    'link' => 0,
-  );
   /* Field: Content: Action */
   $handler->display->display_options['fields']['field_action']['id'] = 'field_action';
   $handler->display->display_options['fields']['field_action']['table'] = 'field_data_field_action';
@@ -341,18 +339,16 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Holidays'),
     t('Updated date'),
     t('Screen Type'),
-    t('IVR Type'),
-    t('IVR Working Time'),
     t('rgbHEX'),
     t('Organization'),
     t('Phone Numbers'),
     t('Branch Type'),
     t('Organization Type'),
     t('Search Base'),
-    t('Title'),
-    t('Subtitle'),
+    t('ScreenName'),
+    t('HeaderText'),
+    t('BodyText'),
     t('Menus in this screen'),
-    t('Branch'),
     t('Action'),
     t('Go To Screen'),
     t('Default Screen'),

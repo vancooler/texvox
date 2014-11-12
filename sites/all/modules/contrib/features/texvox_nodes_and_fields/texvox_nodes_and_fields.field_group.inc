@@ -85,9 +85,9 @@ function texvox_nodes_and_fields_field_group_info() {
     'label' => 'Basic Info',
     'weight' => '1',
     'children' => array(
-      0 => 'field_branch',
-      1 => 'field_ivr_working_time',
-      2 => 'field_ivr_type',
+      0 => 'field_ivr_working_time',
+      1 => 'field_ivr_type',
+      2 => 'field_only_for_organization',
       3 => 'title',
     ),
     'format_type' => 'tab',
@@ -147,8 +147,11 @@ function texvox_nodes_and_fields_field_group_info() {
     'label' => 'Basic Info',
     'weight' => '1',
     'children' => array(
-      0 => 'field_screen_type',
-      1 => 'title_field',
+      0 => 'title_field',
+      1 => 'field_screen_type',
+      2 => 'field_display_image',
+      3 => 'field_input_count',
+      4 => 'field_end_key',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -161,6 +164,33 @@ function texvox_nodes_and_fields_field_group_info() {
     ),
   );
   $export['group_basic|node|screen|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_body_text|node|screen|form';
+  $field_group->group_name = 'group_body_text';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_screen_form';
+  $field_group->data = array(
+    'label' => 'Body Text',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_bodytext_in_multi_language',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-body-text field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_body_text|node|screen|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -228,7 +258,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Delay Settings',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_display_delay',
       1 => 'field_prelude_screen_code',
@@ -364,7 +394,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Menus',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_menus',
     ),
@@ -417,10 +447,12 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'No Input Settings',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_no_input_delay',
       1 => 'field_no_input_goto_screen',
+      2 => 'field_no_input_action',
+      3 => 'field_no_input_language',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -482,6 +514,7 @@ function texvox_nodes_and_fields_field_group_info() {
       3 => 'group_subtitle',
       4 => 'group_delay',
       5 => 'group_no_input',
+      6 => 'group_body_text',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(
