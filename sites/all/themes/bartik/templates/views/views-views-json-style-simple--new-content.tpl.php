@@ -57,7 +57,7 @@ foreach ($rows['nodes'] as $key => $node) {
           foreach ($attributes as $akey => $attribute) {
             $pair = explode("::", $attribute);
             if(count($pair) == 2){          
-              $timeslot[$skey][$pair[0]] = substr(trim($pair[1]), 2);
+              $timeslot[$skey][trim($pair[0])] = substr(trim($pair[1]), 2);
             }
             
           }
@@ -96,7 +96,7 @@ foreach ($rows['nodes'] as $key => $node) {
           foreach ($attributes as $akey => $attribute) {
             $pair = explode("::", $attribute);
             if(count($pair) == 2){          
-              $holidays[$skey][$pair[0]] = substr(trim($pair[1]), 2);
+              $holidays[$skey][trim($pair[0])] = substr(trim($pair[1]), 2);
             }
             
           }
@@ -131,7 +131,7 @@ foreach ($rows['nodes'] as $key => $node) {
           foreach ($parts as $pkey => $value) {
             $pair = explode(':', $value);
             if(count($pair) == 2){          
-              $phone_array[$skey][$pair[0]] = substr(trim($pair[1]), 2);
+              $phone_array[$skey][trim($pair[0])] = substr(trim($pair[1]), 2);
             }
           }  
         }
