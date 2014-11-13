@@ -26,10 +26,9 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
       'full' => array(
         'label' => 'above',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 1,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -37,18 +36,16 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'label' => 'Body Text',
     'required' => 0,
     'settings' => array(
-      'display_summary' => 0,
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
+        'rows' => 5,
       ),
-      'type' => 'text_textarea_with_summary',
+      'type' => 'text_textarea',
       'weight' => 1,
     ),
   );
@@ -1777,7 +1774,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => -3,
+      'weight' => 32,
     ),
   );
 
@@ -2122,7 +2119,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'bundle' => 'screen',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'If the screen type is  option screens, please edit the related information after save the screen and IVR.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -2673,6 +2670,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Holidays');
   t('IVR');
   t('IVR Screen');
+  t('If the screen type is  option screens, please edit the related information after save the screen and IVR.');
   t('Input Count');
   t('Input key that signal the end of input sequence');
   t('Integer number of the maximum number of input digits ');

@@ -149,9 +149,6 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'title_field',
       1 => 'field_screen_type',
-      2 => 'field_display_image',
-      3 => 'field_input_count',
-      4 => 'field_end_key',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -173,10 +170,10 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_screen_form';
+  $field_group->parent_name = 'group_display_screen_details';
   $field_group->data = array(
-    'label' => 'Body Text',
-    'weight' => '4',
+    'label' => 'Body Text in multi-languages',
+    'weight' => '43',
     'children' => array(
       0 => 'field_bodytext_in_multi_language',
     ),
@@ -185,7 +182,7 @@ function texvox_nodes_and_fields_field_group_info() {
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => 'group-body-text field-group-tab',
+        'classes' => '',
         'required_fields' => 1,
       ),
     ),
@@ -258,7 +255,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Delay Settings',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_display_delay',
       1 => 'field_prelude_screen_code',
@@ -274,6 +271,34 @@ function texvox_nodes_and_fields_field_group_info() {
     ),
   );
   $export['group_delay|node|screen|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_display_screen_details|node|screen|form';
+  $field_group->group_name = 'group_display_screen_details';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_display_screen';
+  $field_group->data = array(
+    'label' => 'Display Screen Details',
+    'weight' => '40',
+    'children' => array(
+      0 => 'group_title',
+      1 => 'group_subtitle',
+      2 => 'group_body_text',
+      3 => 'group_image',
+    ),
+    'format_type' => 'tabs',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_display_screen_details|node|screen|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -301,6 +326,61 @@ function texvox_nodes_and_fields_field_group_info() {
     ),
   );
   $export['group_display_title|node|screen_menu|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_image|node|screen|form';
+  $field_group->group_name = 'group_image';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_display_screen_details';
+  $field_group->data = array(
+    'label' => 'Image',
+    'weight' => '44',
+    'children' => array(
+      0 => 'field_display_image',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_image|node|screen|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_input_screen|node|screen|form';
+  $field_group->group_name = 'group_input_screen';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_screen_form';
+  $field_group->data = array(
+    'label' => 'Input Screen',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_input_count',
+      1 => 'field_end_key',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-input-screen field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_input_screen|node|screen|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -393,19 +473,20 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
-    'label' => 'Menus',
-    'weight' => '5',
+    'label' => 'Option Screen',
+    'weight' => '3',
     'children' => array(
       0 => 'field_menus',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Option Screen',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_menus|node|screen|form'] = $field_group;
@@ -447,7 +528,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'No Input Settings',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_no_input_delay',
       1 => 'field_no_input_goto_screen',
@@ -510,11 +591,10 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'group_basic',
       1 => 'group_menus',
-      2 => 'group_title',
-      3 => 'group_subtitle',
-      4 => 'group_delay',
-      5 => 'group_no_input',
-      6 => 'group_body_text',
+      2 => 'group_delay',
+      3 => 'group_no_input',
+      4 => 'group_display_screen',
+      5 => 'group_input_screen',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(
@@ -563,10 +643,10 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_screen_form';
+  $field_group->parent_name = 'group_display_screen_details';
   $field_group->data = array(
     'label' => 'Subtitle in multi-languages',
-    'weight' => '3',
+    'weight' => '42',
     'children' => array(
       0 => 'field_subtitle_in_multi_language',
     ),
@@ -575,7 +655,7 @@ function texvox_nodes_and_fields_field_group_info() {
       'formatter' => 'closed',
       'instance_settings' => array(
         'description' => '',
-        'classes' => 'group-subtitle field-group-tab',
+        'classes' => '',
         'required_fields' => 1,
       ),
     ),
@@ -617,10 +697,10 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_screen_form';
+  $field_group->parent_name = 'group_display_screen_details';
   $field_group->data = array(
     'label' => 'Title in multi-languages',
-    'weight' => '2',
+    'weight' => '41',
     'children' => array(
       0 => 'field_title_in_multi_languages',
     ),
