@@ -461,6 +461,7 @@ foreach ($rows['nodes'] as $lkey => $loop_node) {
 }
 foreach ($rows['nodes'] as $key => $node) {
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen"){
+    $menus_here = array();
     if(isset($rows['nodes'][$key]['node']['Menus in this screen'])){
       $menu_ids = $rows['nodes'][$key]['node']['Menus in this screen'];  
       if(count($menu_ids) > 0){
@@ -473,6 +474,7 @@ foreach ($rows['nodes'] as $key => $node) {
             if($loop_menu_id == $menu_id){
               // add branch to this organization
               $rows['nodes'][$key]['node']['Menus'][$bkey] = $loop_node['node'];
+              $menus_here[$bkey] = $loop_node['node'];
               // log that node id
               $menu_key[] = $lkey;
             }
@@ -483,6 +485,24 @@ foreach ($rows['nodes'] as $key => $node) {
           unset($rows['nodes'][$node_key]);
         }
       } 
+    }
+    $screen_id = intval($rows['nodes'][$key]['node']['Node ID']);
+    if(count($menus_here) > 1){
+      $result = db_select('field_data_field_menus', 'm')
+          ->fields('m', array('field_menus_target_id'))
+          ->orderBy('delta', 'ASC')
+          ->execute();
+      
+      $menu_array = array();
+      foreach ($result as $row) {
+        $menuID = intval($row->field_menus_target_id);
+        foreach ($menus_here as $mkey => $menu) {
+          if(intval($menu['Node ID']) == $menuID){
+            $menu_array[] = $menu;
+          }
+        }
+      }
+      $rows['nodes'][$key]['node']['Menus'] = $menu_array;
     }
   }
 }
