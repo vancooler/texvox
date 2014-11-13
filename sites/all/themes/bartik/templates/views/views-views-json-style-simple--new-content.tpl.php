@@ -350,7 +350,7 @@ foreach ($rows['nodes'] as $key => $node) {
       $pieces = explode("Language:", $title_string);
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){
-          $parts = explode("Display ScreenName:", $element);
+          $parts = explode("Display Title:", $element);
           if(count($parts) == 2){          
             $title_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
             $title_array[($skey-1)]['ScreenName'] = substr(trim($parts[1]), 2);
@@ -491,6 +491,8 @@ foreach ($rows['nodes'] as $key => $node) {
         }
       } 
     }
+
+    // sort the menus by 'delta'
     $screen_id = intval($rows['nodes'][$key]['node']['Node ID']);
     if(count($menus_here) > 1){
       $result = db_select('field_data_field_menus', 'm')
@@ -584,6 +586,41 @@ $hash = array();
 $hash['Organizations'] = $all_org;
 $hash['IVRs'] = $all_ivr;
 $rows = $hash;
+
+
+////////////////////////////////////////////////
+//
+// remove useless info
+//
+////////////////////////////////////////////////
+foreach ($rows['Organizations'] as $okey => $org) {
+  unset($rows['Organizations'][$okey]['Node Type']);
+  unset($rows['Organizations'][$okey]['Branches in this organization']);
+  if(isset($org['Branches'])){
+    foreach ($org['Branches'] as $bkey => $branch) {
+      unset($rows['Organizations'][$okey]['Branches'][$bkey]['Node Type']);
+      unset($rows['Organizations'][$okey]['Branches'][$bkey]['Organization']);
+    }
+  }
+}
+foreach ($rows['IVRs'] as $ikey => $ivr) {
+  unset($rows['IVRs'][$ikey]['Node Type']);
+  if(isset($rows['IVRs'][$ikey]['Screens in this IVR'])){
+    unset($rows['IVRs'][$ikey]['Screens in this IVR']); 
+  }
+  if(isset($ivr['Screens'])){
+    foreach ($ivr['Screens'] as $skey => $screen) {
+      unset($rows['IVRs'][$ikey]['Screens'][$skey]['Node Type']);
+      unset($rows['IVRs'][$ikey]['Screens'][$skey]['Menus in this screen']);
+      if(isset($screen['Menus'])){
+        foreach ($screen['Menus'] as $mkey => $menu) {
+          unset($rows['IVRs'][$ikey]['Screens'][$skey]['Menus'][$mkey]['Node Type']);
+        }
+      }
+    }
+  }
+}
+
 
 ////////////////////////////////////////////////
 //

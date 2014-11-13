@@ -71,17 +71,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => '',
   );
-  /* Field: Content: Logo */
-  $handler->display->display_options['fields']['field_logo_1']['id'] = 'field_logo_1';
-  $handler->display->display_options['fields']['field_logo_1']['table'] = 'field_data_field_logo';
-  $handler->display->display_options['fields']['field_logo_1']['field'] = 'field_logo';
-  $handler->display->display_options['fields']['field_logo_1']['label'] = 'Logo Wallpaper';
-  $handler->display->display_options['fields']['field_logo_1']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_logo_1']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_logo_1']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
   /* Field: Location: Street */
   $handler->display->display_options['fields']['street']['id'] = 'street';
   $handler->display->display_options['fields']['street']['table'] = 'location';
@@ -385,6 +374,45 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_verify_options']['settings'] = array(
     'link' => 0,
   );
+  /* Field: Content: Default Screen */
+  $handler->display->display_options['fields']['field_default_screen_1']['id'] = 'field_default_screen_1';
+  $handler->display->display_options['fields']['field_default_screen_1']['table'] = 'field_data_field_default_screen';
+  $handler->display->display_options['fields']['field_default_screen_1']['field'] = 'field_default_screen';
+  $handler->display->display_options['fields']['field_default_screen_1']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_default_screen_1']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_default_screen_1']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Content: Set Language */
+  $handler->display->display_options['fields']['field_set_language']['id'] = 'field_set_language';
+  $handler->display->display_options['fields']['field_set_language']['table'] = 'field_data_field_set_language';
+  $handler->display->display_options['fields']['field_set_language']['field'] = 'field_set_language';
+  $handler->display->display_options['fields']['field_set_language']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_set_language']['settings'] = array(
+    'format' => array(
+      'iso' => 'iso',
+      'name' => 0,
+      'name_native' => 0,
+    ),
+  );
+  /* Field: Content: Action Delay Screen Code */
+  $handler->display->display_options['fields']['field_action_delay_screen_code']['id'] = 'field_action_delay_screen_code';
+  $handler->display->display_options['fields']['field_action_delay_screen_code']['table'] = 'field_data_field_action_delay_screen_code';
+  $handler->display->display_options['fields']['field_action_delay_screen_code']['field'] = 'field_action_delay_screen_code';
+  $handler->display->display_options['fields']['field_action_delay_screen_code']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_action_delay_screen_code']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_action_delay_screen_code']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Content: Action Delay Time */
+  $handler->display->display_options['fields']['field_action_delay_time']['id'] = 'field_action_delay_time';
+  $handler->display->display_options['fields']['field_action_delay_time']['table'] = 'field_data_field_action_delay_time';
+  $handler->display->display_options['fields']['field_action_delay_time']['field'] = 'field_action_delay_time';
+  $handler->display->display_options['fields']['field_action_delay_time']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_action_delay_time']['settings'] = array(
+    'thousand_separator' => '',
+    'prefix_suffix' => 0,
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -414,7 +442,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Node Type'),
     t('Screens in this IVR'),
     t('Logo Thumbnail'),
-    t('Logo Wallpaper'),
     t('Street1'),
     t('Street2'),
     t('City'),
@@ -451,6 +478,9 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Default IVR'),
     t('Verify Input'),
     t('Verify Options'),
+    t('Set Language'),
+    t('Action Delay Screen Code'),
+    t('Action Delay Time'),
     t('Page'),
   );
   $export['new_content'] = $view;
