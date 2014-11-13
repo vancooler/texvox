@@ -81,16 +81,41 @@ foreach ($rows['nodes'] as $key => $node) {
 
 
     // Rewrite holidays
-    if(isset($node['node']['Holidays']) and !empty($node['node']['Holidays'])){
+    if(isset($node['node']['Holiday']) and !empty($node['node']['Holiday'])){
       $holidays = array();
-      $holiday_string = $node['node']['Holidays'];
-      $pieces = explode(", ", $holiday_string);
+      $oh_string = $node['node']['Holiday'];
+      $pieces = explode(", ", $oh_string);
       foreach ($pieces as $skey => $value) {
-        if(!empty($value)){
-          $holidays[] = $value;
+        $rewrite_value = str_replace('Date', 'Date:', $value);
+        $rewrite_value = str_replace('startTime', ', startTime:', $rewrite_value);
+        $rewrite_value = str_replace('endTime', ', endTime:', $rewrite_value);
+        $rewrite_value = str_replace('IVR', ', IVR:', $rewrite_value);
+
+        if(!empty($rewrite_value)){
+          $attributes = explode(", ", $rewrite_value);
+          foreach ($attributes as $akey => $attribute) {
+            $pair = explode("::", $attribute);
+            if(count($pair) == 2){          
+              $holidays[$skey][$pair[0]] = substr(trim($pair[1]), 2);
+            }
+            
+          }
         }
+        // calculate duration
+        $start_pieces = explode(':', $holidays[$skey]['startTime']);
+        $start_seconds = intval($start_pieces[0]) * 3600 + intval($start_pieces[1]) * 60;
+        $end_pieces = explode(':', $holidays[$skey]['endTime']);
+        $end_seconds = intval($end_pieces[0]) * 3600 + intval($end_pieces[1]) * 60;
+        if($start_seconds < $end_seconds){
+          $duration = $end_seconds - $start_seconds;
+        }
+        else{
+          $duration = 24 * 3600 + $end_seconds - $start_seconds;
+        }
+        $holidays[$skey]['duration'] = $duration;
+        unset($holidays[$skey]['endTime']);
       }
-      $rows['nodes'][$key]['node']['Holidays'] = $holidays;
+      $rows['nodes'][$key]['node']['Holiday'] = $holidays;
     }
 
     // Rewrite phone numbers as an array
@@ -248,7 +273,6 @@ foreach ($rows['nodes'] as $key => $node) {
     if(isset($rows['nodes'][$key]['node']['BodyText']) and !empty($rows['nodes'][$key]['node']['BodyText'])){
       $body_array = array();
       $body_string = str_replace('\n', '', $node['node']['BodyText']);
-      dpm($body_string);
       $pieces = explode("Language:", $body_string);
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){

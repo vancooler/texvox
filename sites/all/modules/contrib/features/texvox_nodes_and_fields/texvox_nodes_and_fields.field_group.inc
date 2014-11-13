@@ -53,11 +53,11 @@ function texvox_nodes_and_fields_field_group_info() {
     'label' => 'Basic Info',
     'weight' => '10',
     'children' => array(
-      0 => 'field_logo',
-      1 => 'field_organization',
-      2 => 'field_search_base',
-      3 => 'field_phone_numbers',
-      4 => 'field_rgbhex',
+      0 => 'field_organization',
+      1 => 'field_search_base',
+      2 => 'field_phone_numbers',
+      3 => 'field_rgbhex',
+      4 => 'field_default_ivr',
       5 => 'title',
     ),
     'format_type' => 'tab',
@@ -170,10 +170,10 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_display_screen_details';
+  $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Body Text in multi-languages',
-    'weight' => '43',
+    'weight' => '5',
     'children' => array(
       0 => 'field_bodytext_in_multi_language',
     ),
@@ -205,6 +205,7 @@ function texvox_nodes_and_fields_field_group_info() {
       0 => 'group_basic',
       1 => 'group_location',
       2 => 'group_opening_hours',
+      3 => 'group_holiday',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(
@@ -255,7 +256,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Delay Settings',
-    'weight' => '5',
+    'weight' => '8',
     'children' => array(
       0 => 'field_display_delay',
       1 => 'field_prelude_screen_code',
@@ -330,15 +331,42 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_holiday|node|branch|form';
+  $field_group->group_name = 'group_holiday';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'branch';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_branch';
+  $field_group->data = array(
+    'label' => 'Holidays',
+    'weight' => '13',
+    'children' => array(
+      0 => 'field_holiday',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-holiday field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_holiday|node|branch|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_image|node|screen|form';
   $field_group->group_name = 'group_image';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_display_screen_details';
+  $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Image',
-    'weight' => '44',
+    'weight' => '6',
     'children' => array(
       0 => 'field_display_image',
     ),
@@ -365,7 +393,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Input Screen',
-    'weight' => '4',
+    'weight' => '7',
     'children' => array(
       0 => 'field_input_count',
       1 => 'field_end_key',
@@ -473,14 +501,14 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
-    'label' => 'Option Screen',
-    'weight' => '3',
+    'label' => 'Menus',
+    'weight' => '2',
     'children' => array(
       0 => 'field_menus',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'label' => 'Option Screen',
+      'label' => 'Menus',
       'instance_settings' => array(
         'required_fields' => 1,
         'classes' => '',
@@ -528,7 +556,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'No Input Settings',
-    'weight' => '6',
+    'weight' => '9',
     'children' => array(
       0 => 'field_no_input_delay',
       1 => 'field_no_input_goto_screen',
@@ -560,8 +588,7 @@ function texvox_nodes_and_fields_field_group_info() {
     'label' => 'Timeslots',
     'weight' => '12',
     'children' => array(
-      0 => 'field_holidays',
-      1 => 'field_timeslots',
+      0 => 'field_timeslots',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -591,10 +618,13 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'group_basic',
       1 => 'group_menus',
-      2 => 'group_delay',
-      3 => 'group_no_input',
-      4 => 'group_display_screen',
-      5 => 'group_input_screen',
+      2 => 'group_title',
+      3 => 'group_subtitle',
+      4 => 'group_delay',
+      5 => 'group_no_input',
+      6 => 'group_body_text',
+      7 => 'group_input_screen',
+      8 => 'group_image',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(
@@ -643,10 +673,10 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_display_screen_details';
+  $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Subtitle in multi-languages',
-    'weight' => '42',
+    'weight' => '4',
     'children' => array(
       0 => 'field_subtitle_in_multi_language',
     ),
@@ -697,10 +727,10 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'screen';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_display_screen_details';
+  $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Title in multi-languages',
-    'weight' => '41',
+    'weight' => '3',
     'children' => array(
       0 => 'field_title_in_multi_languages',
     ),

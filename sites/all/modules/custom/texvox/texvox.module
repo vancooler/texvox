@@ -12,6 +12,7 @@ else {
 //
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
+    // dpm($form);
   // Alter IVR only for this branch's organization
   if($form_id == "branch_node_form"){
     $nid = $form['nid']['#value'];
@@ -37,6 +38,15 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
         }
       }
     }
+    $holiday = $form['field_holiday']['und'];
+    if(isset($holiday) and !empty($holiday)){
+      foreach ($holiday as $key => $holid) {
+        if(is_numeric($key) and isset($holid['field_ivr']) and isset($holid['field_ivr']['und']) and isset($holid['field_ivr']['und']['#options'])){
+          $form['field_holiday']['und'][$key]['field_ivr']['und']['#options'] = $ivr_array;
+        }
+      }
+    }
+    $form['field_default_ivr']['und']['#options'] = $ivr_array;
     $form['actions']['submit']['#submit'][] = 'texvox_branch_form_submit_nested_handler';
   }
 
@@ -83,7 +93,6 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       Screens options update
     */
     $screens_count = count($current_screen_menu_options) - 1;
-    // dpm($form);
 
     /**
      * Hide menus tab if the screen is not solid yet
@@ -430,7 +439,71 @@ function texvox_rules_action_info(){
     ),
     'base' => 'texvox_delete_branch_when_delete_organization',
   );
+  $items['texvox_register_user_in_freeswitch'] = array(
+    'label' => t('Register user in FreeSwitch'), 
+    'parameter' => array(
+      'user' => array(
+        'type' => 'user',
+        'label' => t('User'),
+      ),        
+    ), 
+    'group' => t('Texvox User Management Rules'),
+    'callbacks' => array(
+      'execute' => 'texvox_register_user_in_freeswitch',
+    ),
+    'base' => 'texvox_register_user_in_freeswitch',
+  );
   return $items;
+}
+
+/*
+ * Register user in FreeSwitch
+ */
+function texvox_register_user_in_freeswitch($user){
+  watchdog('USER registered', '<pre>'. print_r($user, TRUE) .'</pre>');
+  $uid = intval($user->uid);
+  $name = $user->name;
+  $mail = $user->mail;
+
+  $length = 10;
+  $fs_pass = user_password($length); 
+  $fs_pass_encrypted = encrypt($fs_pass);
+  // watchdog('USER registered', '<pre>'. print_r($fs_pass, TRUE) .'</pre>');
+  // $encode_encrypt = utf8_encode($fs_pass_encrypted);
+  // watchdog('USER registered', '<pre>'. print_r($encode_encrypt, TRUE) .'</pre>');
+  // watchdog('USER registered', '<pre>'. print_r(decrypt(utf8_decode(utf8_encode($fs_pass_encrypted))), TRUE) .'</pre>');
+  
+
+  // write the encrypted pass to Drupal db
+  $result = db_insert('field_data_field_encrypted_freeswitch_pass') 
+            ->fields(array(
+              'entity_type' => 'user',
+              'bundle' => 'user',
+              'deleted' => 0,
+              'entity_id' => $uid,
+              'revision_id' => $uid,
+              'language' => 'und',
+              'delta' => 0,
+              'field_encrypted_freeswitch_pass_value' => $encode_encrypt,
+              'field_encrypted_freeswitch_pass_format' => null
+            ))
+            ->execute();
+  
+  $result = db_insert('field_revision_field_encrypted_freeswitch_pass') 
+            ->fields(array(
+              'entity_type' => 'user',
+              'bundle' => 'user',
+              'deleted' => 0,
+              'entity_id' => $uid,
+              'revision_id' => $uid,
+              'language' => 'und',
+              'delta' => 0,
+              'field_encrypted_freeswitch_pass_value' => $encode_encrypt,
+              'field_encrypted_freeswitch_pass_format' => null
+            ))
+            ->execute();
+  
+  return 1;
 }
 
 /*
@@ -520,5 +593,22 @@ function texvox_delete_branch_when_delete_organization($node){
  *    X-CSRF-Token:TokenReceived 
  *
  */
+
+// branch{
+//   holidays[
+//     {
+//       date: mm/dd/yyyy,
+//       startTime: 9:00,
+//       duration: 28800,   -- in seconds
+//       IVR: 4             -- IVR Node ID
+//     },
+//     {
+//       date: mm/dd/yyyy,
+//       startTime: 17:00,
+//       duration: 57600,   -- in seconds
+//       IVR: 5             -- IVR Node ID
+//     }
+//   ]
+// }
 
 

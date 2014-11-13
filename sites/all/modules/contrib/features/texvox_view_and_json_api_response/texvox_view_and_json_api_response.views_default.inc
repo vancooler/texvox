@@ -133,19 +133,10 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_timezone']['table'] = 'field_data_field_timezone';
   $handler->display->display_options['fields']['field_timezone']['field'] = 'field_timezone';
   $handler->display->display_options['fields']['field_timezone']['hide_empty'] = TRUE;
-  /* Field: Content: Holidays */
-  $handler->display->display_options['fields']['field_holidays']['id'] = 'field_holidays';
-  $handler->display->display_options['fields']['field_holidays']['table'] = 'field_data_field_holidays';
-  $handler->display->display_options['fields']['field_holidays']['field'] = 'field_holidays';
-  $handler->display->display_options['fields']['field_holidays']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_holidays']['settings'] = array(
-    'format_type' => 'short',
-    'fromto' => 'both',
-    'multiple_number' => '',
-    'multiple_from' => '',
-    'multiple_to' => '',
+  $handler->display->display_options['fields']['field_timezone']['type'] = 'tzfield_date';
+  $handler->display->display_options['fields']['field_timezone']['settings'] = array(
+    'format' => 'T',
   );
-  $handler->display->display_options['fields']['field_holidays']['delta_offset'] = '0';
   /* Field: Content: Updated date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'node';
@@ -271,6 +262,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_go_to_screen']['table'] = 'field_data_field_go_to_screen';
   $handler->display->display_options['fields']['field_go_to_screen']['field'] = 'field_go_to_screen';
   $handler->display->display_options['fields']['field_go_to_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_go_to_screen']['type'] = 'entityreference_entity_id';
   $handler->display->display_options['fields']['field_go_to_screen']['settings'] = array(
     'link' => 0,
   );
@@ -279,6 +271,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_default_screen']['table'] = 'field_data_field_default_screen';
   $handler->display->display_options['fields']['field_default_screen']['field'] = 'field_default_screen';
   $handler->display->display_options['fields']['field_default_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_default_screen']['type'] = 'entityreference_entity_id';
   $handler->display->display_options['fields']['field_default_screen']['settings'] = array(
     'link' => 0,
   );
@@ -351,7 +344,30 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_no_input_goto_screen']['table'] = 'field_data_field_no_input_goto_screen';
   $handler->display->display_options['fields']['field_no_input_goto_screen']['field'] = 'field_no_input_goto_screen';
   $handler->display->display_options['fields']['field_no_input_goto_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_no_input_goto_screen']['type'] = 'entityreference_entity_id';
   $handler->display->display_options['fields']['field_no_input_goto_screen']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Content: Holiday */
+  $handler->display->display_options['fields']['field_holiday']['id'] = 'field_holiday';
+  $handler->display->display_options['fields']['field_holiday']['table'] = 'field_data_field_holiday';
+  $handler->display->display_options['fields']['field_holiday']['field'] = 'field_holiday';
+  $handler->display->display_options['fields']['field_holiday']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_holiday']['settings'] = array(
+    'edit' => '',
+    'delete' => '',
+    'add' => '',
+    'description' => 0,
+    'view_mode' => 'full',
+  );
+  $handler->display->display_options['fields']['field_holiday']['delta_offset'] = '0';
+  /* Field: Content: Default IVR */
+  $handler->display->display_options['fields']['field_default_ivr']['id'] = 'field_default_ivr';
+  $handler->display->display_options['fields']['field_default_ivr']['table'] = 'field_data_field_default_ivr';
+  $handler->display->display_options['fields']['field_default_ivr']['field'] = 'field_default_ivr';
+  $handler->display->display_options['fields']['field_default_ivr']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_default_ivr']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_default_ivr']['settings'] = array(
     'link' => 0,
   );
   /* Sort criterion: Content: Post date */
@@ -393,7 +409,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('lat'),
     t('lon'),
     t('Timezone'),
-    t('Holidays'),
     t('Updated date'),
     t('Screen Type'),
     t('rgbHEX'),
@@ -417,6 +432,8 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('End Key'),
     t('No Input Delay'),
     t('No Input Goto Screen'),
+    t('Holiday'),
+    t('Default IVR'),
     t('Page'),
   );
   $export['new_content'] = $view;
