@@ -599,6 +599,12 @@ $result=db_query($query);
 foreach ($result as $row) {
   $deleted_node_ids[] = $row->entity_id;
 }
+$query="SELECT nid FROM node WHERE status != 1 AND type IN ('organization', 'ivr', 'screen', 'branch', 'screen_menu') AND changed >= $timestamp ORDER BY nid ASC";
+$result=db_query($query);
+foreach ($result as $row) {
+  $deleted_node_ids[] = $row->entity_id;
+}
+sort($deleted_node_ids);
 $rows['Deleted Nodes'] = $deleted_node_ids;
 $ruend = microtime(true);
 watchdog('Node list time', '<pre>'. print_r(($ruend-$rustart), TRUE) .'</pre>');
