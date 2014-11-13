@@ -213,18 +213,21 @@ foreach ($rows['nodes'] as $key => $node) {
     // Rewrite no input action as integer
     if(isset($node['node']['No Input Action']) and !empty($node['node']['No Input Action'])){
       $action = $rows['nodes'][$key]['node']['No Input Action'];
-      switch (substr($action, 0, 1)) {
-        case 'G':
+      switch (substr($action, 0, 2)) {
+        case 'Go':
           $rows['nodes'][$key]['node']['No Input Action'] = '0';
           break;
-        case 'C':
+        case 'Co':
           $rows['nodes'][$key]['node']['No Input Action'] = '1';
           break;
-        case 'E':
+        case 'En':
           $rows['nodes'][$key]['node']['No Input Action'] = '2';
           break;
-        case 'S':
+        case 'Se':
           $rows['nodes'][$key]['node']['No Input Action'] = '3';
+          break;
+        case 'Cl':
+          $rows['nodes'][$key]['node']['No Input Action'] = '4';
           break;
         default:
           # code...
@@ -232,8 +235,10 @@ foreach ($rows['nodes'] as $key => $node) {
       }
     }
     
-  
-
+    // Add Verufy Input as 0 if empty
+    if(!isset($rows['nodes'][$key]['node']['Verify Input']) or empty($rows['nodes'][$key]['node']['Verify Input'])){
+      $rows['nodes'][$key]['node']['Verify Input'] = '0';
+    }
 
     // Rewrite subtitles as an array
     if(isset($rows['nodes'][$key]['node']['HeaderText']) and !empty($rows['nodes'][$key]['node']['HeaderText'])){

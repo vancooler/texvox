@@ -12,7 +12,7 @@ else {
 //
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
-    // dpm($form);
+  // dpm($form);
   // Alter IVR only for this branch's organization
   if($form_id == "branch_node_form"){
     $nid = $form['nid']['#value'];
@@ -106,6 +106,9 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
           }
         }
         $form['field_ivr_screen']['und']['form']['field_menus']['#access'] = FALSE;
+        $real_menu_options = array();
+        $real_menu_options['_none'] = "- None -";
+        $form['field_ivr_screen']['und']['form']['field_verify_options']['und']['#options'] = $real_menu_options;
       }
       if(isset($form['field_ivr_screen']['und']['entities'])){
         foreach ($form['field_ivr_screen']['und']['entities'] as $key => $screen) {
@@ -120,15 +123,12 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
               }
               $form['field_ivr_screen']['und']['entities'][$key]['form']['field_menus']['#access'] = FALSE;
             }
+            $real_menu_options = array();
+            $real_menu_options['_none'] = "- None -";
+            if(isset($form['field_ivr_screen']['und']['entities'][$key]['form'])){            
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['field_verify_options']['und']['#options'] = $real_menu_options;
+            }
           }
-          // if(is_numeric($key) and isset($screen['#entity'])){
-          //   $entity = $screen['#entity'];
-          //   if(isset($entity->is_new) and $entity->is_new){
-          //     $tmp_entity = $entity;
-          //     $tmp_entity->status = 0;
-          //     $form['field_ivr_screen']['und']['entities'][$key]['#entity'] = $tmp_entity;
-          //   }
-          // }
         }
       }
     }
@@ -141,6 +141,10 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
           }
         }
         $form['field_ivr_screen']['und']['form']['field_menus']['#access'] = FALSE;
+        $real_menu_options = array();
+        $real_menu_options['_none'] = "- None -";
+        $form['field_ivr_screen']['und']['form']['field_verify_options']['und']['#options'] = $real_menu_options;
+          
       }
       if(isset($form['field_ivr_screen']['und']['entities'])){
         foreach ($form['field_ivr_screen']['und']['entities'] as $key => $screen) {
@@ -156,15 +160,25 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
               }
               $form['field_ivr_screen']['und']['entities'][$key]['form']['field_menus']['#access'] = FALSE;
             }
+            $real_menu_options = array();
+            $real_menu_options['_none'] = "- None -";
+            if(isset($entity->nid) and intval($entity->nid) > 0 and isset($form['field_ivr_screen']['und']['entities'][$key]['form'])){
+              $screen_id = intval($entity->nid);
+              $query = db_select('node', 'n');
+              $query->join('field_data_field_menus', 'm', 'm.field_menus_target_id = n.nid');
+              $query->join('field_data_field_action', 'a', 'a.entity_id = n.nid');
+              $result = $query->fields('n', array('nid', 'title'))
+                         ->condition('m.entity_id', $screen_id, '=')
+                         ->condition('a.field_action_value', 4, '=')
+                         ->execute();
+              foreach ($result as $row) {
+                $real_menu_options[$row->nid] = $row->title;
+              }
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['field_verify_options']['und']['#options'] = $real_menu_options;
+            }
+            
           }
-          // if(is_numeric($key) and isset($screen['#entity'])){
-          //   $entity = $screen['#entity'];
-          //   if(isset($entity->is_new) and $entity->is_new){
-          //     $tmp_entity = $entity;
-          //     $tmp_entity->status = 0;
-          //     $form['field_ivr_screen']['und']['entities'][$key]['#entity'] = $tmp_entity;
-          //   }
-          // }
+          
         }
       }
     }

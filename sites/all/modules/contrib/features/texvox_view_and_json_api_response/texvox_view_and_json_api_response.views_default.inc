@@ -370,6 +370,21 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_default_ivr']['settings'] = array(
     'link' => 0,
   );
+  /* Field: Content: Verify Input */
+  $handler->display->display_options['fields']['field_verify_input']['id'] = 'field_verify_input';
+  $handler->display->display_options['fields']['field_verify_input']['table'] = 'field_data_field_verify_input';
+  $handler->display->display_options['fields']['field_verify_input']['field'] = 'field_verify_input';
+  $handler->display->display_options['fields']['field_verify_input']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_verify_input']['type'] = 'list_key';
+  /* Field: Content: Verify Options */
+  $handler->display->display_options['fields']['field_verify_options']['id'] = 'field_verify_options';
+  $handler->display->display_options['fields']['field_verify_options']['table'] = 'field_data_field_verify_options';
+  $handler->display->display_options['fields']['field_verify_options']['field'] = 'field_verify_options';
+  $handler->display->display_options['fields']['field_verify_options']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_verify_options']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_verify_options']['settings'] = array(
+    'link' => 0,
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -434,6 +449,8 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('No Input Goto Screen'),
     t('Holiday'),
     t('Default IVR'),
+    t('Verify Input'),
+    t('Verify Options'),
     t('Page'),
   );
   $export['new_content'] = $view;

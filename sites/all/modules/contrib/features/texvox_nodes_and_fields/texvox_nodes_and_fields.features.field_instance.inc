@@ -2342,6 +2342,88 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-screen-field_verify_input'
+  $field_instances['node-screen-field_verify_input'] = array(
+    'bundle' => 'screen',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => 'Flag to indicate that textfield input should be verified by user',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 18,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_verify_input',
+    'label' => 'Verify Input',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-field_verify_options'
+  $field_instances['node-screen-field_verify_options'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 19,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_verify_options',
+    'label' => 'Verify Options',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'node-screen-title_field'
   $field_instances['node-screen-title_field'] = array(
     'bundle' => 'screen',
@@ -2588,46 +2670,6 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-screen_menu-field_menu_type'
-  $field_instances['node-screen_menu-field_menu_type'] = array(
-    'bundle' => 'screen_menu',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 1,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_menu_type',
-    'label' => 'Menu Type',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 3,
-    ),
-  );
-
   // Exported field_instance: 'node-screen_menu-field_set_language'
   $field_instances['node-screen_menu-field_set_language'] = array(
     'bundle' => 'screen_menu',
@@ -2771,6 +2813,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Display Subtitle');
   t('Display Title');
   t('End Key');
+  t('Flag to indicate that textfield input should be verified by user');
   t('Go To Screen');
   t('Holiday');
   t('IVR');
@@ -2784,7 +2827,6 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Language code we should set to IVR after selecting this menu item. Used when Action is set to “Set Language and Goto Screen”');
   t('Location');
   t('Logo');
-  t('Menu Type');
   t('Menus');
   t('No Input Action');
   t('No Input Delay');
@@ -2813,6 +2855,8 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Timezone');
   t('Title');
   t('Title ');
+  t('Verify Input');
+  t('Verify Options');
   t('dayOfTheWeek');
   t('endTime');
   t('rgbHEX');
