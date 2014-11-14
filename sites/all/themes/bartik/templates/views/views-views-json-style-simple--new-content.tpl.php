@@ -232,7 +232,7 @@ foreach ($rows['nodes'] as $key => $node) {
       }
     }
     
-    // Add Verufy Input as 0 if empty
+    // Add Verify Input as 0 if empty
     if(!isset($rows['nodes'][$key]['node']['Verify Input']) or empty($rows['nodes'][$key]['node']['Verify Input'])){
       $rows['nodes'][$key]['node']['Verify Input'] = '0';
     }
@@ -633,6 +633,11 @@ foreach ($rows['IVRs'] as $ikey => $ivr) {
       if(isset($screen['Menus'])){
         foreach ($screen['Menus'] as $mkey => $menu) {
           unset($rows['IVRs'][$ikey]['Screens'][$skey]['Menus'][$mkey]['Node Type']);
+        }
+      }
+      if(isset($screen['Verify Options'])){
+        foreach ($screen['Verify Options'] as $mkey => $menu) {
+          unset($rows['IVRs'][$ikey]['Screens'][$skey]['Verify Options'][$mkey]['Node Type']);
         }
       }
     }
