@@ -398,7 +398,7 @@ function texvox_nodes_and_fields_field_group_info() {
       0 => 'field_input_count',
       1 => 'field_end_key',
       2 => 'field_verify_input',
-      3 => 'field_verify_options',
+      3 => 'field_new_verify_options',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

@@ -226,9 +226,6 @@ foreach ($rows['nodes'] as $key => $node) {
         case 'Se':
           $rows['nodes'][$key]['node']['No Input Action'] = '3';
           break;
-        case 'Cl':
-          $rows['nodes'][$key]['node']['No Input Action'] = '4';
-          break;
         default:
           # code...
           break;
@@ -324,18 +321,21 @@ foreach ($rows['nodes'] as $key => $node) {
     // Rewrite action as integer
     if(isset($node['node']['Action']) and !empty($node['node']['Action'])){
       $action = $rows['nodes'][$key]['node']['Action'];
-      switch (substr($action, 0, 1)) {
-        case 'G':
+      switch (substr($action, 0, 2)) {
+        case 'Go':
           $rows['nodes'][$key]['node']['Action'] = '0';
           break;
-        case 'C':
+        case 'Co':
           $rows['nodes'][$key]['node']['Action'] = '1';
           break;
-        case 'E':
+        case 'En':
           $rows['nodes'][$key]['node']['Action'] = '2';
           break;
-        case 'S':
+        case 'Se':
           $rows['nodes'][$key]['node']['Action'] = '3';
+          break;
+        case 'Cl':
+          $rows['nodes'][$key]['node']['Action'] = '4';
           break;
         default:
           # code...
@@ -467,6 +467,7 @@ foreach ($rows['nodes'] as $lkey => $loop_node) {
 foreach ($rows['nodes'] as $key => $node) {
   if(isset($node['node']) and isset($node['node']['Node Type']) and $node['node']['Node Type'] == "Screen"){
     $menus_here = array();
+    $verify_options = array();
     if(isset($rows['nodes'][$key]['node']['Menus in this screen'])){
       $menu_ids = $rows['nodes'][$key]['node']['Menus in this screen'];  
       if(count($menu_ids) > 0){
@@ -497,7 +498,8 @@ foreach ($rows['nodes'] as $key => $node) {
     if(count($menus_here) > 1){
       $result = db_select('field_data_field_menus', 'm')
           ->fields('m', array('field_menus_target_id'))
-          ->orderBy('delta', 'ASC')
+          ->condition('m.entity_id', $screen_id, '=')
+          ->orderBy('m.delta', 'ASC')
           ->execute();
       
       $menu_array = array();
@@ -509,7 +511,23 @@ foreach ($rows['nodes'] as $key => $node) {
           }
         }
       }
-      $rows['nodes'][$key]['node']['Menus'] = $menu_array;
+      $rows['nodes'][$key]['node']['Menus'] = $menu_array;      
+    }
+    // Verify options
+    $result = db_select('field_data_field_new_verify_options', 'm')
+          ->fields('m', array('field_new_verify_options_target_id'))
+          ->condition('m.entity_id', $screen_id, '=')
+          ->orderBy('m.delta', 'ASC')
+          ->execute();
+    foreach ($result as $row) {
+      $mid = $row->field_new_verify_options_target_id;
+      foreach ($all_menus as $lkey => $loop_node) {
+        $loop_menu_id = intval($loop_node['node']['Node ID']);
+        if($loop_menu_id == $mid){
+          // add branch to this organization
+          $rows['nodes'][$key]['node']['Verify Options'][] = $loop_node['node'];
+        }
+      }
     }
   }
 }
