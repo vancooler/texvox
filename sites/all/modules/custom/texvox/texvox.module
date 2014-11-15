@@ -43,9 +43,22 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     }
   }
 
+  // organization
+  if($form_id == "organization_node_form"){
+    if(!is_array($user->roles) || !in_array('administrator', $user->roles)){
+      $form['revision_information']['#access'] = FALSE;
+      $form['options']['#access'] = FALSE;
+      $form['author']['#access'] = FALSE;
+    }
+  }
 
   // Alter IVR only for this branch's organization
   if($form_id == "branch_node_form"){
+    if(!is_array($user->roles) || !in_array('administrator', $user->roles)){
+      $form['revision_information']['#access'] = FALSE;
+      $form['options']['#access'] = FALSE;
+      $form['author']['#access'] = FALSE;
+    }
     $nid = $form['nid']['#value'];
     $ivr_array = array("_none"=>"- Select a value -");
     if(isset($nid) and !empty($nid)){
@@ -90,6 +103,11 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
 
   // alter ivr form
   if($form_id == "ivr_node_form"){
+    if(!is_array($user->roles) || !in_array('administrator', $user->roles)){
+      $form['revision_information']['#access'] = FALSE;
+      $form['options']['#access'] = FALSE;
+      $form['author']['#access'] = FALSE;
+    }
     $current_screens = $form['field_ivr_screen']['und']['entities'];
     $current_screen_menu_options = array();
     $current_screen_menu_options['_none'] = "- None -";
@@ -793,6 +811,11 @@ function texvox_delete_branch_when_delete_organization($node){
   }
   node_delete_multiple($node_id_array);
 }
+
+
+
+
+
 
 /*
  * Register API:

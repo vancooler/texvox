@@ -1648,3 +1648,10 @@ div.admin-panel .description {
 #footer-wrapper .poll .bar .foreground {
   background-color: #ddd;
 }
+
+
+/*      AGW      */
+fieldset.vertical-tabs-pane fieldset legend {
+display: none;
+}
+

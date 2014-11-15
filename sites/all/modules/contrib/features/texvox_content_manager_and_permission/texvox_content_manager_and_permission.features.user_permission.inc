@@ -331,6 +331,16 @@ function texvox_content_manager_and_permission_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'submit latitude/longitude'.
+  $permissions['submit latitude/longitude'] = array(
+    'name' => 'submit latitude/longitude',
+    'roles' => array(
+      'Content Manager' => 'Content Manager',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'location',
+  );
+
   // Exported permission: 'view own unpublished content'.
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',
