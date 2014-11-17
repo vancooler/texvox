@@ -12,7 +12,7 @@ else {
 //
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
-  // dpm($form);
+  // dpm($form_id);
   global $user;
   if($form_id == "user_profile_form"){
     unset($form['field_encrypted_freeswitch_pass']);
@@ -29,18 +29,15 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     }
   }
 
-  if($form_id == "node_admin_content"){
-    $form['filter']['filters']['status']['filters']['type']['#options'] = array(
-      '[any]' => 'any',
+  if($form_id == "views_exposed_form"){
+    // dpm($form);
+    $form['type']['#options'] = array(
+      'All' => '- Any -',
       'organization' => "Organization",
       'branch' => 'Branch',
       'ivr' =>'IVR'
       );
-    foreach ($form['admin']['nodes']['#options'] as $key => $op) {
-      if($op['type'] != "IVR" and $op['type'] != "Branch" and $op['type'] != "Organization"){
-        unset($form['admin']['nodes']['#options'][$key]);
-      }
-    }
+    
   }
 
   // organization
@@ -811,9 +808,6 @@ function texvox_delete_branch_when_delete_organization($node){
   }
   node_delete_multiple($node_id_array);
 }
-
-
-
 
 
 
