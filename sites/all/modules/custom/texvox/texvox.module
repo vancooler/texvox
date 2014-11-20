@@ -597,43 +597,45 @@ function texvox_rules_action_info(){
  * Update user in FreeSwitch
  */
 function texvox_update_user_in_freeswitch($user){
-  $uid = intval($user->uid);
-  $name = $user->name;
-  $domain = $user->field_domain;
-  $domain_id = $domain['und'][0]['value'];
+  if(isset($user) and isset($user->roles) and is_array($user->roles) and count($user->roles) == 1){
+    $uid = intval($user->uid);
+    $name = $user->name;
+    $domain = $user->field_domain;
+    $domain_id = $domain['und'][0]['value'];
 
-  
-  // delete in  FS db
-  $fs_database = array(
-      'database' => 'freeswitch',
-      'username' => 'admin', // assuming this is necessary
-      'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
-      'host' => '70.32.106.160', // assumes localhost
-      'driver' => 'mysql', // replace with your database driver
-  );
-  // replace 'freeswitch' with something that's unique to your module
-  Database::addConnectionInfo('texvox_freeswitch_update', 'default', $fs_database);
-  db_set_active('texvox_freeswitch_update');
+    
+    // delete in  FS db
+    $fs_database = array(
+        'database' => 'freeswitch',
+        'username' => 'admin', // assuming this is necessary
+        'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
+        'host' => '70.32.106.160', // assumes localhost
+        'driver' => 'mysql', // replace with your database driver
+    );
+    // replace 'freeswitch' with something that's unique to your module
+    Database::addConnectionInfo('texvox_freeswitch_update', 'default', $fs_database);
+    db_set_active('texvox_freeswitch_update');
 
-  // execute queries here
-  $user_updated = db_update('directory') 
-                    ->fields(array(
-                      'username' => $name,
-                      'domain_id' => $domain_id,
-                    ))
-                    ->condition('id', $uid, '=');
-  $rows = db_update('directory') 
-                    ->fields(array(
-                      'username' => $name,
-                      'domain_id' => $domain_id,
-                    ))
-                    ->condition('id', $uid, '=')
-                    ->execute();
+    // execute queries here
+    $user_updated = db_update('directory') 
+                      ->fields(array(
+                        'username' => $name,
+                        'domain_id' => $domain_id,
+                      ))
+                      ->condition('id', $uid, '=');
+    $rows = db_update('directory') 
+                      ->fields(array(
+                        'username' => $name,
+                        'domain_id' => $domain_id,
+                      ))
+                      ->condition('id', $uid, '=')
+                      ->execute();
 
-  db_set_active(); // without the paramater means set back to the default for the site
+    db_set_active(); // without the paramater means set back to the default for the site
 
-  watchdog('USER update', '<pre>'. print_r($user_updated, TRUE) .'</pre>');
-  return 1;
+    watchdog('USER update', '<pre>'. print_r($user_updated, TRUE) .'</pre>');
+    return 1;
+  }
 }
 
 
@@ -641,128 +643,133 @@ function texvox_update_user_in_freeswitch($user){
  * Delete user in FreeSwitch
  */
 function texvox_delete_user_in_freeswitch($user){
-  $uid = intval($user->uid);
-  watchdog('USER delete', '<pre>'. print_r($uid, TRUE) .'</pre>');
-  // delete in  FS db
-  $fs_database = array(
-      'database' => 'freeswitch',
-      'username' => 'admin', // assuming this is necessary
-      'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
-      'host' => '70.32.106.160', // assumes localhost
-      'driver' => 'mysql', // replace with your database driver
-  );
-  // replace 'freeswitch' with something that's unique to your module
-  Database::addConnectionInfo('texvox_freeswitch_delete', 'default', $fs_database);
-  db_set_active('texvox_freeswitch_delete');
+  if(isset($user) and isset($user->roles) and is_array($user->roles) and count($user->roles) == 1){
 
-  // execute queries here
-  
-  try {
-    $user_deleted = db_delete('directory')
-    ->condition('id', $uid)
+    $uid = intval($user->uid);
+    watchdog('USER delete', '<pre>'. print_r($uid, TRUE) .'</pre>');
+    // delete in  FS db
+    $fs_database = array(
+        'database' => 'freeswitch',
+        'username' => 'admin', // assuming this is necessary
+        'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
+        'host' => '70.32.106.160', // assumes localhost
+        'driver' => 'mysql', // replace with your database driver
+    );
+    // replace 'freeswitch' with something that's unique to your module
+    Database::addConnectionInfo('texvox_freeswitch_delete', 'default', $fs_database);
+    db_set_active('texvox_freeswitch_delete');
+
+    // execute queries here
+    
+    try {
+      $user_deleted = db_delete('directory')
+      ->condition('id', $uid)
+      ->execute();
+      watchdog('USER delete', '<pre>'. print_r($user_deleted, TRUE) .'</pre>');  
+    } catch (PDOException $e) {
+      watchdog('USER delete', '<pre>'. print_r($e->getMessage(), TRUE) .'</pre>');  
+    }
+    $pass_deleted = db_delete('directory_params')
+    ->condition('directory_id', $uid)
     ->execute();
-    watchdog('USER delete', '<pre>'. print_r($user_deleted, TRUE) .'</pre>');  
-  } catch (PDOException $e) {
-    watchdog('USER delete', '<pre>'. print_r($e->getMessage(), TRUE) .'</pre>');  
-  }
-  $pass_deleted = db_delete('directory_params')
-  ->condition('directory_id', $uid)
-  ->execute();
-  $number_deleted = db_delete('directory_vars')
-  ->condition('directory_id', $uid)
-  ->execute();
+    $number_deleted = db_delete('directory_vars')
+    ->condition('directory_id', $uid)
+    ->execute();
 
-  db_set_active(); // without the paramater means set back to the default for the site
-  return 1;
+    db_set_active(); // without the paramater means set back to the default for the site
+    return 1;
+  }
 }
 
 /*
  * Register user in FreeSwitch
  */
 function texvox_register_user_in_freeswitch($user){
-  watchdog('USER registered', '<pre>'. print_r($user, TRUE) .'</pre>');
-  $uid = intval($user->uid);
-  $name = $user->name;
-  $mail = $user->mail;
-  $domain_id = 1;
-  if(isset($user->field_domain)){
-    $domain = $user->field_domain;
-    if(isset($domain['und'][0]['value']) and !empty($domain['und'][0]['value'])){    
-      $domain_id = $domain['und'][0]['value'];
+  if(isset($user) and isset($user->roles) and is_array($user->roles) and count($user->roles) == 1){
+    watchdog('USER registered', '<pre>'. print_r($user, TRUE) .'</pre>');
+    $uid = intval($user->uid);
+    $name = $user->name;
+    $mail = $user->mail;
+    $domain_id = 1;
+    if(isset($user->field_domain)){
+      $domain = $user->field_domain;
+      if(isset($domain['und'][0]['value']) and !empty($domain['und'][0]['value'])){    
+        $domain_id = $domain['und'][0]['value'];
+      }
     }
+
+    $length = 10;
+    $fs_pass = user_password($length); 
+    $fs_pass_encrypted = encrypt($fs_pass);
+    $encode_encrypt = utf8_encode($fs_pass_encrypted);
+    // watchdog('USER registered', '<pre>'. print_r($fs_pass, TRUE) .'</pre>');
+    // watchdog('USER registered', '<pre>'. print_r($encode_encrypt, TRUE) .'</pre>');
+    // watchdog('USER registered', '<pre>'. print_r(decrypt(utf8_decode(utf8_encode($fs_pass_encrypted))), TRUE) .'</pre>');
+    
+
+    // write the encrypted pass to Drupal db
+    $result = db_insert('field_data_field_encrypted_freeswitch_pass') 
+              ->fields(array(
+                'entity_type' => 'user',
+                'bundle' => 'user',
+                'deleted' => 0,
+                'entity_id' => $uid,
+                'revision_id' => $uid,
+                'language' => 'und',
+                'delta' => 0,
+                'field_encrypted_freeswitch_pass_value' => $encode_encrypt,
+                'field_encrypted_freeswitch_pass_format' => null
+              ))
+              ->execute();
+    
+    $result = db_insert('field_revision_field_encrypted_freeswitch_pass') 
+              ->fields(array(
+                'entity_type' => 'user',
+                'bundle' => 'user',
+                'deleted' => 0,
+                'entity_id' => $uid,
+                'revision_id' => $uid,
+                'language' => 'und',
+                'delta' => 0,
+                'field_encrypted_freeswitch_pass_value' => $encode_encrypt,
+                'field_encrypted_freeswitch_pass_format' => null
+              ))
+              ->execute();
+    
+
+    // write username and pass generated to FS db
+    $fs_database = array(
+        'database' => 'freeswitch',
+        'username' => 'admin', // assuming this is necessary
+        'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
+        'host' => '70.32.106.160', // assumes localhost
+        'driver' => 'mysql', // replace with your database driver
+    );
+    // replace 'freeswitch' with something that's unique to your module
+    Database::addConnectionInfo('texvox_freeswitch', 'default', $fs_database);
+    db_set_active('texvox_freeswitch');
+
+    // execute queries here
+    $directory_id = db_insert('directory') 
+          ->fields(array(
+            'id' => $uid,
+            'username' => $name,
+            'domain_id' => $domain_id
+          ))
+          ->execute();
+
+    db_insert('directory_params') 
+          ->fields(array(
+            'directory_id' => $uid,
+            'param_name' => "password",
+            'param_value' => $fs_pass
+          ))
+          ->execute();
+
+
+    db_set_active(); // without the paramater means set back to the default for the site
+    return 1;
   }
-
-  $length = 10;
-  $fs_pass = user_password($length); 
-  $fs_pass_encrypted = encrypt($fs_pass);
-  $encode_encrypt = utf8_encode($fs_pass_encrypted);
-  // watchdog('USER registered', '<pre>'. print_r($fs_pass, TRUE) .'</pre>');
-  // watchdog('USER registered', '<pre>'. print_r($encode_encrypt, TRUE) .'</pre>');
-  // watchdog('USER registered', '<pre>'. print_r(decrypt(utf8_decode(utf8_encode($fs_pass_encrypted))), TRUE) .'</pre>');
-  
-
-  // write the encrypted pass to Drupal db
-  $result = db_insert('field_data_field_encrypted_freeswitch_pass') 
-            ->fields(array(
-              'entity_type' => 'user',
-              'bundle' => 'user',
-              'deleted' => 0,
-              'entity_id' => $uid,
-              'revision_id' => $uid,
-              'language' => 'und',
-              'delta' => 0,
-              'field_encrypted_freeswitch_pass_value' => $encode_encrypt,
-              'field_encrypted_freeswitch_pass_format' => null
-            ))
-            ->execute();
-  
-  $result = db_insert('field_revision_field_encrypted_freeswitch_pass') 
-            ->fields(array(
-              'entity_type' => 'user',
-              'bundle' => 'user',
-              'deleted' => 0,
-              'entity_id' => $uid,
-              'revision_id' => $uid,
-              'language' => 'und',
-              'delta' => 0,
-              'field_encrypted_freeswitch_pass_value' => $encode_encrypt,
-              'field_encrypted_freeswitch_pass_format' => null
-            ))
-            ->execute();
-  
-
-  // write username and pass generated to FS db
-  $fs_database = array(
-      'database' => 'freeswitch',
-      'username' => 'admin', // assuming this is necessary
-      'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
-      'host' => '70.32.106.160', // assumes localhost
-      'driver' => 'mysql', // replace with your database driver
-  );
-  // replace 'freeswitch' with something that's unique to your module
-  Database::addConnectionInfo('texvox_freeswitch', 'default', $fs_database);
-  db_set_active('texvox_freeswitch');
-
-  // execute queries here
-  $directory_id = db_insert('directory') 
-        ->fields(array(
-          'id' => $uid,
-          'username' => $name,
-          'domain_id' => $domain_id
-        ))
-        ->execute();
-
-  db_insert('directory_params') 
-        ->fields(array(
-          'directory_id' => $uid,
-          'param_name' => "password",
-          'param_value' => $fs_pass
-        ))
-        ->execute();
-
-
-  db_set_active(); // without the paramater means set back to the default for the site
-  return 1;
 }
 
 /*
