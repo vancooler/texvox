@@ -654,20 +654,22 @@ $deleted_node_ids = array();
 $url = request_uri();
 $temp = explode('/', $url);
 $timestamp = intval($temp[(count($temp)-1)]);
-$query="SELECT entity_id FROM entity_delete_log WHERE entity_type ='node' AND entity_bundle IN ('organization', 'ivr', 'screen', 'branch', 'screen_menu') AND deleted >= $timestamp ORDER BY entity_id ASC";
-$result=db_query($query);
-foreach ($result as $row) {
-  $deleted_node_ids[] = $row->entity_id;
+if($timestamp > 0){
+  $query="SELECT entity_id FROM entity_delete_log WHERE entity_type ='node' AND entity_bundle IN ('organization', 'ivr', 'screen', 'branch', 'screen_menu') AND deleted >= $timestamp ORDER BY entity_id ASC";
+  $result=db_query($query);
+  foreach ($result as $row) {
+    $deleted_node_ids[] = $row->entity_id;
+  }
+  $query="SELECT nid FROM node WHERE status != 1 AND type IN ('organization', 'ivr', 'screen', 'branch', 'screen_menu') AND changed >= $timestamp ORDER BY nid ASC";
+  $result=db_query($query);
+  foreach ($result as $row) {
+    $deleted_node_ids[] = $row->entity_id;
+  }
+  sort($deleted_node_ids);
+  $rows['Deleted Nodes'] = $deleted_node_ids;
+  $ruend = microtime(true);
+  watchdog('Node list time', '<pre>'. print_r(($ruend-$rustart), TRUE) .'</pre>');
 }
-$query="SELECT nid FROM node WHERE status != 1 AND type IN ('organization', 'ivr', 'screen', 'branch', 'screen_menu') AND changed >= $timestamp ORDER BY nid ASC";
-$result=db_query($query);
-foreach ($result as $row) {
-  $deleted_node_ids[] = $row->entity_id;
-}
-sort($deleted_node_ids);
-$rows['Deleted Nodes'] = $deleted_node_ids;
-$ruend = microtime(true);
-watchdog('Node list time', '<pre>'. print_r(($ruend-$rustart), TRUE) .'</pre>');
 // dpm($rows);
 
 
