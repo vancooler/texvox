@@ -656,6 +656,34 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
+  // Exported field_base: 'field_input_action'
+  $field_bases['field_input_action'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_input_action',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Goto Screen',
+        1 => 'Connect Call',
+        2 => 'End Call',
+        3 => 'Set Language and Goto Screen',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_integer',
+  );
+
   // Exported field_base: 'field_input_count'
   $field_bases['field_input_count'] = array(
     'active' => 1,
@@ -670,6 +698,79 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'settings' => array(),
     'translatable' => 0,
     'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_input_goto_screen'
+  $field_bases['field_input_goto_screen'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_input_goto_screen',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'screen' => 'screen',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_input_language'
+  $field_bases['field_input_language'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_input_language',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'languagefield',
+    'settings' => array(
+      'enabled' => 1,
+      'excluded_languages' => array(),
+      'format' => array(
+        'iso' => 'iso',
+        'name' => 'name',
+        'name_native' => 0,
+      ),
+      'groups' => '',
+      'languages' => array(),
+    ),
+    'translatable' => 0,
+    'type' => 'language_field',
   );
 
   // Exported field_base: 'field_ivr'

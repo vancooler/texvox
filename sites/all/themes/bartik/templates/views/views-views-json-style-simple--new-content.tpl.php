@@ -231,6 +231,27 @@ foreach ($rows['nodes'] as $key => $node) {
           break;
       }
     }
+    // Rewrite input action as integer
+    if(isset($node['node']['No Input Action']) and !empty($node['node']['Input Action'])){
+      $action = $rows['nodes'][$key]['node']['Input Action'];
+      switch (substr($action, 0, 2)) {
+        case 'Go':
+          $rows['nodes'][$key]['node']['Input Action'] = '0';
+          break;
+        case 'Co':
+          $rows['nodes'][$key]['node']['Input Action'] = '1';
+          break;
+        case 'En':
+          $rows['nodes'][$key]['node']['Input Action'] = '2';
+          break;
+        case 'Se':
+          $rows['nodes'][$key]['node']['Input Action'] = '3';
+          break;
+        default:
+          # code...
+          break;
+      }
+    }
     
     // Add Verify Input as 0 if empty
     if(!isset($rows['nodes'][$key]['node']['Verify Input']) or empty($rows['nodes'][$key]['node']['Verify Input'])){

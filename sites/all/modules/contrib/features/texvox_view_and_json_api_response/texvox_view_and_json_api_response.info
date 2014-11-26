@@ -1,7 +1,7 @@
 name = Texvox: View and Json API Response
 core = 7.x
 package = Texvox
-version = 7.x-1.18
+version = 7.x-1.19
 project = texvox_view_and_json_api_response
 dependencies[] = admin_views
 dependencies[] = views

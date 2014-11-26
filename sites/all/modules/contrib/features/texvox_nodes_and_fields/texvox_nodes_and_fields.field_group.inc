@@ -257,7 +257,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Delay Settings',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_display_delay',
       1 => 'field_prelude_screen_code',
@@ -400,6 +400,9 @@ function texvox_nodes_and_fields_field_group_info() {
       1 => 'field_end_key',
       2 => 'field_verify_input',
       3 => 'field_new_verify_options',
+      4 => 'field_input_action',
+      5 => 'field_input_goto_screen',
+      6 => 'field_input_language',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -559,7 +562,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'No Input Settings',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
       0 => 'field_no_input_delay',
       1 => 'field_no_input_goto_screen',

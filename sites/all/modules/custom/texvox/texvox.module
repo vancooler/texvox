@@ -324,6 +324,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
         if(is_numeric($skey) and isset($screen['form']) and !empty($screen['form'])){
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_prelude_screen_code']['und']['#options'] = $real_options;
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_no_input_goto_screen']['und']['#options'] = $real_options;
+          $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_input_goto_screen']['und']['#options'] = $real_options;
           // For menus as nodes
 
           if(isset($screen['form']['field_menus']) and isset($screen['form']['field_menus']['und'])){
@@ -408,6 +409,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       $form['field_default_screen']['und']['#options'] = $real_options;
       $form['field_ivr_screen']['und']['form']['field_prelude_screen_code']['und']['#options'] = $real_options;
       $form['field_ivr_screen']['und']['form']['field_no_input_goto_screen']['und']['#options'] = $real_options;
+      $form['field_ivr_screen']['und']['form']['field_input_goto_screen']['und']['#options'] = $real_options;
       $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'] = $real_options;
       $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] = $real_options;
       $form['field_ivr_screen']['und']['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#description'] = "* Please save IVR to see all the new screens created in this IVR";

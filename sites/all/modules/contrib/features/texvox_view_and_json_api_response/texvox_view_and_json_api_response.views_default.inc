@@ -424,6 +424,32 @@ function texvox_view_and_json_api_response_views_default_views() {
       'name_native' => 0,
     ),
   );
+  /* Field: Content: Input Action */
+  $handler->display->display_options['fields']['field_input_action']['id'] = 'field_input_action';
+  $handler->display->display_options['fields']['field_input_action']['table'] = 'field_data_field_input_action';
+  $handler->display->display_options['fields']['field_input_action']['field'] = 'field_input_action';
+  $handler->display->display_options['fields']['field_input_action']['hide_empty'] = TRUE;
+  /* Field: Content: Input Goto Screen */
+  $handler->display->display_options['fields']['field_input_goto_screen']['id'] = 'field_input_goto_screen';
+  $handler->display->display_options['fields']['field_input_goto_screen']['table'] = 'field_data_field_input_goto_screen';
+  $handler->display->display_options['fields']['field_input_goto_screen']['field'] = 'field_input_goto_screen';
+  $handler->display->display_options['fields']['field_input_goto_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_input_goto_screen']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_input_goto_screen']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Content: Input Language */
+  $handler->display->display_options['fields']['field_input_language']['id'] = 'field_input_language';
+  $handler->display->display_options['fields']['field_input_language']['table'] = 'field_data_field_input_language';
+  $handler->display->display_options['fields']['field_input_language']['field'] = 'field_input_language';
+  $handler->display->display_options['fields']['field_input_language']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_input_language']['settings'] = array(
+    'format' => array(
+      'iso' => 'iso',
+      'name' => 0,
+      'name_native' => 0,
+    ),
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -493,6 +519,9 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Action Delay Screen Code'),
     t('Action Delay Time'),
     t('Default Screen Language'),
+    t('Input Action'),
+    t('Input Goto Screen'),
+    t('Input Language'),
     t('Page'),
   );
   $export['new_content'] = $view;

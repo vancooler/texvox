@@ -1962,6 +1962,43 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-screen-field_input_action'
+  $field_instances['node-screen-field_input_action'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Type of actions the system should perform after user has input data to textfield. Used when VerifyInput is False. ',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 21,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_input_action',
+    'label' => 'Input Action',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'node-screen-field_input_count'
   $field_instances['node-screen-field_input_count'] = array(
     'bundle' => 'screen',
@@ -2005,6 +2042,86 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'settings' => array(),
       'type' => 'number',
       'weight' => -2,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-field_input_goto_screen'
+  $field_instances['node-screen-field_input_goto_screen'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'The screen display after input has done. Used when InputAction is set to “Goto Screen” or “Set Language and Goto Screen” and VerifyInput is False.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 22,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_input_goto_screen',
+    'label' => 'Input Goto Screen',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-field_input_language'
+  $field_instances['node-screen-field_input_language'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Language code that should set to IVR after input has done. Used when InputAction is set to “Set Language and Goto Screen”  and VerifyInput is False.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'name' => 'name',
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 23,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_input_language',
+    'label' => 'Input Language',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 4,
     ),
   );
 
@@ -2907,10 +3024,14 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('IVR');
   t('IVR Screen');
   t('If the screen type is  option screens, please edit the related information after save the screen and IVR.');
+  t('Input Action');
   t('Input Count');
+  t('Input Goto Screen');
+  t('Input Language');
   t('Input key that signal the end of input sequence');
   t('Integer number of the maximum number of input digits ');
   t('Language');
+  t('Language code that should set to IVR after input has done. Used when InputAction is set to “Set Language and Goto Screen”  and VerifyInput is False.');
   t('Language code we should set to IVR after selecting this menu item. Used when Action is set to “Set Language and Goto Screen”');
   t('Location');
   t('Logo');
@@ -2938,11 +3059,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Search Base');
   t('Set Language');
   t('Subtitle');
+  t('The screen display after input has done. Used when InputAction is set to “Goto Screen” or “Set Language and Goto Screen” and VerifyInput is False.');
   t('The screen we display during the delay time, before showing this screen');
   t('Timeslots');
   t('Timezone');
   t('Title');
   t('Title ');
+  t('Type of actions the system should perform after user has input data to textfield. Used when VerifyInput is False. ');
   t('Verify Input');
   t('Verify Options');
   t('dayOfTheWeek');
