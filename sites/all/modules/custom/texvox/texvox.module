@@ -20,32 +20,34 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
       }
     }
     if ($is_menu) {
+      // menus table customize
       unset($fields['title']);                       // This line removes the title field. you're looking to do this, just with the status instead of title field
       $fields['field_menu_key'] = array(                   // This part adds the key field with a label 'Key'
         'type' => 'field',
         'label' => t('Key'),
         'weight' => 1,
       );
-      $fields['field_action'] = array(                   
+      $fields['field_action'] = array(                     // Add Action
         'type' => 'field',
         'label' => t('Action'),
         'weight' => 101,
       );
-      unset($fields['status']);  
+      unset($fields['status']);                         // Remove Status( it does not make sense)
     }
     elseif($is_screen){
-      unset($fields['status']); 
-      $fields['field_screen_type'] = array(                   
+      // screens table customize
+      unset($fields['status']);                        // Remove Status( it does not make sense)
+      $fields['field_screen_type'] = array(                // Add Screen Type   
         'type' => 'field',
         'label' => t('Type'),
         'weight' => 101,
       );
-      $fields['field_default_screen_language'] = array(                   
+      $fields['field_default_screen_language'] = array(    // Add Screen Language               
         'type' => 'field',
         'label' => t('Default Language'),
         'weight' => 102,
       ); 
-      $fields['title']['label'] = "Screen Code";
+      $fields['title']['label'] = "Screen Code";          // Change the title Label
     }
 }
 
