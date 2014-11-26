@@ -1785,6 +1785,47 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-screen-field_default_screen_language'
+  $field_instances['node-screen-field_default_screen_language'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'name' => 'name',
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 20,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_default_screen_language',
+    'label' => 'Default Screen Language',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => -3,
+    ),
+  );
+
   // Exported field_instance: 'node-screen-field_display_delay'
   $field_instances['node-screen-field_display_delay'] = array(
     'bundle' => 'screen',
@@ -2679,6 +2720,43 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-screen_menu-field_menu_key'
+  $field_instances['node-screen_menu-field_menu_key'] = array(
+    'bundle' => 'screen_menu',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_menu_key',
+    'label' => 'Menu Key',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-screen_menu-field_set_language'
   $field_instances['node-screen_menu-field_set_language'] = array(
     'bundle' => 'screen_menu',
@@ -2774,7 +2852,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2785,12 +2863,12 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'title_field',
-    'label' => 'Key',
-    'required' => 1,
+    'label' => 'Title',
+    'required' => 0,
     'settings' => array(
       'hide_label' => array(
-        'entity' => 0,
-        'page' => 0,
+        'entity' => 'entity',
+        'page' => 'page',
       ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -2802,7 +2880,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => -5,
     ),
   );
 
@@ -2816,6 +2894,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Date');
   t('Default IVR');
   t('Default Screen');
+  t('Default Screen Language');
   t('Description');
   t('Display Delay');
   t('Display Image');
@@ -2831,11 +2910,11 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Input Count');
   t('Input key that signal the end of input sequence');
   t('Integer number of the maximum number of input digits ');
-  t('Key');
   t('Language');
   t('Language code we should set to IVR after selecting this menu item. Used when Action is set to “Set Language and Goto Screen”');
   t('Location');
   t('Logo');
+  t('Menu Key');
   t('Menus');
   t('No Input Action');
   t('No Input Delay');

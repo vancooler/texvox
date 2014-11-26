@@ -362,10 +362,9 @@ foreach ($rows['nodes'] as $key => $node) {
     }
 
     // rewrite the "title" with "key"
-    if(isset($rows['nodes'][$key]['node']['title']) and !empty($rows['nodes'][$key]['node']['title'])){
+    if(!isset($rows['nodes'][$key]['node']['Key']) or empty($rows['nodes'][$key]['node']['Key'])){
       
-      $rows['nodes'][$key]['node']['Key'] = $rows['nodes'][$key]['node']['title'];
-      unset($rows['nodes'][$key]['node']['title']);
+      $rows['nodes'][$key]['node']['Key'] = '0';
     }
   }  
 

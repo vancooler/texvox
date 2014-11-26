@@ -116,11 +116,11 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'title_field',
-      1 => 'field_menu_type',
-      2 => 'field_action',
-      3 => 'field_go_to_screen',
-      4 => 'field_description',
-      5 => 'field_set_language',
+      1 => 'field_action',
+      2 => 'field_go_to_screen',
+      3 => 'field_description',
+      4 => 'field_set_language',
+      5 => 'field_menu_key',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -149,6 +149,7 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'title_field',
       1 => 'field_screen_type',
+      2 => 'field_default_screen_language',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
