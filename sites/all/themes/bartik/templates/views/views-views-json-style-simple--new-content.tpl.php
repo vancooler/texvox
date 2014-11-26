@@ -366,6 +366,7 @@ foreach ($rows['nodes'] as $key => $node) {
       
       $rows['nodes'][$key]['node']['Key'] = '0';
       unset($rows['nodes'][$key]['node']['title']);
+      dpm($rows['nodes'][$key]['node']);
     }
   }  
 
