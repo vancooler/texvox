@@ -365,6 +365,7 @@ foreach ($rows['nodes'] as $key => $node) {
     if(!isset($rows['nodes'][$key]['node']['Key']) or empty($rows['nodes'][$key]['node']['Key'])){
       
       $rows['nodes'][$key]['node']['Key'] = '0';
+      unset($rows['nodes'][$key]['node']['title']);
     }
   }  
 
