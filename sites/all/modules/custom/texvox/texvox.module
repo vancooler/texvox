@@ -59,7 +59,7 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
   // dpm($form_id);
-  // texvox_convert_menu_title_to_key();
+  texvox_convert_menu_title_to_key();
   global $user;
   if($form_id == "user_profile_form"){
     unset($form['field_encrypted_freeswitch_pass']);
@@ -937,31 +937,31 @@ function texvox_delete_branch_when_delete_organization($node){
   node_delete_multiple($node_id_array);
 }
 
-// function texvox_convert_menu_title_to_key(){
-//   $nids = db_select('node', 'n')
-//     ->fields('n', array('nid'))
-//     ->condition('n.type', 'screen_menu')
-//     ->execute()
-//     ->fetchCol(); // returns an indexed array
+function texvox_convert_menu_title_to_key(){
+  $nids = db_select('node', 'n')
+    ->fields('n', array('nid'))
+    ->condition('n.type', 'screen_menu')
+    ->execute()
+    ->fetchCol(); // returns an indexed array
 
-//   $result = db_select('field_data_field_menu_key', 'm')
-//     ->fields('m', array('entity_id'))
-//     ->execute();
-//   foreach ($result as $row) {
-//     if(($key = array_search($row->entity_id, $nids)) !== false) {
-//       unset($nids[$key]);
-//     }
-//   }
-//   // Now return the node objects.
-//   $nodes = node_load_multiple($nids);
-//   foreach ($nodes as $key => $node) {
-//     $node->field_menu_key['und'][0]['value'] = $node->title;
-//     $node->title_field[$node->language][0]['value'] = $node->title . " ";
-//     $node->title = $node->title . " ";
-//     node_save($node);
-//     // dpm($node->nid);
-//   }
-// }
+  $result = db_select('field_data_field_menu_key', 'm')
+    ->fields('m', array('entity_id'))
+    ->execute();
+  foreach ($result as $row) {
+    if(($key = array_search($row->entity_id, $nids)) !== false) {
+      unset($nids[$key]);
+    }
+  }
+  // Now return the node objects.
+  $nodes = node_load_multiple($nids);
+  foreach ($nodes as $key => $node) {
+    $node->field_menu_key['und'][0]['value'] = $node->title;
+    $node->title_field[$node->language][0]['value'] = $node->title . " ";
+    $node->title = $node->title . " ";
+    node_save($node);
+    // dpm($node->nid);
+  }
+}
 
 /*
  * Register API:
