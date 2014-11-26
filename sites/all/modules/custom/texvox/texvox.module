@@ -9,20 +9,43 @@ else {
 function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
   
   // Make sure there's a stock field on each of the allowed product types.
-    $is_my_content_type = FALSE;
+    $is_menu = FALSE;
+    $is_screen = FALSE;
     foreach ($context['allowed_bundles'] as $bundle) {
       if ($bundle=='screen_menu') {
-        $is_my_content_type = TRUE;
+        $is_menu = TRUE;
+      }
+      elseif ($bundle=='screen') {
+        $is_screen = TRUE;
       }
     }
-    if ($is_my_content_type) {
+    if ($is_menu) {
       unset($fields['title']);                       // This line removes the title field. you're looking to do this, just with the status instead of title field
-
       $fields['field_menu_key'] = array(                   // This part adds the key field with a label 'Key'
         'type' => 'field',
         'label' => t('Key'),
+        'weight' => 1,
+      );
+      $fields['field_action'] = array(                   
+        'type' => 'field',
+        'label' => t('Action'),
         'weight' => 101,
       );
+      unset($fields['status']);  
+    }
+    elseif($is_screen){
+      unset($fields['status']); 
+      $fields['field_screen_type'] = array(                   
+        'type' => 'field',
+        'label' => t('Type'),
+        'weight' => 101,
+      );
+      $fields['field_default_screen_language'] = array(                   
+        'type' => 'field',
+        'label' => t('Default Language'),
+        'weight' => 102,
+      ); 
+      $fields['title']['label'] = "Screen Code";
     }
 }
 
