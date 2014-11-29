@@ -187,12 +187,84 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'label' => 'above',
         'module' => 'partial_date',
         'settings' => array(
-          'component_settings' => array(),
-          'format' => 'medium',
+          'component_settings' => array(
+            'components' => array(
+              'approx' => array(
+                'value' => '',
+                'weight' => -10,
+              ),
+              'c1' => array(
+                'value' => '',
+                'weight' => -2,
+              ),
+              'c2' => array(
+                'value' => '',
+                'weight' => -1,
+              ),
+              'c3' => array(
+                'value' => '',
+                'weight' => 0,
+              ),
+              'day' => array(
+                'empty' => '',
+                'format' => 'd',
+                'weight' => -8,
+              ),
+              'hour' => array(
+                'empty' => '',
+                'format' => 'h',
+                'weight' => -6,
+              ),
+              'minute' => array(
+                'empty' => '',
+                'format' => 'i',
+                'weight' => -5,
+              ),
+              'month' => array(
+                'empty' => '',
+                'format' => 'm',
+                'weight' => -9,
+              ),
+              'second' => array(
+                'empty' => '',
+                'format' => 's',
+                'weight' => -4,
+              ),
+              'timezone' => array(
+                'empty' => '',
+                'format' => 'T',
+                'weight' => -3,
+              ),
+              'year' => array(
+                'empty' => '',
+                'format' => 'Y',
+                'weight' => -7,
+              ),
+            ),
+            'display' => array(
+              'day' => 'estimate_label',
+              'hour' => 'estimate_label',
+              'minute' => 'estimate_label',
+              'month' => 'estimate_label',
+              'second' => 'estimate_label',
+              'timezone' => 'date_only',
+              'year' => 'estimate_label',
+            ),
+            'meridiem' => 'a',
+            'separator' => array(
+              'date' => '/',
+              'datetime' => ' ',
+              'other' => ' ',
+              'range' => '',
+              'time' => ':',
+            ),
+            'year_designation' => 'ce',
+          ),
+          'format' => 'custom',
           'use_override' => 'none',
         ),
         'type' => 'partial_date_default',
-        'weight' => 4,
+        'weight' => 0,
       ),
       'full' => array(
         'label' => 'above',
