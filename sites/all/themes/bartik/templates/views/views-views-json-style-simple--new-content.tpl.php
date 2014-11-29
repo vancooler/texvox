@@ -102,18 +102,20 @@ foreach ($rows['nodes'] as $key => $node) {
           }
         }
         // calculate duration
-        $start_pieces = explode(':', $holidays[$skey]['startTime']);
-        $start_seconds = intval($start_pieces[0]) * 3600 + intval($start_pieces[1]) * 60;
-        $end_pieces = explode(':', $holidays[$skey]['endTime']);
-        $end_seconds = intval($end_pieces[0]) * 3600 + intval($end_pieces[1]) * 60;
-        if($start_seconds < $end_seconds){
-          $duration = $end_seconds - $start_seconds;
+        if(isset($holidays[$skey]['startTime']) and isset($holidays[$skey]['endTime'])){
+          $start_pieces = explode(':', $holidays[$skey]['startTime']);
+          $start_seconds = intval($start_pieces[0]) * 3600 + intval($start_pieces[1]) * 60;
+          $end_pieces = explode(':', $holidays[$skey]['endTime']);
+          $end_seconds = intval($end_pieces[0]) * 3600 + intval($end_pieces[1]) * 60;
+          if($start_seconds < $end_seconds){
+            $duration = $end_seconds - $start_seconds;
+          }
+          else{
+            $duration = 24 * 3600 + $end_seconds - $start_seconds;
+          }
+          $holidays[$skey]['duration'] = $duration;
+          unset($holidays[$skey]['endTime']);
         }
-        else{
-          $duration = 24 * 3600 + $end_seconds - $start_seconds;
-        }
-        $holidays[$skey]['duration'] = $duration;
-        unset($holidays[$skey]['endTime']);
       }
       $rows['nodes'][$key]['node']['Holiday'] = $holidays;
     }

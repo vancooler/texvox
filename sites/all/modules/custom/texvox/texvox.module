@@ -98,6 +98,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
 
   // Alter IVR only for this branch's organization
   if($form_id == "branch_node_form"){
+    
     // dpm($form);
     $tz_array = $form['field_timezone']['und']['#options'];
     $new_tz_array = array();
