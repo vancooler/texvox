@@ -204,7 +204,8 @@
           <?php print render($action_links); ?>
         </ul>
       <?php endif; ?>
-      <?php print render($page['content']); ?>
+      <?php //print render($page['content']); ?>
+      <?php print str_replace('/edit?destination=admin/content', '/edit', render($page['content'])); ?>
       <?php print $feed_icons; ?>
 
     </div></div> <!-- /.section, /#content -->

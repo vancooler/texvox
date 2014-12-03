@@ -1505,8 +1505,8 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-branch-field_timezone'
-  $field_instances['node-branch-field_timezone'] = array(
+  // Exported field_instance: 'node-branch-field_timezone_custom'
+  $field_instances['node-branch-field_timezone_custom'] = array(
     'bundle' => 'branch',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1514,49 +1514,40 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'tzfield',
-        'settings' => array(
-          'format' => 'T',
-        ),
-        'type' => 'tzfield_date',
-        'weight' => 8,
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 16,
       ),
       'diff_standard' => array(
         'label' => 'above',
-        'module' => 'tzfield',
         'settings' => array(),
-        'type' => 'tzfield_default',
-        'weight' => 8,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'full' => array(
         'label' => 'above',
-        'module' => 'tzfield',
-        'settings' => array(
-          'format' => 'T',
-        ),
-        'type' => 'tzfield_date',
-        'weight' => 8,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'rss' => array(
         'label' => 'above',
-        'module' => 'tzfield',
         'settings' => array(),
-        'type' => 'tzfield_default',
-        'weight' => 8,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search_index' => array(
         'label' => 'above',
-        'module' => 'tzfield',
         'settings' => array(),
-        'type' => 'tzfield_default',
-        'weight' => 8,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search_result' => array(
         'label' => 'above',
-        'module' => 'tzfield',
         'settings' => array(),
-        'type' => 'tzfield_default',
-        'weight' => 8,
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1566,7 +1557,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_timezone',
+    'field_name' => 'field_timezone_custom',
     'label' => 'Timezone',
     'required' => 0,
     'settings' => array(
@@ -1575,11 +1566,65 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(
-        'size' => 60,
-      ),
+      'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'node-ivr-field_default_language_for_ivr'
+  $field_instances['node-ivr-field_default_language_for_ivr'] = array(
+    'bundle' => 'ivr',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'iso' => 'iso',
+            'name' => 0,
+            'name_native' => 0,
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 6,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'iso' => 'iso',
+            'name' => 0,
+            'name_native' => 0,
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_default_language_for_ivr',
+    'label' => 'Default Language',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 5,
     ),
   );
 
@@ -1591,6 +1636,15 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+      'full' => array(
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
@@ -1637,6 +1691,15 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 1,
       ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 1,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1667,7 +1730,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         ),
       ),
       'type' => 'inline_entity_form',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -1679,6 +1742,15 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 5,
+      ),
+      'full' => array(
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
@@ -1956,47 +2028,6 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 36,
-    ),
-  );
-
-  // Exported field_instance: 'node-screen-field_default_screen_language'
-  $field_instances['node-screen-field_default_screen_language'] = array(
-    'bundle' => 'screen',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'languagefield',
-        'settings' => array(
-          'format' => array(
-            'name' => 'name',
-          ),
-        ),
-        'type' => 'language_default',
-        'weight' => 20,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_default_screen_language',
-    'label' => 'Default Screen Language',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => -3,
     ),
   );
 
@@ -3184,8 +3215,8 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Branch Type');
   t('Date');
   t('Default IVR');
+  t('Default Language');
   t('Default Screen');
-  t('Default Screen Language');
   t('Description');
   t('Display Delay');
   t('Display Image');

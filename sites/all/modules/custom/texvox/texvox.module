@@ -99,23 +99,30 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
   // Alter IVR only for this branch's organization
   if($form_id == "branch_node_form"){
     
+    // $tz_array = $form['field_timezone']['und']['#options'];
+    // $new_tz_array = array('_none' => "- None -");
+    // $timestamp = time();
+    // foreach ($tz_array as $key => $value) {
+    //   if($value != "- None -"){
+    //     date_default_timezone_set($value);
+    //     $new_tz_array['UTC' . date('P', $timestamp) . " " . $key] = 'UTC' . date('P', $timestamp) . " " . $value;
+
+    //   }
+    // }
+    // asort($new_tz_array);
+    // foreach ($new_tz_array as $key => $value) {
+    //   print $key . '|' . $value."<br>";
+    // }
+    // $form['field_timezone']['und']['#options'] = $new_tz_array;
+    // if(!is_array($user->roles) || !in_array('administrator', $user->roles)){
+    //   $form['revision_information']['#access'] = FALSE;
+    //   $form['options']['#access'] = FALSE;
+    //   $form['author']['#access'] = FALSE;
+    // }
+    //     dpm($form);
+
+    // $form['field_timezone']['und']['#element_validate'][0] = 'texvox_timezone_validate';
     // dpm($form);
-    $tz_array = $form['field_timezone']['und']['#options'];
-    $new_tz_array = array();
-    $timestamp = time();
-    foreach ($tz_array as $key => $value) {
-      if($value != "- None -"){
-        date_default_timezone_set($value);
-        $new_tz_array[('UTC' . date('O', $timestamp) . " " . $key)] = 'UTC' . date('P', $timestamp) . " " . $value;
-      }
-    }
-    sort($new_tz_array);
-    $form['field_timezone']['und']['#options'] = $new_tz_array;
-    if(!is_array($user->roles) || !in_array('administrator', $user->roles)){
-      $form['revision_information']['#access'] = FALSE;
-      $form['options']['#access'] = FALSE;
-      $form['author']['#access'] = FALSE;
-    }
     $nid = $form['nid']['#value'];
     $ivr_array = array("_none"=>"- Select a value -");
     if(isset($nid) and !empty($nid)){
@@ -494,6 +501,8 @@ function texvox_branch_form_submit_nested_handler($form, &$form_state){
 
   $args = array(':updated' => $timestamp, ':org_id' => $org_id);
   $result = db_query($sql, $args);
+  $nid = intval($form_state['values']['nid']);
+  $form_state['redirect'] = 'node/' . $nid . '/edit';
 }
 
 
@@ -562,7 +571,9 @@ function texvox_screen_form_submit_nested_handler($form, &$form_state){
   $result = db_query($sql_3, $args_3);
 }
 
-
+function texvox_timezone_validate(){
+  return true;
+}
 /**
  * change updated timestamp for referenced branch
  */

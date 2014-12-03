@@ -85,10 +85,8 @@ function texvox_nodes_and_fields_field_group_info() {
     'label' => 'Basic Info',
     'weight' => '1',
     'children' => array(
-      0 => 'field_ivr_working_time',
-      1 => 'field_ivr_type',
-      2 => 'field_only_for_organization',
-      3 => 'title',
+      0 => 'field_only_for_organization',
+      1 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -457,6 +455,7 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'field_location',
       1 => 'field_timezone',
+      2 => 'field_timezone_custom',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -657,6 +656,7 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'field_ivr_screen',
       1 => 'field_default_screen',
+      2 => 'field_default_language_for_ivr',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
