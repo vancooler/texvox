@@ -85,6 +85,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['street']['field'] = 'street';
   $handler->display->display_options['fields']['street']['label'] = 'Street1';
   $handler->display->display_options['fields']['street']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['street']['style'] = 'street';
   /* Field: Location: Additional */
   $handler->display->display_options['fields']['additional']['id'] = 'additional';
   $handler->display->display_options['fields']['additional']['table'] = 'location';
@@ -125,15 +126,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['longitude']['label'] = 'lon';
   $handler->display->display_options['fields']['longitude']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['longitude']['style'] = 'dd';
-  /* Field: Content: Timezone */
-  $handler->display->display_options['fields']['field_timezone']['id'] = 'field_timezone';
-  $handler->display->display_options['fields']['field_timezone']['table'] = 'field_data_field_timezone';
-  $handler->display->display_options['fields']['field_timezone']['field'] = 'field_timezone';
-  $handler->display->display_options['fields']['field_timezone']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_timezone']['type'] = 'tzfield_date';
-  $handler->display->display_options['fields']['field_timezone']['settings'] = array(
-    'format' => 'T',
-  );
   /* Field: Content: Updated date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'node';
@@ -412,18 +404,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     'thousand_separator' => '',
     'prefix_suffix' => 0,
   );
-  /* Field: Content: Default Screen Language */
-  $handler->display->display_options['fields']['field_default_screen_language']['id'] = 'field_default_screen_language';
-  $handler->display->display_options['fields']['field_default_screen_language']['table'] = 'field_data_field_default_screen_language';
-  $handler->display->display_options['fields']['field_default_screen_language']['field'] = 'field_default_screen_language';
-  $handler->display->display_options['fields']['field_default_screen_language']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['field_default_screen_language']['settings'] = array(
-    'format' => array(
-      'iso' => 'iso',
-      'name' => 0,
-      'name_native' => 0,
-    ),
-  );
   /* Field: Content: Input Action */
   $handler->display->display_options['fields']['field_input_action']['id'] = 'field_input_action';
   $handler->display->display_options['fields']['field_input_action']['table'] = 'field_data_field_input_action';
@@ -450,6 +430,23 @@ function texvox_view_and_json_api_response_views_default_views() {
       'name_native' => 0,
     ),
   );
+  /* Field: Content: Default Language */
+  $handler->display->display_options['fields']['field_default_language_for_ivr']['id'] = 'field_default_language_for_ivr';
+  $handler->display->display_options['fields']['field_default_language_for_ivr']['table'] = 'field_data_field_default_language_for_ivr';
+  $handler->display->display_options['fields']['field_default_language_for_ivr']['field'] = 'field_default_language_for_ivr';
+  $handler->display->display_options['fields']['field_default_language_for_ivr']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_default_language_for_ivr']['settings'] = array(
+    'format' => array(
+      'iso' => 'iso',
+      'name' => 0,
+      'name_native' => 0,
+    ),
+  );
+  /* Field: Content: Timezone */
+  $handler->display->display_options['fields']['field_timezone_custom']['id'] = 'field_timezone_custom';
+  $handler->display->display_options['fields']['field_timezone_custom']['table'] = 'field_data_field_timezone_custom';
+  $handler->display->display_options['fields']['field_timezone_custom']['field'] = 'field_timezone_custom';
+  $handler->display->display_options['fields']['field_timezone_custom']['hide_empty'] = TRUE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -488,7 +485,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Postal Code'),
     t('lat'),
     t('lon'),
-    t('Timezone'),
     t('Updated date'),
     t('Screen Type'),
     t('rgbHEX'),
@@ -518,10 +514,11 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Set Language'),
     t('Action Delay Screen Code'),
     t('Action Delay Time'),
-    t('Default Screen Language'),
     t('Input Action'),
     t('Input Goto Screen'),
     t('Input Language'),
+    t('Default Language'),
+    t('Timezone'),
     t('Page'),
   );
   $export['new_content'] = $view;
