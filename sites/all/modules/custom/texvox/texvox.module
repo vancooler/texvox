@@ -94,6 +94,8 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       $form['options']['#access'] = FALSE;
       $form['author']['#access'] = FALSE;
     }
+    $form['actions']['submit']['#submit'][] = 'texvox_organization_form_submit_redirect_handler';
+
   }
 
   // Alter IVR only for this branch's organization
@@ -167,6 +169,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
 
   // alter ivr form
   if($form_id == "ivr_node_form"){
+    $form['actions']['submit']['#submit'][] = 'texvox_ivr_form_submit_redirect_handler';
     if(isset($form['field_ivr_screen']['und']['entities'])){
       foreach ($form['field_ivr_screen']['und']['entities'] as $skey => $screen) {
         if(is_numeric($skey) and isset($screen['form']['field_menus']['und']['entities'])){
@@ -460,9 +463,17 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
 
 
 /*
- * redirect to edit page to add screens
+ * redirect to edit page 
  */
 function texvox_ivr_form_submit_redirect_handler($form, &$form_state){
+  $nid = intval($form_state['values']['nid']);
+  $form_state['redirect'] = 'node/' . $nid . '/edit';
+}
+
+/*
+ * redirect to edit page 
+ */
+function texvox_organization_form_submit_redirect_handler($form, &$form_state){
   $nid = intval($form_state['values']['nid']);
   $form_state['redirect'] = 'node/' . $nid . '/edit';
 }
