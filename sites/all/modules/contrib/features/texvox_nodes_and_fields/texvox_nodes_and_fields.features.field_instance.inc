@@ -788,6 +788,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 1,
       ),
+      'diff_standard' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
       'full' => array(
         'label' => 'above',
         'module' => 'text',
@@ -834,6 +841,12 @@ function texvox_nodes_and_fields_field_default_field_instances() {
           ),
         ),
         'type' => 'language_default',
+        'weight' => 0,
+      ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'full' => array(
@@ -891,8 +904,11 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
       'full' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
         'weight' => 0,
       ),
       'rss' => array(
@@ -964,8 +980,15 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
       'full' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
         'weight' => 0,
       ),
       'rss' => array(
@@ -1385,7 +1408,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'label' => 'above',
         'module' => 'list',
         'settings' => array(),
-        'type' => 'list_key',
+        'type' => 'list_default',
         'weight' => 10,
       ),
       'rss' => array(
@@ -1460,8 +1483,15 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
       'full' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
         'weight' => 0,
       ),
       'rss' => array(
@@ -1527,8 +1557,9 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
       'full' => array(
         'label' => 'above',
+        'module' => 'list',
         'settings' => array(),
-        'type' => 'hidden',
+        'type' => 'list_default',
         'weight' => 0,
       ),
       'rss' => array(
@@ -2853,6 +2884,20 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 2,
       ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+      'rss' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2872,7 +2917,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => -2,
     ),
   );
 
@@ -2884,6 +2929,24 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'description' => 'Node id of the screen we display during the delay time, before showing the next screen',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'rss' => array(
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
@@ -2923,6 +2986,30 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'description' => 'Number of seconds delayed before app should show the next screen',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 7,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 7,
+      ),
+      'rss' => array(
         'label' => 'above',
         'module' => 'number',
         'settings' => array(
@@ -2975,6 +3062,20 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 5,
       ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+      'rss' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2999,7 +3100,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 7,
+      'weight' => 1,
     ),
   );
 
@@ -3011,6 +3112,24 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'rss' => array(
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
@@ -3038,23 +3157,29 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => -1,
     ),
   );
 
-  // Exported field_instance: 'node-screen_menu-field_menu_key'
-  $field_instances['node-screen_menu-field_menu_key'] = array(
+  // Exported field_instance: 'node-screen_menu-field_menu_key_new'
+  $field_instances['node-screen_menu-field_menu_key_new'] = array(
     'bundle' => 'screen_menu',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Only 0-9, *, # are valid in this field. If your key is more than 2 digit, only 0-9 are valid.',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 9,
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
+      'rss' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3064,18 +3189,21 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_menu_key',
-    'label' => 'Menu Key',
+    'field_name' => 'field_menu_key_new',
+    'label' => 'Key',
     'required' => 1,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 3,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 5,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -4,
     ),
   );
 
@@ -3087,6 +3215,28 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'description' => 'Language code we should set to IVR after selecting this menu item. Used when Action is set to “Set Language and Goto Screen”',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'name' => 'name',
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 6,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'name' => 'name',
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 6,
+      ),
+      'rss' => array(
         'label' => 'above',
         'module' => 'languagefield',
         'settings' => array(
@@ -3116,7 +3266,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 0,
     ),
   );
 
@@ -3131,13 +3281,33 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'view_mode' => 'full',
+          'add' => '',
+          'delete' => '',
+          'description' => 0,
+          'edit' => '',
         ),
-        'type' => 'field_collection_view',
+        'type' => 'field_collection_list',
+        'weight' => 4,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'view_mode' => 'diff_standard',
+        ),
+        'type' => 'field_collection_fields',
+        'weight' => 4,
+      ),
+      'rss' => array(
+        'label' => 'hidden',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Additional',
+          'delete' => 'Delete',
+          'description' => 1,
+          'edit' => 'Edit',
+        ),
+        'type' => 'field_collection_list',
         'weight' => 4,
       ),
       'teaser' => array(
@@ -3171,6 +3341,18 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
+      'rss' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -3235,13 +3417,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Input Language');
   t('Input key that signal the end of input sequence');
   t('Integer number of the maximum number of input digits ');
+  t('Key');
   t('Language');
   t('Language code that should set to IVR after input has done. Used when InputAction is set to “Set Language and Goto Screen”  and VerifyInput is False.');
   t('Language code we should set to IVR after selecting this menu item. Used when Action is set to “Set Language and Goto Screen”');
   t('Leave "Year" as blank if you want to repeat this holiday every year.');
   t('Location');
   t('Logo');
-  t('Menu Key');
   t('Menus');
   t('No Input Action');
   t('No Input Delay');
@@ -3253,6 +3435,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Number of seconds before app perform No-Input-Action');
   t('Number of seconds before app should display this screen');
   t('Number of seconds delayed before app should show the next screen');
+  t('Only 0-9, *, # are valid in this field. If your key is more than 2 digit, only 0-9 are valid.');
   t('Only for Organization');
   t('Organization');
   t('Organization Type');

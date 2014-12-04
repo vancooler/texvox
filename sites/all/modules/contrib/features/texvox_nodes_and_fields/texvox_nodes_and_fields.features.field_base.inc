@@ -980,40 +980,33 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_menu_key'
-  $field_bases['field_menu_key'] = array(
+  // Exported field_base: 'field_menu_key_new'
+  $field_bases['field_menu_key_new'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_menu_key',
-    'foreign keys' => array(),
+    'field_name' => 'field_menu_key_new',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
-      'value' => array(
-        0 => 'value',
+      'format' => array(
+        0 => 'format',
       ),
     ),
     'locked' => 0,
-    'module' => 'list',
+    'module' => 'text',
     'settings' => array(
-      'allowed_values' => array(
-        0 => 0,
-        1 => 1,
-        2 => 2,
-        3 => 3,
-        4 => 4,
-        5 => 5,
-        6 => 6,
-        7 => 7,
-        8 => 8,
-        9 => 9,
-        '*' => '*',
-        '#' => '#',
-      ),
-      'allowed_values_function' => '',
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'list_text',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_menus'

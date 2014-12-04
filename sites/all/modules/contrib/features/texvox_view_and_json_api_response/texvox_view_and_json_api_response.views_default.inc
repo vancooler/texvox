@@ -50,12 +50,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['hide_empty'] = TRUE;
-  /* Field: Content: Menu Key */
-  $handler->display->display_options['fields']['field_menu_key']['id'] = 'field_menu_key';
-  $handler->display->display_options['fields']['field_menu_key']['table'] = 'field_data_field_menu_key';
-  $handler->display->display_options['fields']['field_menu_key']['field'] = 'field_menu_key';
-  $handler->display->display_options['fields']['field_menu_key']['label'] = 'Key';
-  $handler->display->display_options['fields']['field_menu_key']['hide_empty'] = TRUE;
   /* Field: Content: IVR Screen */
   $handler->display->display_options['fields']['field_ivr_screen']['id'] = 'field_ivr_screen';
   $handler->display->display_options['fields']['field_ivr_screen']['table'] = 'field_data_field_ivr_screen';
@@ -447,6 +441,15 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_timezone_custom']['table'] = 'field_data_field_timezone_custom';
   $handler->display->display_options['fields']['field_timezone_custom']['field'] = 'field_timezone_custom';
   $handler->display->display_options['fields']['field_timezone_custom']['hide_empty'] = TRUE;
+  /* Field: Content: Key */
+  $handler->display->display_options['fields']['field_menu_key_new']['id'] = 'field_menu_key_new';
+  $handler->display->display_options['fields']['field_menu_key_new']['table'] = 'field_data_field_menu_key_new';
+  $handler->display->display_options['fields']['field_menu_key_new']['field'] = 'field_menu_key_new';
+  $handler->display->display_options['fields']['field_menu_key_new']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_menu_key_new']['type'] = 'text_plain';
+  $handler->display->display_options['fields']['field_menu_key_new']['settings'] = array(
+    'trim_length' => '600',
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -474,7 +477,6 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Desc'),
     t('Node ID'),
     t('Node Type'),
-    t('Key'),
     t('Screens in this IVR'),
     t('Logo Thumbnail'),
     t('Street1'),
@@ -519,6 +521,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Input Language'),
     t('Default Language'),
     t('Timezone'),
+    t('Key'),
     t('Page'),
   );
   $export['new_content'] = $view;

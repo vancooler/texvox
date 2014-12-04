@@ -22,17 +22,29 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
     if ($is_menu) {
       // menus table customize
       unset($fields['title']);                       // This line removes the title field. you're looking to do this, just with the status instead of title field
-      $fields['field_menu_key'] = array(                   // This part adds the key field with a label 'Key'
+      $fields['field_menu_key_new'] = array(                   // This part adds the key field with a label 'Key'
         'type' => 'field',
         'label' => t('Key'),
         'weight' => 1,
       );
+      $fields['field_title_in_multi_languages'] = array(                     // Add title
+        'type' => 'field',
+        'label' => t('Display Title'),
+        'weight' => 101,
+        'formatter' => 'rss',
+      );
+      $fields['field_go_to_screen'] = array(                     // Add go to screen
+        'type' => 'field',
+        'label' => t('Go to Screen'),
+        'weight' => 102,
+      );
       $fields['field_action'] = array(                     // Add Action
         'type' => 'field',
         'label' => t('Action'),
-        'weight' => 101,
+        'weight' => 103,
       );
       unset($fields['status']);                         // Remove Status( it does not make sense)
+      // dpm($fields);
     }
     elseif($is_screen){
       // screens table customize
@@ -169,6 +181,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
 
   // alter ivr form
   if($form_id == "ivr_node_form"){
+    // dpm($form);
     $form['actions']['submit']['#submit'][] = 'texvox_ivr_form_submit_redirect_handler';
     if(isset($form['field_ivr_screen']['und']['entities'])){
       foreach ($form['field_ivr_screen']['und']['entities'] as $skey => $screen) {
@@ -181,6 +194,8 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
               $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][2] = $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][1];
               $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][1] = $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][0];
               $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][0] = "texvox_ivr_form_submit_menu_title_handler";
+              $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['entities'][$mkey]['form']['#element_validate'][] = "texvox_ivr_form_submit_menu_key_validator";
+
             }
           }
         }
@@ -193,6 +208,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
               $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][2] = $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][1];
               $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][1] = $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][0];
               $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['actions']['ief_edit_save']['#submit'][0] = "texvox_ivr_form_submit_menu_title_handler";
+              $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['#element_validate'][] = "texvox_ivr_form_submit_menu_key_validator";
             }
           }
         }
@@ -203,6 +219,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['actions']['ief_add_save']['#submit'][2] = $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['actions']['ief_add_save']['#submit'][1];
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['actions']['ief_add_save']['#submit'][1] = $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['actions']['ief_add_save']['#submit'][0];
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['actions']['ief_add_save']['#submit'][0] = "texvox_ivr_form_submit_menu_title_handler";
+          $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['#element_validate'][] = "texvox_ivr_form_submit_menu_key_validator";
         }
 
         if (is_numeric($skey) and isset($screen['form']['field_new_verify_options']['und']['form']['title_field'])) {
@@ -212,6 +229,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['form']['actions']['ief_add_save']['#submit'][2] = $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['form']['actions']['ief_add_save']['#submit'][1];
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['form']['actions']['ief_add_save']['#submit'][1] = $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['form']['actions']['ief_add_save']['#submit'][0];
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['form']['actions']['ief_add_save']['#submit'][0] = "texvox_ivr_form_submit_menu_title_handler";
+          $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_new_verify_options']['und']['form']['#element_validate'][] = "texvox_ivr_form_submit_menu_key_validator";
         }
       }
     }
@@ -461,7 +479,24 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
 
 }
 
+function texvox_ivr_form_submit_menu_key_validator($element, &$form_state, &$form){
+  // dpm($element);
+  // dpm($form_state['values']);
+  $flag = true;
+  if (isset($element['field_menu_key_new']['und'][0]['value']['#value'])) {
+    $val = $element['field_menu_key_new']['und'][0]['value']['#value'];
+    if(strlen($val) > 1 and !is_numeric($val)){
+      $flag = false;
+    }
+    elseif (strlen($val) == 1 and ($val != '*' and $val != '#' and !is_numeric($val))) {
+      $flag = false;      
+    }
 
+    if (!$flag) {
+      form_error($element['field_menu_key_new'], t('Invalid menu key'));
+    }
+  }
+}
 /*
  * redirect to edit page 
  */
@@ -484,8 +519,8 @@ function texvox_organization_form_submit_redirect_handler($form, &$form_state){
 function texvox_ivr_form_submit_menu_title_handler($form, &$form_state){
   if(isset($form_state['values']['field_ivr_screen']['und']['entities'])){
     foreach ($form_state['values']['field_ivr_screen']['und']['entities'] as $skey => $screen) {
-      if(isset($screen['form']['field_menus']['und']['form']['field_menu_key']['und'][0]['value'])){
-        $form_state['values']['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['title'] = $screen['form']['field_menus']['und']['form']['field_menu_key']['und'][0]['value']." ";
+      if(isset($screen['form']['field_menus']['und']['form']['field_menu_key_new']['und'][0]['value'])){
+        $form_state['values']['field_ivr_screen']['und']['entities'][$skey]['form']['field_menus']['und']['form']['title'] = $screen['form']['field_menus']['und']['form']['field_menu_key_new']['und'][0]['value']." ";
       }
     }
   }
@@ -967,7 +1002,7 @@ function texvox_convert_menu_title_to_key(){
     ->execute()
     ->fetchCol(); // returns an indexed array
 
-  $result = db_select('field_data_field_menu_key', 'm')
+  $result = db_select('field_data_field_menu_key_new', 'm')
     ->fields('m', array('entity_id'))
     ->execute();
   foreach ($result as $row) {
@@ -978,9 +1013,9 @@ function texvox_convert_menu_title_to_key(){
   // Now return the node objects.
   $nodes = node_load_multiple($nids);
   foreach ($nodes as $key => $node) {
-    $node->field_menu_key['und'][0]['value'] = $node->title;
-    $node->title_field[$node->language][0]['value'] = $node->title . " ";
-    $node->title = $node->title . " ";
+    $node->field_menu_key_new['und'][0]['value'] = str_replace(" ", "", $node->title);
+    // $node->title_field[$node->language][0]['value'] = $node->title;
+    // $node->title = $node->title . " ";
     node_save($node);
     // dpm($node->nid);
   }
