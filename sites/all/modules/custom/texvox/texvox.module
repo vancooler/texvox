@@ -71,7 +71,7 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
 //////////////////////////////////////////////////////////////////////
 function texvox_form_alter(&$form, &$form_state, $form_id) {
   // dpm($form_id);
-  texvox_convert_menu_title_to_key();
+  // texvox_convert_menu_title_to_key();
   global $user;
   if($form_id == "user_profile_form"){
     unset($form['field_encrypted_freeswitch_pass']);
