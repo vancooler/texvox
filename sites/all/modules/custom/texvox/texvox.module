@@ -36,12 +36,12 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
       $fields['field_go_to_screen'] = array(                     // Add go to screen
         'type' => 'field',
         'label' => t('Go to Screen'),
-        'weight' => 102,
+        'weight' => 103,
       );
       $fields['field_action'] = array(                     // Add Action
         'type' => 'field',
         'label' => t('Action'),
-        'weight' => 103,
+        'weight' => 102,
       );
       unset($fields['status']);                         // Remove Status( it does not make sense)
       // dpm($fields);

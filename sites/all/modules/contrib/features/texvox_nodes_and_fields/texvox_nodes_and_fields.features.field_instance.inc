@@ -789,14 +789,14 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'weight' => 1,
       ),
       'diff_standard' => array(
-        'label' => 'hidden',
+        'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 1,
       ),
       'full' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -835,21 +835,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'module' => 'languagefield',
         'settings' => array(
           'format' => array(
-            'iso' => 'iso',
-            'name' => 0,
-            'name_native' => 0,
+            'name' => 'name',
           ),
         ),
         'type' => 'language_default',
         'weight' => 0,
       ),
       'diff_standard' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'full' => array(
         'label' => 'above',
         'module' => 'languagefield',
         'settings' => array(
@@ -860,6 +852,12 @@ function texvox_nodes_and_fields_field_default_field_instances() {
           ),
         ),
         'type' => 'language_default',
+        'weight' => 0,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -2884,6 +2882,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 2,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
       'full' => array(
         'label' => 'above',
         'module' => 'list',
@@ -2892,6 +2897,20 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'weight' => 2,
       ),
       'rss' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+      'search_result' => array(
         'label' => 'above',
         'module' => 'list',
         'settings' => array(),
@@ -2937,6 +2956,15 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 8,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
       'full' => array(
         'label' => 'above',
         'module' => 'entityreference',
@@ -2947,6 +2975,24 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'weight' => 8,
       ),
       'rss' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'search_result' => array(
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
@@ -2997,6 +3043,18 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'number_integer',
         'weight' => 7,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 7,
+      ),
       'full' => array(
         'label' => 'above',
         'module' => 'number',
@@ -3010,6 +3068,30 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'weight' => 7,
       ),
       'rss' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 7,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 7,
+      ),
+      'search_result' => array(
         'label' => 'above',
         'module' => 'number',
         'settings' => array(
@@ -3062,6 +3144,13 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 5,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
       'full' => array(
         'label' => 'above',
         'module' => 'text',
@@ -3070,6 +3159,20 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'weight' => 5,
       ),
       'rss' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+      'search_result' => array(
         'label' => 'above',
         'module' => 'text',
         'settings' => array(),
@@ -3120,6 +3223,15 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 3,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
       'full' => array(
         'label' => 'above',
         'module' => 'entityreference',
@@ -3130,6 +3242,24 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'weight' => 3,
       ),
       'rss' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'search_result' => array(
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
@@ -3175,11 +3305,39 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 11,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
       'rss' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3225,6 +3383,17 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'language_default',
         'weight' => 6,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'name' => 'name',
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 6,
+      ),
       'full' => array(
         'label' => 'above',
         'module' => 'languagefield',
@@ -3237,6 +3406,28 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'weight' => 6,
       ),
       'rss' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'name' => 'name',
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 6,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'name' => 'name',
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 6,
+      ),
+      'search_result' => array(
         'label' => 'above',
         'module' => 'languagefield',
         'settings' => array(
@@ -3289,23 +3480,63 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'field_collection_list',
         'weight' => 4,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => '',
+          'delete' => '',
+          'description' => 0,
+          'edit' => '',
+        ),
+        'type' => 'field_collection_list',
+        'weight' => 4,
+      ),
       'full' => array(
         'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
+          'add' => '',
+          'delete' => '',
+          'description' => 0,
+          'edit' => '',
           'view_mode' => 'diff_standard',
         ),
-        'type' => 'field_collection_fields',
+        'type' => 'field_collection_view',
         'weight' => 4,
       ),
       'rss' => array(
         'label' => 'hidden',
         'module' => 'field_collection',
         'settings' => array(
-          'add' => 'Additional',
-          'delete' => 'Delete',
-          'description' => 1,
-          'edit' => 'Edit',
+          'add' => '',
+          'delete' => '',
+          'description' => 0,
+          'edit' => '',
+        ),
+        'type' => 'field_collection_list',
+        'weight' => 4,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => '',
+          'delete' => '',
+          'description' => 0,
+          'edit' => '',
+        ),
+        'type' => 'field_collection_list',
+        'weight' => 4,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => '',
+          'delete' => '',
+          'description' => 0,
+          'edit' => '',
         ),
         'type' => 'field_collection_list',
         'weight' => 4,
@@ -3346,6 +3577,12 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 10,
       ),
+      'diff_standard' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
       'full' => array(
         'label' => 'above',
         'settings' => array(),
@@ -3353,6 +3590,18 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'weight' => 10,
       ),
       'rss' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
+      'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',

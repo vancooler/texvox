@@ -189,7 +189,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     'delete' => '',
     'add' => '',
     'description' => 0,
-    'view_mode' => 'full',
+    'view_mode' => 'diff_standard',
   );
   $handler->display->display_options['fields']['field_title_in_multi_languages']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['multi_type'] = 'ol';

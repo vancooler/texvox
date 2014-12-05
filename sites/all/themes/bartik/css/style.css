@@ -1655,3 +1655,13 @@ fieldset.vertical-tabs-pane fieldset legend {
 display: none;
 }
 
+td.inline-entity-form-node-field_title_in_multi_languages li.edit,
+td.inline-entity-form-node-field_title_in_multi_languages li.delete,
+td.inline-entity-form-node-field_title_in_multi_languages ul.action-links.action-links-field-collection-add {
+  display: none;
+}
+
+td.inline-entity-form-node-field_title_in_multi_languages div.field-collection-container {
+  border-bottom: 0px;  
+}
+
