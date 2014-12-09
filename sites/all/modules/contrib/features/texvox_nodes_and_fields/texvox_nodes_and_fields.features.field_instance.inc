@@ -835,7 +835,9 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'module' => 'languagefield',
         'settings' => array(
           'format' => array(
-            'name' => 'name',
+            'iso' => 'iso',
+            'name' => 0,
+            'name_native' => 0,
           ),
         ),
         'type' => 'language_default',
