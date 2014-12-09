@@ -1449,9 +1449,9 @@ function texvox_nodes_and_fields_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => 'Display only',
-        1 => 'Texvox call',
+        1 => 'TexVox call',
         2 => 'Phone call',
-        3 => 'Texvox call & phone call',
+        3 => 'TexVox call & phone call',
       ),
       'allowed_values_function' => '',
     ),
