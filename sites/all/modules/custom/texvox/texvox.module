@@ -54,11 +54,11 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
         'label' => t('Type'),
         'weight' => 101,
       );
-      $fields['field_default_screen_language'] = array(    // Add Screen Language               
-        'type' => 'field',
-        'label' => t('Default Language'),
-        'weight' => 102,
-      ); 
+      // $fields['field_default_screen_language'] = array(    // Add Screen Language               
+      //   'type' => 'field',
+      //   'label' => t('Default Language'),
+      //   'weight' => 102,
+      // ); 
       $fields['title']['label'] = "Screen Code";          // Change the title Label
     }
 }
