@@ -1021,6 +1021,50 @@ function texvox_convert_menu_title_to_key(){
   }
 }
 
+// hook_user_load
+function texvox_user_load($users) {
+  // watchdog("USER", "<pre>".print_r("HHHHH", true)."</pre>");
+  foreach ($users as $record) {
+     // foreach ($users as $record) {
+
+     //    $result = db_query("SELECT fname FROM {users} WHERE uid IN ($record->uid)")->fetchAssoc(); 
+
+     //    $users[$record->uid]->extra =$result['fname'];
+     // }
+    if(isset($record->field_encrypted_freeswitch_pass['und'][0]['value'])){
+      $uid = intval($record->uid);
+      $fs_database = array(
+        'database' => 'freeswitch',
+        'username' => 'admin', // assuming this is necessary
+        'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
+        'host' => '70.32.106.160', // assumes localhost
+        'driver' => 'mysql', // replace with your database driver
+      );
+      // replace 'freeswitch' with something that's unique to your module
+      Database::addConnectionInfo('texvox_freeswitch', 'default', $fs_database);
+      db_set_active('texvox_freeswitch');
+
+      // execute queries here
+      $password = '';
+      $result = db_select('directory_params', 'n') 
+            ->fields('n', array('param_value'))
+            ->condition('n.directory_id', $uid)
+            ->condition('n.param_name', "password")
+            ->execute();
+
+      foreach ($result as $row) {
+        $password = $row->param_value;
+      }
+      
+      db_set_active(); // without the paramater means set back to the default for the site
+      $users[$record->uid]->field_encrypted_freeswitch_pass['und'][0]['value'] =$password;
+      $users[$record->uid]->field_encrypted_freeswitch_pass['und'][0]['safe_value'] =$password;
+    }
+    // dpm($record);
+  }
+
+}
+
 /*
  * Register API:
  * [POST] http://live-texvox.pantheon.io/api/user/register
