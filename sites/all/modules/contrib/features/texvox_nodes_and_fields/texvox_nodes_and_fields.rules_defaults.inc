@@ -30,5 +30,25 @@ function texvox_nodes_and_fields_default_rules_configuration() {
       "DO" : [ { "texvox_delete_ivr_when_delete_branch" : { "node" : [ "node" ] } } ]
     }
   }');
+  $items['rules_warning_for_duplicate_screen_codes'] = entity_import('rules_config', '{ "rules_warning_for_duplicate_screen_codes" : {
+      "LABEL" : "Warning for duplicate screen codes",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "texvox", "rules" ],
+      "ON" : {
+        "node_insert--ivr" : { "bundle" : "ivr" },
+        "node_update--ivr" : { "bundle" : "ivr" }
+      },
+      "IF" : [ { "texvox_condition_duplicate_screen_code" : { "node" : [ "node" ] } } ],
+      "DO" : [
+        { "drupal_message" : {
+            "message" : "There are screens with the same screen code in this IVR, please review and change it.",
+            "type" : "warning",
+            "repeat" : 0
+          }
+        }
+      ]
+    }
+  }');
   return $items;
 }

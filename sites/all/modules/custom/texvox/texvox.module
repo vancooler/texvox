@@ -5,6 +5,53 @@ else {
     define('DEBUG', true);
 }
 
+/**
+ * implementation of hook_rules_condition_info()
+ */
+function texvox_rules_condition_info() {
+  $items['texvox_condition_duplicate_screen_code'] = array(
+    'label' => t('TexVox warning for duplicate screen code in IVR'), 
+    'parameter' => array(
+      'node' => array(
+        'type' => 'node',
+        'label' => t('Node'),
+      ),        
+    ), 
+    'group' => t('TexVox warning'),
+    'callbacks' => array(
+      'execute' => 'texvox_condition_duplicate_screen_code',
+    ),
+    'base' => 'texvox_condition_duplicate_screen_code',
+  );
+  return $items;
+}
+
+/**
+ * Condition packages_condition_packagetype
+ */
+function texvox_condition_duplicate_screen_code($node) {
+  $nid = $node->nid;
+  $valid = false;
+  if($node->type == "ivr"){
+    $query = db_select('node', 'n');
+    $query->join('field_data_field_ivr_screen', 's', 'n.nid = s.field_ivr_screen_target_id');
+    $result = $query->fields('n', array('title'))
+               ->condition('s.entity_id', $nid, '=')
+               ->orderBy("n.title", "ASC")
+               ->execute();
+    // dpm($result);
+    $screen_array = array();
+    foreach ($result as $row) {
+      $screen_array[] = $row->title;
+    }
+    if(!empty($screen_array) and count(array_unique($screen_array)) < count($screen_array))
+    {
+        $valid = true;
+    }
+  }
+  return $valid;
+} 
+
 // alter the inline entity form fields
 function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
   
