@@ -277,6 +277,23 @@ foreach ($rows['nodes'] as $key => $node) {
       $rows['nodes'][$key]['node']['HeaderText'] = $subtitle_array;
     }
 
+    // rewrite Input Text as an array
+    if(isset($rows['nodes'][$key]['node']['Input Text']) and !empty($rows['nodes'][$key]['node']['Input Text'])){
+      $input_text_array = array();
+      $input_text_string = str_replace('\n', '', $node['node']['Input Text']);
+      $pieces = explode("Language:", $input_text_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $parts = explode("Text:", $element);
+          if(count($parts) == 2){          
+            $input_text_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
+            $input_text_array[($skey-1)]['Text'] = substr(trim($parts[1]), 2);
+          }
+        }
+      }
+      $rows['nodes'][$key]['node']['Input Text'] = $input_text_array;
+    }
+
     // Rewrite titles as an array
     if(isset($rows['nodes'][$key]['node']['ScreenName']) and !empty($rows['nodes'][$key]['node']['ScreenName'])){
       $title_array = array();

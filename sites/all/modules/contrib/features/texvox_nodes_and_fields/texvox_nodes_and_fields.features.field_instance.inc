@@ -448,6 +448,77 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'field_collection_item-field_input_text-field_language'
+  $field_instances['field_collection_item-field_input_text-field_language'] = array(
+    'bundle' => 'field_input_text',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'iso' => 'iso',
+            'name' => 0,
+            'name_native' => 0,
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_language',
+    'label' => 'Language',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_input_text-field_text'
+  $field_instances['field_collection_item-field_input_text-field_text'] = array(
+    'bundle' => 'field_input_text',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_text',
+    'label' => 'Text',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_phone_numbers-field_number'
   $field_instances['field_collection_item-field_phone_numbers-field_number'] = array(
     'bundle' => 'field_phone_numbers',
@@ -2194,7 +2265,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -1,
+      'weight' => 40,
     ),
   );
 
@@ -2231,7 +2302,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 43,
     ),
   );
 
@@ -2277,7 +2348,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => -2,
+      'weight' => 39,
     ),
   );
 
@@ -2316,7 +2387,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 44,
     ),
   );
 
@@ -2357,7 +2428,50 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 45,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-field_input_text'
+  $field_instances['node-screen-field_input_text'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 24,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_input_text',
+    'label' => 'Input Text',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 38,
     ),
   );
 
@@ -2453,7 +2567,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         ),
       ),
       'type' => 'inline_entity_form',
-      'weight' => 1,
+      'weight' => 42,
     ),
   );
 
@@ -2823,7 +2937,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 0,
+      'weight' => 41,
     ),
   );
 
@@ -3666,6 +3780,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Input Count');
   t('Input Goto Screen');
   t('Input Language');
+  t('Input Text');
   t('Input key that signal the end of input sequence');
   t('Integer number of the maximum number of input digits ');
   t('Key');
@@ -3699,6 +3814,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Search Base');
   t('Set Language');
   t('Subtitle');
+  t('Text');
   t('The screen display after input has done. Used when InputAction is set to “Goto Screen” or “Set Language and Goto Screen” and VerifyInput is False.');
   t('The screen we display during the delay time, before showing this screen');
   t('Timeslots');

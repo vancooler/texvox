@@ -148,7 +148,6 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'title_field',
       1 => 'field_screen_type',
-      2 => 'field_default_screen_language',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -402,6 +401,7 @@ function texvox_nodes_and_fields_field_group_info() {
       4 => 'field_input_action',
       5 => 'field_input_goto_screen',
       6 => 'field_input_language',
+      7 => 'field_input_text',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

@@ -450,6 +450,20 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_menu_key_new']['settings'] = array(
     'trim_length' => '600',
   );
+  /* Field: Content: Input Text */
+  $handler->display->display_options['fields']['field_input_text']['id'] = 'field_input_text';
+  $handler->display->display_options['fields']['field_input_text']['table'] = 'field_data_field_input_text';
+  $handler->display->display_options['fields']['field_input_text']['field'] = 'field_input_text';
+  $handler->display->display_options['fields']['field_input_text']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_input_text']['settings'] = array(
+    'edit' => '',
+    'delete' => '',
+    'add' => '',
+    'description' => 0,
+    'view_mode' => 'full',
+  );
+  $handler->display->display_options['fields']['field_input_text']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_input_text']['multi_type'] = 'ul';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -522,6 +536,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     t('Default Language'),
     t('Timezone'),
     t('Key'),
+    t('Input Text'),
     t('Page'),
   );
   $export['new_content'] = $view;
