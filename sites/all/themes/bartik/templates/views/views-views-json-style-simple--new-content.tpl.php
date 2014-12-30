@@ -282,6 +282,10 @@ foreach ($rows['nodes'] as $key => $node) {
       $input_text_array = array();
       $input_text_string = str_replace('\n', '', $node['node']['Input Text']);
       $pieces = explode("Language:", $input_text_string);
+      if (intval($rows['nodes'][$key]['node']['Node ID']) == 691){
+        watchdog("INPUTTEXT", "<pre>".print_r($input_text_string, true)."</pre>");
+        watchdog("INPUTTEXT", "<pre>".print_r($pieces, true)."</pre>");
+      }
       foreach ($pieces as $skey => $element) {
         if(!empty($element)){
           $parts = explode("Text:", $element);
