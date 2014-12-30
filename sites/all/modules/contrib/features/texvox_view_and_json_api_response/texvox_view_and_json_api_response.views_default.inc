@@ -178,7 +178,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
   $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
   $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
-  /* Field: Content: Title */
+  /* Field: Content: Title  */
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
@@ -464,6 +464,25 @@ function texvox_view_and_json_api_response_views_default_views() {
   );
   $handler->display->display_options['fields']['field_input_text']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_input_text']['multi_type'] = 'ul';
+  /* Field: Content: Display Delay */
+  $handler->display->display_options['fields']['field_display_delay']['id'] = 'field_display_delay';
+  $handler->display->display_options['fields']['field_display_delay']['table'] = 'field_data_field_display_delay';
+  $handler->display->display_options['fields']['field_display_delay']['field'] = 'field_display_delay';
+  $handler->display->display_options['fields']['field_display_delay']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_display_delay']['settings'] = array(
+    'thousand_separator' => '',
+    'prefix_suffix' => 0,
+  );
+  /* Field: Content: Prelude Screen Code */
+  $handler->display->display_options['fields']['field_prelude_screen_code']['id'] = 'field_prelude_screen_code';
+  $handler->display->display_options['fields']['field_prelude_screen_code']['table'] = 'field_data_field_prelude_screen_code';
+  $handler->display->display_options['fields']['field_prelude_screen_code']['field'] = 'field_prelude_screen_code';
+  $handler->display->display_options['fields']['field_prelude_screen_code']['label'] = 'Prelude Screen ID';
+  $handler->display->display_options['fields']['field_prelude_screen_code']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_prelude_screen_code']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_prelude_screen_code']['settings'] = array(
+    'link' => 0,
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -480,65 +499,6 @@ function texvox_view_and_json_api_response_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'all-nodes';
-  $translatables['new_content'] = array(
-    t('Master'),
-    t('All nodes'),
-    t('more'),
-    t('Apply'),
-    t('Reset'),
-    t('Sort by'),
-    t('Asc'),
-    t('Desc'),
-    t('Node ID'),
-    t('Node Type'),
-    t('Screens in this IVR'),
-    t('Logo Thumbnail'),
-    t('Street1'),
-    t('Street2'),
-    t('City'),
-    t('Province'),
-    t('Country'),
-    t('Postal Code'),
-    t('lat'),
-    t('lon'),
-    t('Updated date'),
-    t('Screen Type'),
-    t('rgbHEX'),
-    t('Organization'),
-    t('Phone Numbers'),
-    t('Branch Type'),
-    t('Organization Type'),
-    t('Search Base'),
-    t('ScreenName'),
-    t('HeaderText'),
-    t('BodyText'),
-    t('Menus in this screen'),
-    t('Action'),
-    t('Go To Screen'),
-    t('Default Screen'),
-    t('Timeslots'),
-    t('No Input Action'),
-    t('No Input Language'),
-    t('Input Count'),
-    t('Image URL'),
-    t('End Key'),
-    t('No Input Delay'),
-    t('No Input Goto Screen'),
-    t('Holiday'),
-    t('Default IVR'),
-    t('Verify Input'),
-    t('Set Language'),
-    t('Action Delay Screen Code'),
-    t('Action Delay Time'),
-    t('Input Action'),
-    t('Input Goto Screen'),
-    t('Input Language'),
-    t('Default Language'),
-    t('Timezone'),
-    t('Key'),
-    t('Input Text'),
-    t('Page'),
-  );
   $export['new_content'] = $view;
 
   return $export;
