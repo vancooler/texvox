@@ -48,9 +48,6 @@ function template_preprocess_views_views_json_style_simple(&$vars) {
           $content = $plaintext_output ? strip_tags(html_entity_decode($field->content, ENT_QUOTES, 'UTF-8')) : $field->content;
           $content = mb_check_encoding($content, 'UTF-8') ? $content : utf8_encode($content);
           if($field->id == "field_title_in_multi_languages" and strpos($field->content, "zh-hans") !== false){
-            dpm($field->content);
-            dpm(html_entity_decode($field->content, ENT_QUOTES, 'UTF-8'));
-            dpm(strip_tags(html_entity_decode($field->content, ENT_QUOTES, 'UTF-8')));
           }
         }
         else {
