@@ -374,6 +374,8 @@ function _views_json_json_encode($rows, $bitmask = NULL) {
     if(PHP_MINOR_VERSION <= 4) {
        $json = str_replace(array('\/'), array('/'), $json);
     }
+    watchdog("JSON", "<pre>".print_r($bitmask, true)."</pre>");
+    watchdog("JSON", "<pre>".print_r($rows, true)."</pre>");
     watchdog("JSON", "<pre>".print_r($json, true)."</pre>");
   } else {
     $json = json_encode($rows);
