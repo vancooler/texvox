@@ -835,7 +835,7 @@ function texvox_update_user_in_freeswitch($user){
         'database' => 'freeswitch',
         'username' => 'admin', // assuming this is necessary
         'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
-        'host' => '70.32.106.160', // assumes localhost
+        'host' => '66.228.48.166',//'70.32.106.160', // assumes localhost
         'driver' => 'mysql', // replace with your database driver
     );
     // replace 'freeswitch' with something that's unique to your module
@@ -859,7 +859,6 @@ function texvox_update_user_in_freeswitch($user){
 
     db_set_active(); // without the paramater means set back to the default for the site
 
-    watchdog('USER update', '<pre>'. print_r($user_updated, TRUE) .'</pre>');
     return 1;
   }
 }
@@ -878,7 +877,7 @@ function texvox_delete_user_in_freeswitch($user){
         'database' => 'freeswitch',
         'username' => 'admin', // assuming this is necessary
         'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
-        'host' => '70.32.106.160', // assumes localhost
+        'host' => '66.228.48.166',//'70.32.106.160', // assumes localhost
         'driver' => 'mysql', // replace with your database driver
     );
     // replace 'freeswitch' with something that's unique to your module
@@ -968,7 +967,7 @@ function texvox_register_user_in_freeswitch($user){
         'database' => 'freeswitch',
         'username' => 'admin', // assuming this is necessary
         'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
-        'host' => '70.32.106.160', // assumes localhost
+        'host' => '66.228.48.166',//'70.32.106.160', // assumes localhost
         'driver' => 'mysql', // replace with your database driver
     );
     // replace 'freeswitch' with something that's unique to your module
@@ -1084,7 +1083,7 @@ function texvox_user_load($users) {
         'database' => 'freeswitch',
         'username' => 'admin', // assuming this is necessary
         'password' => 'djfhey^52yh%4tgh', // assuming this is necessary
-        'host' => '70.32.106.160', // assumes localhost
+        'host' => '66.228.48.166',//'70.32.106.160', // assumes localhost
         'driver' => 'mysql', // replace with your database driver
       );
       // replace 'freeswitch' with something that's unique to your module
