@@ -429,6 +429,23 @@ foreach ($rows['nodes'] as $key => $node) {
       }
       $rows['nodes'][$key]['node']['Screens in this IVR'] = $screen_array;
     } 
+
+    // Rewrite "Tap to enter" as an array
+    if(isset($rows['nodes'][$key]['node']['Tap to enter']) and !empty($rows['nodes'][$key]['node']['Tap to enter'])){
+      $body_array = array();
+      $body_string = str_replace('\n', '', $node['node']['Tap to enter']);
+      $pieces = explode("Tap to enter Language:", $body_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $parts = explode("Tap to enter in selected language:", $element);
+          if(count($parts) == 2){          
+            $body_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
+            $body_array[($skey-1)]['Tap to enter Text'] = substr(trim($parts[1]), 2);
+          }
+        }
+      }
+      $rows['nodes'][$key]['node']['Tap to enter'] = $body_array;
+    }
   }  
 
   ///////////////////////////////////////////
