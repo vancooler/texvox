@@ -86,7 +86,8 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_only_for_organization',
-      1 => 'title',
+      1 => 'field_mute_microphone',
+      2 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -658,6 +659,7 @@ function texvox_nodes_and_fields_field_group_info() {
       0 => 'field_ivr_screen',
       1 => 'field_default_screen',
       2 => 'field_default_language_for_ivr',
+      3 => 'field_tap_to_enter_text',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

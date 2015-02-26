@@ -693,6 +693,77 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'field_collection_item-field_tap_to_enter_text-field_tap_to_enter_in_language'
+  $field_instances['field_collection_item-field_tap_to_enter_text-field_tap_to_enter_in_language'] = array(
+    'bundle' => 'field_tap_to_enter_text',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_tap_to_enter_in_language',
+    'label' => 'Tap to enter in selected language',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_tap_to_enter_text-field_tap_to_enter_language'
+  $field_instances['field_collection_item-field_tap_to_enter_text-field_tap_to_enter_language'] = array(
+    'bundle' => 'field_tap_to_enter_text',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'languagefield',
+        'settings' => array(
+          'format' => array(
+            'iso' => 'iso',
+            'name' => 0,
+            'name_native' => 0,
+          ),
+        ),
+        'type' => 'language_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_tap_to_enter_language',
+    'label' => 'Tap to enter Language',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_timeslots-field_dayoftheweek'
   $field_instances['field_collection_item-field_timeslots-field_dayoftheweek'] = array(
     'bundle' => 'field_timeslots',
@@ -1832,7 +1903,50 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         ),
       ),
       'type' => 'inline_entity_form',
-      'weight' => 6,
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'node-ivr-field_mute_microphone'
+  $field_instances['node-ivr-field_mute_microphone'] = array(
+    'bundle' => 'ivr',
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_mute_microphone',
+    'label' => 'Mute Microphone',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => -3,
     ),
   );
 
@@ -1880,7 +1994,50 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => -4,
+    ),
+  );
+
+  // Exported field_instance: 'node-ivr-field_tap_to_enter_text'
+  $field_instances['node-ivr-field_tap_to_enter_text'] = array(
+    'bundle' => 'ivr',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_tap_to_enter_text',
+    'label' => 'Tap to enter Text',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 6,
     ),
   );
 
@@ -3791,6 +3948,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Location');
   t('Logo');
   t('Menus');
+  t('Mute Microphone');
   t('No Input Action');
   t('No Input Delay');
   t('No Input Goto Screen');
@@ -3814,6 +3972,9 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Search Base');
   t('Set Language');
   t('Subtitle');
+  t('Tap to enter Language');
+  t('Tap to enter Text');
+  t('Tap to enter in selected language');
   t('Text');
   t('The screen display after input has done. Used when InputAction is set to “Goto Screen” or “Set Language and Goto Screen” and VerifyInput is False.');
   t('The screen we display during the delay time, before showing this screen');
