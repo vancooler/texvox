@@ -1,7 +1,7 @@
 name = Texvox: nodes and fields
 core = 7.x
 package = Texvox
-version = 7.x-1.38
+version = 7.x-1.39
 project = texvox_nodes_and_fields
 dependencies[] = colorfield
 dependencies[] = ctools
@@ -190,4 +190,4 @@ features[rules_config][] = rules_delete_branch_when_delete_organization
 features[rules_config][] = rules_delete_ivr_when_delete_branch
 features[rules_config][] = rules_warning_for_duplicate_screen_codes
 features_exclude[dependencies][options] = options
-mtime = 1424815786
+mtime = 1424818780
