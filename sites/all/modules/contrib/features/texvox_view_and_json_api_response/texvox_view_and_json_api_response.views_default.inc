@@ -178,7 +178,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
   $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
   $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
-  /* Field: Content: Title  */
+  /* Field: Content: Title */
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
@@ -483,6 +483,29 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_prelude_screen_code']['settings'] = array(
     'link' => 0,
   );
+  /* Field: Content: Tap to enter Text */
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['id'] = 'field_tap_to_enter_text';
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['table'] = 'field_data_field_tap_to_enter_text';
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['field'] = 'field_tap_to_enter_text';
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['label'] = 'Tap to enter';
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['alter']['trim_whitespace'] = TRUE;
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['hide_alter_empty'] = FALSE;
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['settings'] = array(
+    'edit' => '',
+    'delete' => '',
+    'add' => '',
+    'description' => 0,
+    'view_mode' => 'full',
+  );
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['delta_offset'] = '0';
+  $handler->display->display_options['fields']['field_tap_to_enter_text']['multi_type'] = 'ul';
+  /* Field: Content: Mute Microphone */
+  $handler->display->display_options['fields']['field_mute_microphone']['id'] = 'field_mute_microphone';
+  $handler->display->display_options['fields']['field_mute_microphone']['table'] = 'field_data_field_mute_microphone';
+  $handler->display->display_options['fields']['field_mute_microphone']['field'] = 'field_mute_microphone';
+  $handler->display->display_options['fields']['field_mute_microphone']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_mute_microphone']['hide_alter_empty'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
