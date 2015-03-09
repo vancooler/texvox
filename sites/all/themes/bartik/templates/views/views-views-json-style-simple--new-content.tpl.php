@@ -430,22 +430,22 @@ foreach ($rows['nodes'] as $key => $node) {
       $rows['nodes'][$key]['node']['Screens in this IVR'] = $screen_array;
     } 
 
-    // Rewrite "Tap to enter" as an array
-    if(isset($rows['nodes'][$key]['node']['Tap to enter']) and !empty($rows['nodes'][$key]['node']['Tap to enter'])){
-      $body_array = array();
-      $body_string = str_replace('\n', '', $node['node']['Tap to enter']);
-      $pieces = explode("Tap to enter Language:", $body_string);
-      foreach ($pieces as $skey => $element) {
-        if(!empty($element)){
-          $parts = explode("Tap to enter in selected language:", $element);
-          if(count($parts) == 2){          
-            $body_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
-            $body_array[($skey-1)]['Tap to enter Text'] = substr(trim($parts[1]), 2);
-          }
-        }
-      }
-      $rows['nodes'][$key]['node']['Tap to enter'] = $body_array;
-    }
+    // // Rewrite "Tap to enter" as an array
+    // if(isset($rows['nodes'][$key]['node']['Tap to enter']) and !empty($rows['nodes'][$key]['node']['Tap to enter'])){
+    //   $body_array = array();
+    //   $body_string = str_replace('\n', '', $node['node']['Tap to enter']);
+    //   $pieces = explode("Tap to enter Language:", $body_string);
+    //   foreach ($pieces as $skey => $element) {
+    //     if(!empty($element)){
+    //       $parts = explode("Tap to enter in selected language:", $element);
+    //       if(count($parts) == 2){          
+    //         $body_array[($skey-1)]['Language'] = substr(trim($parts[0]), 2);
+    //         $body_array[($skey-1)]['Tap to enter Text'] = substr(trim($parts[1]), 2);
+    //       }
+    //     }
+    //   }
+    //   $rows['nodes'][$key]['node']['Tap to enter'] = $body_array;
+    // }
   }  
 
   ///////////////////////////////////////////
@@ -731,9 +731,31 @@ if($timestamp > 0){
 }
 // dpm($rows);
 
+////////////////////////////////////////////////
+//
+// Show tap to enter text
+//
+////////////////////////////////////////////////
+$tap_to_enter = array();
+  $query = db_select('field_data_field_language', 'l');
+  $query->join('taxonomy_term_data', 't', 'l.entity_id = t.tid');
+  $result = $query->fields('t', array('name'))
+      ->fields('l', array('field_language_value'))
+      ->condition('l.entity_type', 'taxonomy_term', '=')
+      ->condition('l.bundle', 'tap_to_enter_text', '=')
+      ->execute();
 
+  foreach ($result as $row) {
+    $language = $row->field_language_value;
+    $text = $row->name;
 
+    $tap_to_enter['Language'] = $language;
+    $tap_to_enter['Text'] = $text;
+  }
 
+  if(!empty($tap_to_enter)){
+    $rows['Tap to enter texts'][] = $tap_to_enter;
+  }
 
 
 //////////////////////////////////// - Drupal theme default - ////////////////////////////////////
