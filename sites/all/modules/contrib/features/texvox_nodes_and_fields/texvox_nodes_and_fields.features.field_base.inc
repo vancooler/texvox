@@ -879,7 +879,7 @@ All Languages | aa,ab,ae,af,ak,am,ar,as,ast,av,ay,az,ba,be,bg,bh,bi,bm,bn,bo,br,
         'name' => 'name',
         'name_native' => 0,
       ),
-      'groups' => 'Popular Languages | en, de, es, fr, it, ja, ko, pa, pt, hi, ru, zh-hans
+      'groups' => 'Popular Languages | en, de, es, fr, it, ja, ko, pa, pt, hi, ru, zh-hans, ar
 All Languages | aa,ab,ae,af,ak,am,ar,as,ast,av,ay,az,ba,be,bg,bh,bi,bm,bn,bo,br,bs,ca,ce,ch,co,cr,cs,cu,cv,cy,da,de,dv,dz,ee,el,en,en-gb,eo,es,et,eu,fa,ff,fi,fil,fj,fo,fr,fy,ga,gd,gl,gn,gsw-berne,gu,gv,ha,he,hi,ho,hr,ht,hu,hy,hz,ia,id,ie,ig,ik,is,it,iu,ja,jv,ka,kg,ki,kj,kk,kl,km,kn,ko,kr,ks,ku,kv,kw,ky,la,lb,lg,ln,lo,lt,lv,mg,mh,mi,mk,ml,mn,mo,mr,ms,mt,my,na,nb,nd,ne,ng,nl,nn,nr,nv,ny,oc,om,or,os,pa,pi,pl,ps,pt,pt-br,pt-pt,qu,rm,rn,ro,ru,rw,sa,sc,sco,sd,se,sg,sh,si,sk,sl,sm,sn,so,sq,sr,ss,st,su,sv,sw,ta,te,tg,th,ti,tk,tl,tn,to,tr,ts,tt,tw,ty,ug,uk,ur,uz,ve,vi,wo,xh,xx-lolspeak,yi,yo,za,zh-hans,zh-hant,zu',
       'languages' => array(),
     ),

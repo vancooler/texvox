@@ -3799,7 +3799,11 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   // Exported field_instance: 'taxonomy_term-tap_to_enter_text-field_language'
   $field_instances['taxonomy_term-tap_to_enter_text-field_language'] = array(
     'bundle' => 'tap_to_enter_text',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 'en',
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
