@@ -407,7 +407,7 @@ foreach ($rows['nodes'] as $key => $node) {
       unset($rows['nodes'][$key]['node']['title']);
     }
     if(!isset($rows['nodes'][$key]['node']['Key']) or empty($rows['nodes'][$key]['node']['Key'])){      
-      $rows['nodes'][$key]['node']['Key'] = '0';
+      $rows['nodes'][$key]['node']['Key'] = '';
     }
   }  
 
