@@ -52,6 +52,7 @@ function texvox_condition_duplicate_screen_code($node) {
   return $valid;
 } 
 
+
 // alter the inline entity form fields
 function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
   
@@ -101,12 +102,13 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
         'label' => t('Type'),
         'weight' => 101,
       );
-      // $fields['field_default_screen_language'] = array(    // Add Screen Language               
-      //   'type' => 'field',
-      //   'label' => t('Default Language'),
-      //   'weight' => 102,
-      // ); 
+      $fields['nid'] = array(    // Add Screen Language               
+        'type' => 'property',
+        'label' => t('Create Variant'),
+        'weight' => 102,
+      ); 
       $fields['title']['label'] = "Screen Code";          // Change the title Label
+
     }
 }
 
@@ -228,6 +230,11 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if($form_id == "screen_node_form"){
+    if(isset($form['clone_from_original_nid']) and isset($form['clone_from_original_nid']['#value'])){
+      $original_nid = intval($form['clone_from_original_nid']['#value']);
+      $form_state['original_nid'] = $original_nid;
+      $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_link_to_ivr';
+    }
     $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_nested_handler';
   }
   if($form_id == "screen_menu_node_form"){
@@ -583,6 +590,54 @@ function texvox_ivr_form_submit_menu_title_handler($form, &$form_state){
 }
 
 /**
+ * Link to IVR
+ */
+function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
+  $query = db_select('field_data_field_ivr_screen', 's');
+  $result = $query->fields('s', array('entity_id'))
+             ->condition('s.field_ivr_screen_target_id', intval($form_state['original_nid']), '=')
+             ->execute();
+  $ivrID = 0;
+  foreach ($result as $row) {
+    $ivrID = intval($row->entity_id);
+  }
+  if($ivrID > 0){
+    $query = db_select('field_data_field_ivr_screen', 's');
+    $query->addExpression('MAX(delta)', 'max_delta');
+    $result = $query->condition('s.entity_id', $ivrID, '=')
+             ->execute();
+    $count = 0;
+    foreach ($result as $row) {
+      $count = intval($row->max_delta) + 1;
+    }
+  }
+  $result = db_insert('field_data_field_ivr_screen') 
+              ->fields(array(
+                'entity_type' => 'node',
+                'bundle' => 'ivr',
+                'deleted' => 0,
+                'entity_id' => $ivrID,
+                'revision_id' => $ivrID,
+                'language' => 'und',
+                'delta' => $count,
+                'field_ivr_screen_target_id' => intval($form_state['values']['nid']),
+              ))
+              ->execute();
+  $result = db_insert('field_revision_field_ivr_screen') 
+              ->fields(array(
+                'entity_type' => 'node',
+                'bundle' => 'ivr',
+                'deleted' => 0,
+                'entity_id' => $ivrID,
+                'revision_id' => $ivrID,
+                'language' => 'und',
+                'delta' => $count,
+                'field_ivr_screen_target_id' => intval($form_state['values']['nid']),
+              ))
+              ->execute();
+}
+
+/**
  * change updated timestamp for referenced organization
  */
 function texvox_branch_form_submit_nested_handler($form, &$form_state){
@@ -879,7 +934,7 @@ function texvox_delete_user_in_freeswitch($user){
   if(isset($user) and isset($user->roles) and is_array($user->roles) and count($user->roles) == 1){
 
     $uid = intval($user->uid);
-    watchdog('USER delete', '<pre>'. print_r($uid, TRUE) .'</pre>');
+    // watchdog('USER delete', '<pre>'. print_r($uid, TRUE) .'</pre>');
     // delete in  FS db
     $fs_database = array(
         'database' => 'freeswitch',
@@ -898,9 +953,9 @@ function texvox_delete_user_in_freeswitch($user){
       $user_deleted = db_delete('directory')
       ->condition('id', $uid)
       ->execute();
-      watchdog('USER delete', '<pre>'. print_r($user_deleted, TRUE) .'</pre>');  
+      // watchdog('USER delete', '<pre>'. print_r($user_deleted, TRUE) .'</pre>');  
     } catch (PDOException $e) {
-      watchdog('USER delete', '<pre>'. print_r($e->getMessage(), TRUE) .'</pre>');  
+      // watchdog('USER delete', '<pre>'. print_r($e->getMessage(), TRUE) .'</pre>');  
     }
     $pass_deleted = db_delete('directory_params')
     ->condition('directory_id', $uid)
@@ -1130,7 +1185,9 @@ function texvox_user_load($users) {
  * "pass":"admin",
  * "field_domain":{"und":{"0":{"value":1}}},
  * "field_first_name":{"und":{"0":{"value":"FIRST NAME"}}},
- * "field_last_name":{"und":{"0":{"value":"last NAME"}}}
+ * "field_last_name":{"und":{"0":{"value":"last NAME"}}},
+ * "field_default_country":{"und":{"0":{"value":"Canada"}}},
+ * "field_default_city":{"und":{"0":{"value":"Vancouver"}}}
  * }
  * NOTE: Need to login once it response without error message, Drupal has some issues for auto 
  * login after REST register
@@ -1150,7 +1207,7 @@ function texvox_user_load($users) {
  * "name":"username"
  * }
  *
- * Reset Password API:
+ * Update API:
  * [PUT] http://live-texvox.pantheon.io/auth-api/user/:id
  * - Headers:
  *    X-CSRF-Token:TokenReceived 
@@ -1158,7 +1215,9 @@ function texvox_user_load($users) {
  * - Payload:
  *    {
  *    "pass":"newPassword",
- *    "current_pass":"oldPassword"
+ *    "current_pass":"oldPassword",
+ *    "field_default_country":{"und":{"0":{"value":"Canada"}}},
+ *    "field_default_city":{"und":{"0":{"value":"Vancouver"}}}
  *    }
  *
  * Logout API:
