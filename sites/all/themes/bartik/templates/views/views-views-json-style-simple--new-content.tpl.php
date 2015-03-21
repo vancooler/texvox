@@ -15,7 +15,7 @@ $jsonp_prefix = $options['jsonp_prefix'];
 
 
 ///////////////////////////// - AGW change json output format - ///////////////////////////////////
-$rustart = microtime(true);
+$rustart = microtime(true); // performance test start timestamp
 foreach ($rows['nodes'] as $key => $node) {
   ///////////////////////////////////////////
   //                                       //
@@ -726,7 +726,7 @@ if($timestamp > 0){
   }
   sort($deleted_node_ids);
   $rows['Deleted Nodes'] = $deleted_node_ids;
-  $ruend = microtime(true);
+  $ruend = microtime(true); // performance test end time
   watchdog('Node list time', '<pre>'. print_r(($ruend-$rustart), TRUE) .'</pre>');
 }
 // dpm($rows);
