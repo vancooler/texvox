@@ -2941,6 +2941,45 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-screen-field_used_for_branches'
+  $field_instances['node-screen-field_used_for_branches'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 25,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_used_for_branches',
+    'label' => 'Used for Branches',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => -3,
+    ),
+  );
+
   // Exported field_instance: 'node-screen-field_verify_input'
   $field_instances['node-screen-field_verify_input'] = array(
     'bundle' => 'screen',
@@ -3905,6 +3944,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Title');
   t('Title ');
   t('Type of actions the system should perform after user has input data to textfield. Used when VerifyInput is False. ');
+  t('Used for Branches');
   t('Verify Input');
   t('Verify Options');
   t('dayOfTheWeek');

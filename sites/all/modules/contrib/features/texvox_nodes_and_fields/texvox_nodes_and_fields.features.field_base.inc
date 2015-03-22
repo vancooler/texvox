@@ -2307,6 +2307,49 @@ All Languages | aa,ab,ae,af,ak,am,ar,as,ast,av,ay,az,ba,be,bg,bh,bi,bm,bn,bo,br,
     'type' => 'field_collection',
   );
 
+  // Exported field_base: 'field_used_for_branches'
+  $field_bases['field_used_for_branches'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_used_for_branches',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'branch' => 'branch',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_verify_input'
   $field_bases['field_verify_input'] = array(
     'active' => 1,
