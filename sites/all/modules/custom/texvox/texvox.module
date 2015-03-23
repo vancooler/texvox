@@ -52,7 +52,6 @@ function texvox_condition_duplicate_screen_code($node) {
   return $valid;
 } 
 
-
 // alter the inline entity form fields
 function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
   
@@ -247,6 +246,35 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['submit']['#submit'][] = 'texvox_ivr_form_submit_redirect_handler';
     if(isset($form['field_ivr_screen']['und']['entities'])){
       foreach ($form['field_ivr_screen']['und']['entities'] as $skey => $screen) {
+        // branches connect
+        if(is_numeric($skey) and isset($screen['form'])){
+          $screen_id = intval($screen['#entity']->nid);
+          $ivr_id = intval($form['nid']['#value']);
+          $screen_code = $form['field_ivr_screen']['und']['entities'][$skey]['#entity']->title_field['und'][0]['value'];
+          $options = $screen['form']['field_used_for_branches']['und']['#options'];
+          $query = db_select('field_data_field_ivr_screen', 's');
+          $query->join('field_data_field_used_for_branches', 'b', 'b.entity_id = s.field_ivr_screen_target_id');
+          $query->join('node', 'n', 'n.nid = s.field_ivr_screen_target_id');
+
+          $result = $query->fields('b', array('field_used_for_branches_target_id'))
+                     ->condition('s.entity_id', intval($form['nid']['#value']), '=')
+                     ->condition('b.entity_id', $screen_id, '<>')
+                     ->condition('n.title', $screen_code, '=')
+                     ->execute();
+          $bad_options = array();
+          foreach ($result as $row) {
+            $bad_options[] = intval($row->field_used_for_branches_target_id);
+          }
+          if(count($bad_options) > 0){
+            foreach ($options as $op => $option) {
+              if(is_numeric($op) and in_array(intval($op), $bad_options)){
+                unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_used_for_branches']['und']['#options'][$op]);
+              }
+            }
+          }
+        }
+
+
         if(is_numeric($skey) and isset($screen['form']['field_menus']['und']['entities'])){
           foreach ($screen['form']['field_menus']['und']['entities'] as $mkey => $menu) {
             if(is_numeric($mkey) and isset($menu['form']['title_field'])){
