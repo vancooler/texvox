@@ -1623,6 +1623,7 @@ function theme_inline_entity_form_entity_table($variables) {
 
   // Build an array of entity rows for the table.
   $rows = array();
+
   foreach (element_children($form) as $key) {
     $entity = $form[$key]['#entity'];
     list($entity_id) = entity_extract_ids($entity_type, $entity);
@@ -1700,6 +1701,14 @@ function theme_inline_entity_form_entity_table($variables) {
       $rows[] = array('data' => $row, 'class' => array('ief-row-form'), 'no_striping' => TRUE);
     }
   }
+  // AGW change
+  $code = array();
+  foreach ($rows as $key => $row)
+  {
+      $code[$key] = $row['data'][2]['data'];
+  }
+  array_multisort($code, SORT_ASC, $rows);
+
 
   if (!empty($rows)) {
     $id = 'ief-entity-table-' . $form['#id'];
