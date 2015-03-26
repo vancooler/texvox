@@ -351,6 +351,20 @@ foreach ($rows['nodes'] as $key => $node) {
       
     }
 
+    // rewrite "Used for Branches" as an array
+    if(isset($rows['nodes'][$key]['node']['Used for Branches']) and !empty($rows['nodes'][$key]['node']['Used for Branches'])){
+      $branch_array = array();
+      $branch_string = $node['node']['Used for Branches'];
+      $pieces = explode(", ", $branch_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $branch_array[] = $element;
+        }
+      }
+      $rows['nodes'][$key]['node']['Used for Branches'] = $branch_array;
+      
+    }
+
   }  
 
   ///////////////////////////////////////////
