@@ -1657,6 +1657,7 @@ function theme_inline_entity_form_entity_table($variables) {
         // label() returns human-readable versions of token and list properties.
         $data = $property->label() ? $property->label() : $property->value();
         $data = check_plain($data);
+        // AGW change
         if($field['label'] == 'Create Variant'){
           global $base_url;
           $data = '<a href="'.$base_url.'/node/'.$data.'/clone/confirm">Clone</a>';
@@ -1705,7 +1706,7 @@ function theme_inline_entity_form_entity_table($variables) {
   $code = array();
   foreach ($rows as $key => $row)
   {
-      $code[$key] = $row['data'][2]['data'];
+      $code[$key] = $row['data'][3]['data'];
   }
   array_multisort($code, SORT_ASC, $rows);
 

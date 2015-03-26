@@ -105,6 +105,11 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
         'type' => 'property',
         'label' => t('Create Variant'),
         'weight' => 102,
+      );
+      $fields['vid'] = array(    // Add Screen Language               
+        'type' => 'property',
+        'label' => t('Node ID'),
+        'weight' => -102,
       ); 
       $fields['title']['label'] = "Screen Code";          // Change the title Label
 
@@ -235,6 +240,58 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_link_to_ivr';
     }
     $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_nested_handler';
+
+    $screen_id = intval($form['clone_from_original_nid']['#value']);
+    $query = db_select('field_data_field_ivr_screen', 's');
+    $result = $query->fields('s', array('entity_id'))
+                    ->condition('s.field_ivr_screen_target_id', $screen_id, '=')
+                    ->execute();
+    $ivr_id = 0;
+    foreach ($result as $row) {
+      $ivr_id = intval($row->entity_id);
+    }
+    // $ivr_id = intval($form['nid']['#value']);
+    $screen_code = $form['title_field']['und'][0]['value']['#default_value'];
+    $options = $form['field_used_for_branches']['und']['#options'];
+    $query = db_select('field_data_field_ivr_screen', 's');
+    $query->join('field_data_field_used_for_branches', 'b', 'b.entity_id = s.field_ivr_screen_target_id');
+    $query->join('node', 'n', 'n.nid = s.field_ivr_screen_target_id');
+
+    $result = $query->fields('b', array('field_used_for_branches_target_id'))
+               ->condition('s.entity_id', intval($ivr_id), '=')
+               ->condition('n.title', $screen_code, '=')
+               ->execute();
+    $bad_options = array();
+    foreach ($result as $row) {
+      $bad_options[] = intval($row->field_used_for_branches_target_id);
+    }
+
+    $query = db_select('field_data_field_only_for_organization', 'ofo');
+    $query->join('field_data_field_organization', 'o', 'ofo.field_only_for_organization_target_id = o.field_organization_target_id');
+
+    $result = $query->fields('o', array('entity_id'))
+               ->condition('ofo.entity_id', intval($ivr_id), '=')
+               ->execute();
+    $good_options = array();
+    foreach ($result as $row) {
+      $good_options[] = intval($row->entity_id);
+    }
+    if(count($good_options) > 0){
+      foreach ($options as $op => $option) {
+        if(is_numeric($op) and !in_array(intval($op), $good_options)){
+          unset($form['field_used_for_branches']['und']['#options'][$op]);
+        }
+      }
+    }
+    $options = $form['field_used_for_branches']['und']['#options'];
+    if(count($bad_options) > 0){
+      foreach ($options as $op => $option) {
+        if(is_numeric($op) and in_array(intval($op), $bad_options)){
+          unset($form['field_used_for_branches']['und']['#options'][$op]);
+        }
+      }
+    }
+
   }
   if($form_id == "screen_menu_node_form"){
     $form['actions']['submit']['#submit'][] = 'texvox_screen_menu_form_submit_nested_handler';
@@ -242,7 +299,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
 
   // alter ivr form
   if($form_id == "ivr_node_form"){
-    // dpm($form);
+    
     $form['actions']['submit']['#submit'][] = 'texvox_ivr_form_submit_redirect_handler';
     if(isset($form['field_ivr_screen']['und']['entities'])){
       foreach ($form['field_ivr_screen']['und']['entities'] as $skey => $screen) {
@@ -362,7 +419,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
                  ->condition('s.entity_id', intval($form['nid']['#value']), '=')
                  ->execute();
       foreach ($result as $row) {
-        $real_options[$row->nid] = $row->title;
+        $real_options[$row->nid] = $row->title . ' ('.$row->nid.')';
       }
     }
     else{
@@ -425,6 +482,30 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     }
     else if($action == 'edit'){
       if(isset($form['field_ivr_screen']['und']['form'])){
+
+        // connect branches
+        if(true){
+          $screen_id = 0;
+          $query = db_select('field_data_field_only_for_organization', 'ofo');
+          $query->join('field_data_field_organization', 'o', 'ofo.field_only_for_organization_target_id = o.field_organization_target_id');
+
+          $result = $query->fields('o', array('entity_id'))
+                     ->condition('ofo.entity_id', intval($form['nid']['#value']), '=')
+                     ->execute();
+          $good_options = array();
+          foreach ($result as $row) {
+            $good_options[] = intval($row->entity_id);
+          }
+          $options = $form['field_ivr_screen']['und']['form']['field_used_for_branches']['und']['#options'];
+          if(count($good_options) > 0){
+            foreach ($options as $op => $option) {
+              if(is_numeric($op) and !in_array(intval($op), $good_options)){
+                unset($form['field_ivr_screen']['und']['form']['field_used_for_branches']['und']['#options'][$op]);
+              }
+            }
+          }
+        }
+
         $form['field_ivr_screen']['und']['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
         foreach ($form['field_ivr_screen']['und']['form']['#group_children'] as $field => $group) {
           if ($group == 'group_menus') {

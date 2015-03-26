@@ -489,6 +489,16 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_mute_microphone']['field'] = 'field_mute_microphone';
   $handler->display->display_options['fields']['field_mute_microphone']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_mute_microphone']['hide_alter_empty'] = FALSE;
+  /* Field: Content: Used for Branches */
+  $handler->display->display_options['fields']['field_used_for_branches']['id'] = 'field_used_for_branches';
+  $handler->display->display_options['fields']['field_used_for_branches']['table'] = 'field_data_field_used_for_branches';
+  $handler->display->display_options['fields']['field_used_for_branches']['field'] = 'field_used_for_branches';
+  $handler->display->display_options['fields']['field_used_for_branches']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_used_for_branches']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_used_for_branches']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['field_used_for_branches']['delta_offset'] = '0';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
