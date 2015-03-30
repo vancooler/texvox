@@ -421,7 +421,18 @@ foreach ($rows['nodes'] as $key => $node) {
       unset($rows['nodes'][$key]['node']['title']);
     }
     if(!isset($rows['nodes'][$key]['node']['Key']) or empty($rows['nodes'][$key]['node']['Key'])){      
-      $rows['nodes'][$key]['node']['Key'] = '';
+      $check_menu_id = intval($rows['nodes'][$key]['node']['Node ID']);
+      $key_found = '';
+      $query = db_select('field_data_field_menu_key_new', 'n');
+      $result = $query->fields('n', array('field_menu_key_new_value'))
+                 ->condition('n.entity_id', $check_menu_id, '=')
+                 ->condition('n.bundle', 'screen_menu', '=')
+                 ->execute();
+      foreach ($result as $row) {
+        $key_found = $row->field_menu_key_new_value;
+      }
+      $rows['nodes'][$key]['node']['Key'] = $key_found;
+
     }
   }  
 
