@@ -257,7 +257,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'Delay Settings',
-    'weight' => '9',
+    'weight' => '8',
     'children' => array(
       0 => 'field_display_delay',
       1 => 'field_prelude_screen_code',
@@ -564,7 +564,7 @@ function texvox_nodes_and_fields_field_group_info() {
   $field_group->parent_name = 'group_screen_form';
   $field_group->data = array(
     'label' => 'No Input Settings',
-    'weight' => '10',
+    'weight' => '9',
     'children' => array(
       0 => 'field_no_input_action',
       1 => 'field_no_input_delay',
@@ -633,6 +633,7 @@ function texvox_nodes_and_fields_field_group_info() {
       6 => 'group_no_input',
       7 => 'group_subtitle',
       8 => 'group_title',
+      9 => 'group_variants',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(
@@ -755,6 +756,34 @@ function texvox_nodes_and_fields_field_group_info() {
     ),
   );
   $export['group_title|node|screen|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_variants|node|screen|form';
+  $field_group->group_name = 'group_variants';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'screen';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_screen_form';
+  $field_group->data = array(
+    'label' => 'Screen Variants',
+    'weight' => '10',
+    'children' => array(
+      0 => 'field_original_screen_id',
+      1 => 'field_variants',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-variants field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_variants|node|screen|form'] = $field_group;
 
   return $export;
 }

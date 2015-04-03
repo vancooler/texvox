@@ -2777,6 +2777,52 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-screen-field_original_screen_id'
+  $field_instances['node-screen-field_original_screen_id'] = array(
+    'bundle' => 'screen',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 26,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_original_screen_id',
+    'label' => 'Original Screen ID',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 48,
+    ),
+  );
+
   // Exported field_instance: 'node-screen-field_prelude_screen_code'
   $field_instances['node-screen-field_prelude_screen_code'] = array(
     'bundle' => 'screen',
@@ -2977,6 +3023,54 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => -3,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen-field_variants'
+  $field_instances['node-screen-field_variants'] = array(
+    'bundle' => 'screen',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 27,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_variants',
+    'label' => 'Variants',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'inline_entity_form',
+      'settings' => array(
+        'fields' => array(),
+        'type_settings' => array(
+          'allow_existing' => 0,
+          'delete_references' => 1,
+          'label_plural' => 'nodes',
+          'label_singular' => 'node',
+          'match_operator' => 'CONTAINS',
+          'override_labels' => 0,
+        ),
+      ),
+      'type' => 'inline_entity_form',
+      'weight' => 47,
     ),
   );
 
@@ -3927,6 +4021,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Only for Organization');
   t('Organization');
   t('Organization Type');
+  t('Original Screen ID');
   t('Phone Number Type');
   t('Phone Numbers');
   t('Please create IVR first and select it as the IVR for this time slot');
@@ -3945,6 +4040,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Title ');
   t('Type of actions the system should perform after user has input data to textfield. Used when VerifyInput is False. ');
   t('Used for Branches');
+  t('Variants');
   t('Verify Input');
   t('Verify Options');
   t('dayOfTheWeek');

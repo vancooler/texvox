@@ -1495,6 +1495,22 @@ All Languages | aa,ab,ae,af,ak,am,ar,as,ast,av,ay,az,ba,be,bg,bh,bi,bm,bn,bo,br,
     'type' => 'list_text',
   );
 
+  // Exported field_base: 'field_original_screen_id'
+  $field_bases['field_original_screen_id'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_original_screen_id',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_phone_number_type'
   $field_bases['field_phone_number_type'] = array(
     'active' => 1,
@@ -2342,6 +2358,51 @@ All Languages | aa,ab,ae,af,ak,am,ar,as,ast,av,ay,az,ba,be,bg,bh,bi,bm,bn,bo,br,
         ),
         'target_bundles' => array(
           'branch' => 'branch',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_variants'
+  $field_bases['field_variants'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_variants',
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'direction' => 'DESC',
+          'property' => 'created',
+          'type' => 'property',
+        ),
+        'target_bundles' => array(
+          'screen' => 'screen',
         ),
       ),
       'target_type' => 'node',
