@@ -326,7 +326,7 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       foreach ($form['field_ivr_screen']['und']['entities'] as $skey => $screen) {
 
         // hide original screen code
-        if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form'])){
+        if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_original_screen_id'])){
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_original_screen_id']['#prefix'] = '<div style="display:none">';
           $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_original_screen_id']['#suffix'] = '</div>';
         }
