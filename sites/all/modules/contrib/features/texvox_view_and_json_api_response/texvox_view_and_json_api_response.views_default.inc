@@ -503,6 +503,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_variants']['id'] = 'field_variants';
   $handler->display->display_options['fields']['field_variants']['table'] = 'field_data_field_variants';
   $handler->display->display_options['fields']['field_variants']['field'] = 'field_variants';
+  $handler->display->display_options['fields']['field_variants']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_variants']['type'] = 'entityreference_entity_id';
   $handler->display->display_options['fields']['field_variants']['settings'] = array(
     'link' => 0,
