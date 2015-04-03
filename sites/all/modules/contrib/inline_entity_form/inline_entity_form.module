@@ -1704,13 +1704,44 @@ function theme_inline_entity_form_entity_table($variables) {
   }
   // AGW change
   $code = array();
+  $id = array();
+  $original_id = array();
   foreach ($rows as $key => $row)
   {
-      $code[$key] = $row['data'][3]['data'];
+      $i = 0;
+      $ori = -1;
+      while ($i <= 10) {
+        if(isset($row['data'][$i]['data']) and is_numeric($row['data'][$i]['data']) and intval($row['data'][$i]['data']) > 0){
+          $id[$key] = intval($row['data'][$i]['data']);
+          $i += 10;
+        }
+        $i+=1;
+      }
   }
-  array_multisort($code, SORT_ASC, $rows);
+  $original_rows = array();
+  $final_rows = array();
+  foreach ($rows as $key => $value) {
+    // TODO: check original_id in db
+    $ori_id = 0;
+    if(isset($id[$key])){
+      $query = db_select('field_data_field_original_screen_id', 's');
+      $result = $query->fields('s', array('field_original_screen_id_value'))
+                      ->condition('s.entity_id', $id[$key], '=')
+                      ->execute();
+      foreach ($result as $row) {
+        $ori_id = intval($row->field_original_screen_id_value);
+      }
+    }
 
+    if($ori_id <= 0){
+      $original_rows[] = array('row' => $value);
+    }
+  }
 
+  foreach ($original_rows as $okey => $or) {
+    $final_rows[] = $or['row'];
+  }
+  $rows = $final_rows;
   if (!empty($rows)) {
     $id = 'ief-entity-table-' . $form['#id'];
     if ($has_tabledrag) {

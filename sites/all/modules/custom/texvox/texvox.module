@@ -54,16 +54,21 @@ function texvox_condition_duplicate_screen_code($node) {
 
 // alter the inline entity form fields
 function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
-  
   // Make sure there's a stock field on each of the allowed product types.
     $is_menu = FALSE;
     $is_screen = FALSE;
+    $is_variant = FALSE;
     foreach ($context['allowed_bundles'] as $bundle) {
       if ($bundle=='screen_menu') {
         $is_menu = TRUE;
       }
       elseif ($bundle=='screen') {
-        $is_screen = TRUE;
+        if($context['parent_bundle'] == 'ivr'){
+          $is_screen = TRUE;
+        }
+        else if($context['parent_bundle'] == 'screen'){
+          $is_variant = TRUE;
+        }
       }
     }
     if ($is_menu) {
@@ -111,6 +116,19 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
         'label' => t('Node ID'),
         'weight' => -102,
       ); 
+      
+      $fields['title']['label'] = "Screen Code";          // Change the title Label
+
+    }
+
+    elseif($is_variant){
+      // screens table customize
+      unset($fields['status']);                        // Remove Status( it does not make sense)
+      $fields['field_screen_type'] = array(                // Add Screen Type   
+        'type' => 'field',
+        'label' => t('Type'),
+        'weight' => 101,
+      );      
       $fields['title']['label'] = "Screen Code";          // Change the title Label
 
     }
@@ -234,10 +252,13 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if($form_id == "screen_node_form"){
+    $form['field_original_screen_id']['#prefix'] = '<div style="display:none">';
+    $form['field_original_screen_id']['#suffix'] = '</div>';
     if(isset($form['clone_from_original_nid']) and isset($form['clone_from_original_nid']['#value'])){
       $original_nid = intval($form['clone_from_original_nid']['#value']);
       $form_state['original_nid'] = $original_nid;
       $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_link_to_ivr';
+      $form['und'][0]['value']['#default_value'] = $form['clone_from_original_nid']['#value'];
     }
     $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_nested_handler';
 
@@ -299,10 +320,16 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
 
   // alter ivr form
   if($form_id == "ivr_node_form"){
-    
+    // dpm($form);
     $form['actions']['submit']['#submit'][] = 'texvox_ivr_form_submit_redirect_handler';
     if(isset($form['field_ivr_screen']['und']['entities'])){
       foreach ($form['field_ivr_screen']['und']['entities'] as $skey => $screen) {
+
+        // hide original screen code
+        if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form'])){
+          $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_original_screen_id']['#prefix'] = '<div style="display:none">';
+          $form['field_ivr_screen']['und']['entities'][$skey]['form']['field_original_screen_id']['#suffix'] = '</div>';
+        }
         // branches connect
         if(is_numeric($skey) and isset($screen['form'])){
           $screen_id = intval($screen['#entity']->nid);
@@ -419,7 +446,17 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
                  ->condition('s.entity_id', intval($form['nid']['#value']), '=')
                  ->execute();
       foreach ($result as $row) {
-        $real_options[$row->nid] = $row->title . ' ('.$row->nid.')';
+        $query = db_select('field_data_field_original_screen_id', 's');
+        $result = $query->fields('s', array('field_original_screen_id_value'))
+                        ->condition('s.entity_id', intval($row->nid), '=')
+                        ->execute();
+        $ori_id = 0;
+        foreach ($result as $row) {
+          $ori_id = intval($row->field_original_screen_id_value);
+        }
+        if($ori_id <= 0){
+          $real_options[$row->nid] = $row->title . ' ('.$row->nid.')';
+        }
       }
     }
     else{
@@ -650,7 +687,8 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     }
     if(isset($form['field_ivr_screen']['und']['form'])){
       //No screens in this IVR
-      
+      $form['field_ivr_screen']['und']['form']['field_original_screen_id']['#prefix'] = '<div style="display:none"';
+      $form['field_ivr_screen']['und']['form']['field_original_screen_id']['#suffix'] = '</div>';
       $form['field_default_screen']['und']['#options'] = $real_options;
       $form['field_ivr_screen']['und']['form']['field_prelude_screen_code']['und']['#options'] = $real_options;
       $form['field_ivr_screen']['und']['form']['field_no_input_goto_screen']['und']['#options'] = $real_options;
@@ -739,6 +777,18 @@ function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
       $count = intval($row->max_delta) + 1;
     }
   }
+
+  if(intval($form_state['original_nid']) > 0){
+    $query = db_select('field_data_field_variants', 's');
+    $query->addExpression('MAX(delta)', 'max_delta');
+    $result = $query->condition('s.entity_id', intval($form_state['original_nid']), '=')
+             ->execute();
+    $max_variant = 0;
+    foreach ($result as $row) {
+      $max_variant = intval($row->max_delta) + 1;
+    }
+  }
+
   $result = db_insert('field_data_field_ivr_screen') 
               ->fields(array(
                 'entity_type' => 'node',
@@ -761,6 +811,54 @@ function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
                 'language' => 'und',
                 'delta' => $count,
                 'field_ivr_screen_target_id' => intval($form_state['values']['nid']),
+              ))
+              ->execute();
+  $result = db_insert('field_data_field_original_screen_id') // Table name no longer needs {}
+              ->fields(array(
+                'entity_type' => 'node',
+                'bundle' => 'screen',
+                'deleted' => 0,
+                'entity_id' => intval($form_state['values']['nid']),
+                'revision_id' => intval($form_state['values']['nid']),
+                'language' => 'und',
+                'delta' => 0,
+                'field_original_screen_id_value' => intval($form_state['original_nid']),
+              ))
+              ->execute();
+  $result = db_insert('field_revision_field_original_screen_id') // Table name no longer needs {}
+              ->fields(array(
+                'entity_type' => 'node',
+                'bundle' => 'screen',
+                'deleted' => 0,
+                'entity_id' => intval($form_state['values']['nid']),
+                'revision_id' => intval($form_state['values']['nid']),
+                'language' => 'und',
+                'delta' => 0,
+                'field_original_screen_id_value' => intval($form_state['original_nid']),
+              ))
+              ->execute();
+  $result = db_insert('field_data_field_variants') // Table name no longer needs {}
+              ->fields(array(
+                'entity_type' => 'node',
+                'bundle' => 'screen',
+                'deleted' => 0,
+                'entity_id' => intval($form_state['original_nid']),
+                'revision_id' => intval($form_state['original_nid']),
+                'language' => 'und',
+                'delta' => $max_variant,
+                'field_variants_target_id' => intval($form_state['values']['nid']),
+              ))
+              ->execute();
+  $result = db_insert('field_revision_field_variants') // Table name no longer needs {}
+              ->fields(array(
+                'entity_type' => 'node',
+                'bundle' => 'screen',
+                'deleted' => 0,
+                'entity_id' => intval($form_state['original_nid']),
+                'revision_id' => intval($form_state['original_nid']),
+                'language' => 'und',
+                'delta' => $max_variant,
+                'field_variants_target_id' => intval($form_state['values']['nid']),
               ))
               ->execute();
   drupal_flush_all_caches();
