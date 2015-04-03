@@ -178,7 +178,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
   $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
   $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
-  /* Field: Content: Title  */
+  /* Field: Content: Title */
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
@@ -499,6 +499,15 @@ function texvox_view_and_json_api_response_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_used_for_branches']['delta_offset'] = '0';
+  /* Field: Content: Variants */
+  $handler->display->display_options['fields']['field_variants']['id'] = 'field_variants';
+  $handler->display->display_options['fields']['field_variants']['table'] = 'field_data_field_variants';
+  $handler->display->display_options['fields']['field_variants']['field'] = 'field_variants';
+  $handler->display->display_options['fields']['field_variants']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_variants']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['field_variants']['delta_offset'] = '0';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';

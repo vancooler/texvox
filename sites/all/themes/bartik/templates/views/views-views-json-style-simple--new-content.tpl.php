@@ -351,6 +351,20 @@ foreach ($rows['nodes'] as $key => $node) {
       
     }
 
+    // rewrite "Variants" as an array
+    if(isset($rows['nodes'][$key]['node']['Variants']) and !empty($rows['nodes'][$key]['node']['Variants'])){
+      $variant_array = array();
+      $variant_string = $node['node']['Variants'];
+      $pieces = explode(", ", $variant_string);
+      foreach ($pieces as $skey => $element) {
+        if(!empty($element)){
+          $variant_array[] = $element;
+        }
+      }
+      $rows['nodes'][$key]['node']['Variants'] = $variant_array;
+      
+    }
+
     // rewrite "Used for Branches" as an array
     if(isset($rows['nodes'][$key]['node']['Used for Branches']) and !empty($rows['nodes'][$key]['node']['Used for Branches'])){
       $branch_array = array();
