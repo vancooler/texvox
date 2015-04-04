@@ -32,6 +32,9 @@ function texvox_nodes_and_fields_field_default_field_bases() {
         2 => 'End Call',
         3 => 'Set Language and Goto Screen',
         4 => 'Clear Input Field',
+        5 => 'No Action',
+        6 => 'Open a Web Browser Link',
+        7 => 'End current call and make new call',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -1509,6 +1512,33 @@ All Languages | aa,ab,ae,af,ak,am,ar,as,ast,av,ay,az,ba,be,bg,bh,bi,bm,bn,bo,br,
     'settings' => array(),
     'translatable' => 0,
     'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_payload'
+  $field_bases['field_payload'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_payload',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_phone_number_type'

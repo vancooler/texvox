@@ -3228,7 +3228,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => -2,
+      'weight' => -3,
     ),
   );
 
@@ -3579,7 +3579,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => -1,
+      'weight' => -2,
     ),
   );
 
@@ -3654,6 +3654,46 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => -4,
+    ),
+  );
+
+  // Exported field_instance: 'node-screen_menu-field_payload'
+  $field_instances['node-screen_menu-field_payload'] = array(
+    'bundle' => 'screen_menu',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 12,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_payload',
+    'label' => 'Payload',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => -1,
     ),
   );
 
@@ -4022,6 +4062,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Organization');
   t('Organization Type');
   t('Original Screen ID');
+  t('Payload');
   t('Phone Number Type');
   t('Phone Numbers');
   t('Please create IVR first and select it as the IVR for this time slot');

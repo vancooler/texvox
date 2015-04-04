@@ -390,21 +390,30 @@ foreach ($rows['nodes'] as $key => $node) {
     // Rewrite action as integer
     if(isset($node['node']['Action']) and !empty($node['node']['Action'])){
       $action = $rows['nodes'][$key]['node']['Action'];
-      switch (substr($action, 0, 2)) {
-        case 'Go':
+      switch (substr($action, 0, 6)) {
+        case 'Goto S':
           $rows['nodes'][$key]['node']['Action'] = '0';
           break;
-        case 'Co':
+        case 'Connec':
           $rows['nodes'][$key]['node']['Action'] = '1';
           break;
-        case 'En':
+        case 'End Ca':
           $rows['nodes'][$key]['node']['Action'] = '2';
           break;
-        case 'Se':
+        case 'Set La':
           $rows['nodes'][$key]['node']['Action'] = '3';
           break;
-        case 'Cl':
+        case 'Clean ':
           $rows['nodes'][$key]['node']['Action'] = '4';
+          break;
+        case 'No Act':
+          $rows['nodes'][$key]['node']['Action'] = '5';
+          break;
+        case 'Open a':
+          $rows['nodes'][$key]['node']['Action'] = '6';
+          break;
+        case 'End cu':
+          $rows['nodes'][$key]['node']['Action'] = '7';
           break;
         default:
           # code...

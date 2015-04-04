@@ -116,11 +116,11 @@ function texvox_nodes_and_fields_field_group_info() {
     'children' => array(
       0 => 'field_action',
       1 => 'field_go_to_screen',
-      2 => 'field_description',
-      3 => 'field_set_language',
-      4 => 'field_menu_key',
-      5 => 'title_field',
-      6 => 'field_menu_key_new',
+      2 => 'title_field',
+      3 => 'field_description',
+      4 => 'field_set_language',
+      5 => 'field_menu_key_new',
+      6 => 'field_payload',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -231,8 +231,8 @@ function texvox_nodes_and_fields_field_group_info() {
     'label' => 'Action Delay',
     'weight' => '3',
     'children' => array(
-      0 => 'field_action_delay_time',
-      1 => 'field_action_delay_screen_code',
+      0 => 'field_action_delay_screen_code',
+      1 => 'field_action_delay_time',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -486,8 +486,8 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'group_basic',
-      1 => 'group_display_title',
-      2 => 'group_delay',
+      1 => 'group_delay',
+      2 => 'group_display_title',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(
