@@ -178,7 +178,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
   $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
   $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
-  /* Field: Content: Title  */
+  /* Field: Content: Title */
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
@@ -344,7 +344,7 @@ function texvox_view_and_json_api_response_views_default_views() {
     'view_mode' => 'full',
   );
   $handler->display->display_options['fields']['field_holiday']['delta_offset'] = '0';
-  /* Field: Content: Default IVR */
+  /* Field: Content: Default Closed IVR */
   $handler->display->display_options['fields']['field_default_ivr']['id'] = 'field_default_ivr';
   $handler->display->display_options['fields']['field_default_ivr']['table'] = 'field_data_field_default_ivr';
   $handler->display->display_options['fields']['field_default_ivr']['field'] = 'field_default_ivr';
@@ -515,6 +515,33 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_payload']['field'] = 'field_payload';
   $handler->display->display_options['fields']['field_payload']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['field_payload']['type'] = 'text_plain';
+  /* Field: Content: Default Closed Screen */
+  $handler->display->display_options['fields']['field_default_closed_screen']['id'] = 'field_default_closed_screen';
+  $handler->display->display_options['fields']['field_default_closed_screen']['table'] = 'field_data_field_default_closed_screen';
+  $handler->display->display_options['fields']['field_default_closed_screen']['field'] = 'field_default_closed_screen';
+  $handler->display->display_options['fields']['field_default_closed_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_default_closed_screen']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_default_closed_screen']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Content: Default Open IVR */
+  $handler->display->display_options['fields']['field_default_open_ivr']['id'] = 'field_default_open_ivr';
+  $handler->display->display_options['fields']['field_default_open_ivr']['table'] = 'field_data_field_default_open_ivr';
+  $handler->display->display_options['fields']['field_default_open_ivr']['field'] = 'field_default_open_ivr';
+  $handler->display->display_options['fields']['field_default_open_ivr']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_default_open_ivr']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_default_open_ivr']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Content: Default Open Screen */
+  $handler->display->display_options['fields']['field_default_open_screen']['id'] = 'field_default_open_screen';
+  $handler->display->display_options['fields']['field_default_open_screen']['table'] = 'field_data_field_default_open_screen';
+  $handler->display->display_options['fields']['field_default_open_screen']['field'] = 'field_default_open_screen';
+  $handler->display->display_options['fields']['field_default_open_screen']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_default_open_screen']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_default_open_screen']['settings'] = array(
+    'link' => 0,
+  );
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
