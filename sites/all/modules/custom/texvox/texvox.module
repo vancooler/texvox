@@ -483,12 +483,14 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     if($action == "new"){
       if(isset($form['field_ivr_screen']['und']['form'])){
         $form['field_ivr_screen']['und']['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
+        $form['field_ivr_screen']['und']['form']['#fieldgroups']['group_variants']->format_type = 'hidden';
         foreach ($form['field_ivr_screen']['und']['form']['#group_children'] as $field => $group) {
-          if ($group == 'group_menus') {
+          if ($group == 'group_menus' or $group == 'group_variants') {
             $form[$field]['#access'] = FALSE;
           }
         }
         $form['field_ivr_screen']['und']['form']['field_menus']['#access'] = FALSE;
+        $form['field_ivr_screen']['und']['form']['field_variants']['#access'] = FALSE;
         $form['field_ivr_screen']['und']['form']['field_new_verify_options']['#access'] = FALSE;
         $real_menu_options = array();
         $real_menu_options['_none'] = "- None -";
@@ -500,12 +502,14 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
             $entity = $screen['#entity'];
             if(isset($entity->is_new) and $entity->is_new){
               $form['field_ivr_screen']['und']['entities'][$key]['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['#fieldgroups']['group_variants']->format_type = 'hidden';
               foreach ($form['field_ivr_screen']['und']['entities'][$key]['form']['#group_children'] as $field => $group) {
-                if ($group == 'group_menus') {
+                if ($group == 'group_menus' or $group == 'group_variants') {
                   $form[$field]['#access'] = FALSE;
                 }
               }
               $form['field_ivr_screen']['und']['entities'][$key]['form']['field_menus']['#access'] = FALSE;
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['#access'] = FALSE;
               $form['field_ivr_screen']['und']['entities'][$key]['form']['field_new_verify_options']['#access'] = FALSE;
             }
             $real_menu_options = array();
@@ -518,38 +522,40 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       }
     }
     else if($action == 'edit'){
+
       if(isset($form['field_ivr_screen']['und']['form'])){
 
         // connect branches
-        if(true){
-          $screen_id = 0;
-          $query = db_select('field_data_field_only_for_organization', 'ofo');
-          $query->join('field_data_field_organization', 'o', 'ofo.field_only_for_organization_target_id = o.field_organization_target_id');
+        $screen_id = 0;
+        $query = db_select('field_data_field_only_for_organization', 'ofo');
+        $query->join('field_data_field_organization', 'o', 'ofo.field_only_for_organization_target_id = o.field_organization_target_id');
 
-          $result = $query->fields('o', array('entity_id'))
-                     ->condition('ofo.entity_id', intval($form['nid']['#value']), '=')
-                     ->execute();
-          $good_options = array();
-          foreach ($result as $row) {
-            $good_options[] = intval($row->entity_id);
-          }
-          $options = $form['field_ivr_screen']['und']['form']['field_used_for_branches']['und']['#options'];
-          if(count($good_options) > 0){
-            foreach ($options as $op => $option) {
-              if(is_numeric($op) and !in_array(intval($op), $good_options)){
-                unset($form['field_ivr_screen']['und']['form']['field_used_for_branches']['und']['#options'][$op]);
-              }
+        $result = $query->fields('o', array('entity_id'))
+                   ->condition('ofo.entity_id', intval($form['nid']['#value']), '=')
+                   ->execute();
+        $good_options = array();
+        foreach ($result as $row) {
+          $good_options[] = intval($row->entity_id);
+        }
+        $options = $form['field_ivr_screen']['und']['form']['field_used_for_branches']['und']['#options'];
+        if(count($good_options) > 0){
+          foreach ($options as $op => $option) {
+            if(is_numeric($op) and !in_array(intval($op), $good_options)){
+              unset($form['field_ivr_screen']['und']['form']['field_used_for_branches']['und']['#options'][$op]);
             }
           }
         }
+        
 
         $form['field_ivr_screen']['und']['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
+        $form['field_ivr_screen']['und']['form']['#fieldgroups']['group_variants']->format_type = 'hidden';
         foreach ($form['field_ivr_screen']['und']['form']['#group_children'] as $field => $group) {
-          if ($group == 'group_menus') {
+          if ($group == 'group_menus' or $group == 'group_variants') {
             $form[$field]['#access'] = FALSE;
           }
         }
         $form['field_ivr_screen']['und']['form']['field_menus']['#access'] = FALSE;
+        $form['field_ivr_screen']['und']['form']['field_variants']['#access'] = FALSE;
         $form['field_ivr_screen']['und']['form']['field_new_verify_options']['#access'] = FALSE;
         $real_menu_options = array();
         $real_menu_options['_none'] = "- None -";
@@ -563,13 +569,15 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
             if(isset($entity->is_new) and $entity->is_new){
               if(isset($form['field_ivr_screen']['und']['entities'][$key]['form']['#fieldgroups'])){
                 $form['field_ivr_screen']['und']['entities'][$key]['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
+                $form['field_ivr_screen']['und']['entities'][$key]['form']['#fieldgroups']['group_variants']->format_type = 'hidden';
                 foreach ($form['field_ivr_screen']['und']['entities'][$key]['form']['#group_children'] as $field => $group) {
-                  if ($group == 'group_menus') {
+                  if ($group == 'group_menus' or $group == 'group_variants') {
                     $form[$field]['#access'] = FALSE;
                   }
                 }
               }
               $form['field_ivr_screen']['und']['entities'][$key]['form']['field_menus']['#access'] = FALSE;
+              $form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['#access'] = FALSE;
               $form['field_ivr_screen']['und']['entities'][$key]['form']['field_new_verify_options']['#access'] = FALSE;
             }
             $real_menu_options = array();
@@ -587,6 +595,34 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
                 $real_menu_options[$row->nid] = $row->title;
               }
               $form['field_ivr_screen']['und']['entities'][$key]['form']['field_verify_options']['und']['#options'] = $real_menu_options;
+
+              // branches filter
+              if(isset($form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['und']['entities'])){
+                foreach ($form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['und']['entities'] as $svkey => $sv) {
+                  if(is_numeric($svkey) and isset($sv['form'])){
+                    if(isset($sv['form']['field_used_for_branches']['und']['#options'])){
+                      $options = $form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['und']['entities'][$svkey]['form']['field_used_for_branches']['und']['#options'];
+                      if(count($good_options) > 0){
+                        foreach ($options as $op => $option) {
+                          if(is_numeric($op) and !in_array(intval($op), $good_options)){
+                            unset($form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['und']['entities'][$svkey]['form']['field_used_for_branches']['und']['#options'][$op]);
+                          }
+                        }
+                      }
+                    }
+
+                    if(isset($sv['form']['field_used_for_branches']['field_variants'])){
+                      $form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['und']['entities'][$svkey]['form']['field_variants']['#prefix'] = '<div style="display:none">';
+                      $form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['und']['entities'][$svkey]['form']['field_variants']['#suffix'] = '</div>';
+                    }
+                    if(isset($sv['form']['field_used_for_branches']['field_original_screen_id'])){
+                      $form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['und']['entities'][$svkey]['form']['field_original_screen_id']['#prefix'] = '<div style="display:none">';
+                      $form['field_ivr_screen']['und']['entities'][$key]['form']['field_variants']['und']['entities'][$svkey]['form']['field_original_screen_id']['#suffix'] = '</div>';
+                    }
+                  }
+                }
+              }
+              
             }
             
           }
