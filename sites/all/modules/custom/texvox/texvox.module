@@ -248,6 +248,67 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       }
     }
     $form['field_default_ivr']['und']['#options'] = $ivr_array;
+    $form['field_default_open_ivr']['und']['#options'] = $ivr_array;
+
+    $close_ivr_id = 0;
+    if(isset($form['field_default_ivr']['und']['#default_value'][0])){
+      $close_ivr_id = intval($form['field_default_ivr']['und']['#default_value'][0]);
+    }
+    $bad_closed_screens = array();
+    $query = db_select('field_data_field_ivr_screen', 's');
+    $query->join('field_data_field_original_screen_id', 't', 't.entity_id = s.field_ivr_screen_target_id');
+    $result = $query->fields('s', array('field_ivr_screen_target_id'))
+                    ->condition('s.entity_id', $close_ivr_id, '=')
+                    ->execute();
+    foreach ($result as $row) {
+      $bad_closed_screens[] = intval($row->field_ivr_screen_target_id);
+    }
+
+    $query = db_select('field_data_field_ivr_screen', 's');
+    $query->join('field_data_title_field', 't', 't.entity_id = s.field_ivr_screen_target_id');
+    $result = $query->fields('s', array('field_ivr_screen_target_id'))
+                    ->fields('t', array('title_field_value'))
+                    ->condition('s.entity_id', $close_ivr_id, '=')
+                    ->execute();
+    $close_screen_options = array('_none' => '- Select a value -');
+    foreach ($result as $row) {
+      if(empty($bad_closed_screens) or !in_array(intval($row->field_ivr_screen_target_id), $bad_closed_screens)){
+        $close_screen_options[$row->field_ivr_screen_target_id] = ($row->title_field_value);
+      }
+    }
+
+
+    $form['field_default_closed_screen']['und']['#options'] = $close_screen_options;
+
+
+    $open_ivr_id = 0;
+    if(isset($form['field_default_open_ivr']['und']['#default_value'][0])){
+      $open_ivr_id = intval($form['field_default_open_ivr']['und']['#default_value'][0]);      
+    }
+    $bad_open_screens = array();
+    $query = db_select('field_data_field_ivr_screen', 's');
+    $query->join('field_data_field_original_screen_id', 't', 't.entity_id = s.field_ivr_screen_target_id');
+    $result = $query->fields('s', array('field_ivr_screen_target_id'))
+                    ->condition('s.entity_id', $open_ivr_id, '=')
+                    ->execute();
+    foreach ($result as $row) {
+      $bad_open_screens[] = intval($row->field_ivr_screen_target_id);
+    }
+    $query = db_select('field_data_field_ivr_screen', 's');
+    $query->join('field_data_title_field', 't', 't.entity_id = s.field_ivr_screen_target_id');
+    $result = $query->fields('s', array('field_ivr_screen_target_id'))
+                    ->fields('t', array('title_field_value'))
+                    ->condition('s.entity_id', $open_ivr_id, '=')
+                    ->execute();
+    $open_screen_options = array('_none' => '- Select a value -');
+    foreach ($result as $row) {
+      if(empty($bad_open_screens) or !in_array(intval($row->field_ivr_screen_target_id), $bad_open_screens)){
+        $open_screen_options[$row->field_ivr_screen_target_id] = ($row->title_field_value);
+      }
+    }
+    $form['field_default_open_screen']['und']['#options'] = $open_screen_options;
+
+
     $form['actions']['submit']['#submit'][] = 'texvox_branch_form_submit_nested_handler';
   }
 
