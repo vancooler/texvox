@@ -951,6 +951,45 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-branch-field_default_closed_screen'
+  $field_instances['node-branch-field_default_closed_screen'] = array(
+    'bundle' => 'branch',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 19,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_default_closed_screen',
+    'label' => 'Default Closed Screen',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-branch-field_default_ivr'
   $field_instances['node-branch-field_default_ivr'] = array(
     'bundle' => 'branch',
@@ -1009,7 +1048,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_default_ivr',
-    'label' => 'Default IVR',
+    'label' => 'Default Closed IVR',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1019,7 +1058,84 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-branch-field_default_open_ivr'
+  $field_instances['node-branch-field_default_open_ivr'] = array(
+    'bundle' => 'branch',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 17,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_default_open_ivr',
+    'label' => 'Default Open IVR',
+    'required' => FALSE,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'node-branch-field_default_open_screen'
+  $field_instances['node-branch-field_default_open_screen'] = array(
+    'bundle' => 'branch',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 18,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_default_open_screen',
+    'label' => 'Default Open Screen',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 1,
     ),
   );
 
@@ -1257,7 +1373,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => -4,
     ),
   );
 
@@ -1365,7 +1481,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 4,
+      'weight' => -2,
     ),
   );
 
@@ -1446,7 +1562,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
         ),
       ),
       'type' => 'colorfield_unified_textfield',
-      'weight' => 5,
+      'weight' => -1,
     ),
   );
 
@@ -1522,7 +1638,7 @@ function texvox_nodes_and_fields_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => -3,
     ),
   );
 
@@ -4016,8 +4132,11 @@ function texvox_nodes_and_fields_field_default_field_instances() {
   t('Body Text');
   t('Branch Type');
   t('Date');
-  t('Default IVR');
+  t('Default Closed IVR');
+  t('Default Closed Screen');
   t('Default Language');
+  t('Default Open IVR');
+  t('Default Open Screen');
   t('Default Screen');
   t('Description');
   t('Display Delay');

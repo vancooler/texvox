@@ -54,11 +54,14 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '10',
     'children' => array(
       0 => 'field_organization',
-      1 => 'field_search_base',
-      2 => 'field_phone_numbers',
+      1 => 'field_phone_numbers',
+      2 => 'field_search_base',
       3 => 'field_rgbhex',
       4 => 'field_default_ivr',
-      5 => 'title',
+      5 => 'field_default_open_ivr',
+      6 => 'field_default_open_screen',
+      7 => 'field_default_closed_screen',
+      8 => 'title',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -204,9 +207,9 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'group_basic',
-      1 => 'group_location',
-      2 => 'group_opening_hours',
-      3 => 'group_holiday',
+      1 => 'group_holiday',
+      2 => 'group_location',
+      3 => 'group_opening_hours',
     ),
     'format_type' => 'tabs',
     'format_settings' => array(
@@ -457,8 +460,7 @@ function texvox_nodes_and_fields_field_group_info() {
     'weight' => '11',
     'children' => array(
       0 => 'field_location',
-      1 => 'field_timezone',
-      2 => 'field_timezone_custom',
+      1 => 'field_timezone_custom',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
