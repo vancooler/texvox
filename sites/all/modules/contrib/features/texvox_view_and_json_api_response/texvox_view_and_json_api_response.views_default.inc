@@ -178,7 +178,7 @@ function texvox_view_and_json_api_response_views_default_views() {
   $handler->display->display_options['fields']['field_search_base']['table'] = 'field_data_field_search_base';
   $handler->display->display_options['fields']['field_search_base']['field'] = 'field_search_base';
   $handler->display->display_options['fields']['field_search_base']['hide_empty'] = TRUE;
-  /* Field: Content: Title */
+  /* Field: Content: Title  */
   $handler->display->display_options['fields']['field_title_in_multi_languages']['id'] = 'field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['table'] = 'field_data_field_title_in_multi_languages';
   $handler->display->display_options['fields']['field_title_in_multi_languages']['field'] = 'field_title_in_multi_languages';
@@ -509,6 +509,12 @@ function texvox_view_and_json_api_response_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_variants']['delta_offset'] = '0';
+  /* Field: Content: Payload */
+  $handler->display->display_options['fields']['field_payload']['id'] = 'field_payload';
+  $handler->display->display_options['fields']['field_payload']['table'] = 'field_data_field_payload';
+  $handler->display->display_options['fields']['field_payload']['field'] = 'field_payload';
+  $handler->display->display_options['fields']['field_payload']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['field_payload']['type'] = 'text_plain';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
