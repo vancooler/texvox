@@ -1,7 +1,7 @@
 name = Texvox: nodes and fields
 core = 7.x
 package = Texvox
-version = 7.x-1.48
+version = 7.x-1.49
 project = texvox_nodes_and_fields
 dependencies[] = colorfield
 dependencies[] = ctools
@@ -205,4 +205,4 @@ features[user_permission][] = administer taxonomy
 features[user_permission][] = delete terms in tap_to_enter_text
 features[user_permission][] = edit terms in tap_to_enter_text
 features_exclude[dependencies][options] = options
-mtime = 1428124021
+mtime = 1428191196
