@@ -320,6 +320,13 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
       $form_state['original_nid'] = $original_nid;
       $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_link_to_ivr';
       $form['und'][0]['value']['#default_value'] = $form['clone_from_original_nid']['#value'];
+      if(isset($form['field_variants']['und']['entities'])){
+        foreach ($form['field_variants']['und']['entities'] as $key => $value) {
+          if(is_numeric($key)){
+            unset($form['field_variants']['und']['entities'][$key]);
+          }
+        }
+      }
     }
     $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_nested_handler';
 
