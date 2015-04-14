@@ -989,7 +989,7 @@ function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
   foreach ($result as $row) {
     $menuID[] = intval($row->field_menus_target_id);
   }
-  watchdog("DEB", "<pre>".print_r($menuID, true)."</pre>");
+  // watchdog("DEB", "<pre>".print_r($menuID, true)."</pre>");
   foreach ($menuID as $mkey => $mvalue) {
     $menu = node_load($mvalue);
     unset($menu->nid);
@@ -997,7 +997,7 @@ function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
     unset($menu->path);
 
     node_save($menu);
-    watchdog("DEB", "<pre>".print_r($menu, true)."</pre>");
+    // watchdog("DEB", "<pre>".print_r($menu, true)."</pre>");
     if(isset($menu->nid)){
       $result = db_update('field_data_field_menus') // Table name no longer needs {}
               ->fields(array(   
@@ -1008,7 +1008,7 @@ function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
               ->execute();
     }
     else{
-      watchdog("DEB", "<pre>".print_r("AAAAAAA", true)."</pre>");
+      // watchdog("DEB", "<pre>".print_r("AAAAAAA", true)."</pre>");
     }
   }
 
