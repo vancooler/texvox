@@ -327,6 +327,129 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
           }
         }
       }
+
+      // Get all screen options
+      $screen_id = intval($form['clone_from_original_nid']['#value']);
+      $query = db_select('field_data_field_ivr_screen', 's');
+      $result = $query->fields('s', array('entity_id'))
+                      ->condition('s.field_ivr_screen_target_id', $screen_id, '=')
+                      ->execute();
+      $ivr_id = 0;
+      foreach ($result as $row) {
+        $ivr_id = intval($row->entity_id);
+      }
+
+      $variant_options = array();
+      $query = db_select('field_data_field_ivr_screen', 's');
+      $query->join('field_data_field_variants', 'v', 'v.field_variants_target_id = s.field_ivr_screen_target_id');
+      $result = $query->fields('v', array('field_variants_target_id'))
+                 ->condition('s.entity_id', intval($ivr_id), '=')
+                 ->execute();
+      foreach ($result as $row) {
+        $variant_options[] = intval($row->field_variants_target_id);
+      }
+
+      $screen_options = array();
+      $query = db_select('field_data_field_ivr_screen', 's');
+      $query->join('node', 'n', 'n.nid = s.field_ivr_screen_target_id');
+      $result = $query->fields('n', array('nid', 'title'))
+                 ->condition('s.entity_id', intval($ivr_id), '=')
+                 ->execute();
+      foreach ($result as $row) {
+        $screen_options[] = intval($row->nid);
+      }
+
+      foreach ($form['field_no_input_goto_screen']['und']['#options'] as $key => $value) {
+        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+          unset($form['field_no_input_goto_screen']['und']['#options'][$key]);
+        }
+      }
+
+      foreach ($form['field_prelude_screen_code']['und']['#options'] as $key => $value) {
+        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+          unset($form['field_prelude_screen_code']['und']['#options'][$key]);
+        }
+      }
+
+      foreach ($form['field_input_goto_screen']['und']['#options'] as $key => $value) {
+        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+          unset($form['field_input_goto_screen']['und']['#options'][$key]);
+        }
+      }
+
+      if(isset($form['field_menus']['und']['entities'])){
+        foreach ($form['field_menus']['und']['entities'] as $mkey => $mvalue) {
+          if(is_numeric($mkey) and isset($mvalue['form']['field_go_to_screen']['und']['#options'])){
+            foreach ($form['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] as $key => $value) {
+              if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                unset($form['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'][$key]);
+              }
+            }
+          }
+          if(is_numeric($mkey) and isset($mvalue['form']['field_action_delay_screen_code']['und']['#options'])){
+            foreach ($form['field_menus']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'] as $key => $value) {
+              if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                unset($form['field_menus']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'][$key]);
+              }
+            }
+          }
+        }
+      }
+
+      if(isset($form['field_menus']['und']['form'])){
+          if(isset($form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'])){
+            foreach ($form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] as $key => $value) {
+              if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                unset($form['field_menus']['und']['form']['field_go_to_screen']['und']['#options'][$key]);
+              }
+            }
+          }
+          if(isset($form['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'])){
+            foreach ($form['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'] as $key => $value) {
+              if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                unset($form['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'][$key]);
+              }
+            }
+          }
+      }
+
+
+      if(isset($form['field_new_verify_options']['und']['entities'])){
+        foreach ($form['field_new_verify_options']['und']['entities'] as $mkey => $mvalue) {
+          if(is_numeric($mkey) and isset($mvalue['form']['field_go_to_screen']['und']['#options'])){
+            foreach ($form['field_new_verify_options']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] as $key => $value) {
+              if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                unset($form['field_new_verify_options']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'][$key]);
+              }
+            }
+          }
+          if(is_numeric($mkey) and isset($mvalue['form']['field_action_delay_screen_code']['und']['#options'])){
+            foreach ($form['field_new_verify_options']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'] as $key => $value) {
+              if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                unset($form['field_new_verify_options']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'][$key]);
+              }
+            }
+          }
+        }
+      }
+
+      if(isset($form['field_new_verify_options']['und']['form'])){
+          if(isset($form['field_new_verify_options']['und']['form']['field_go_to_screen']['und']['#options'])){
+            foreach ($form['field_new_verify_options']['und']['form']['field_go_to_screen']['und']['#options'] as $key => $value) {
+              if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                unset($form['field_new_verify_options']['und']['form']['field_go_to_screen']['und']['#options'][$key]);
+              }
+            }
+          }
+          if(isset($form['field_new_verify_options']['und']['form']['field_action_delay_screen_code']['und']['#options'])){
+            foreach ($form['field_new_verify_options']['und']['form']['field_action_delay_screen_code']['und']['#options'] as $key => $value) {
+              if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                unset($form['field_new_verify_options']['und']['form']['field_action_delay_screen_code']['und']['#options'][$key]);
+              }
+            }
+          }
+      }
+
     }
     $form['actions']['submit']['#submit'][] = 'texvox_screen_form_submit_nested_handler';
 
@@ -440,6 +563,136 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
             foreach ($options as $op => $option) {
               if(is_numeric($op) and in_array(intval($op), $bad_options)){
                 unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_used_for_branches']['und']['#options'][$op]);
+              }
+            }
+          }
+
+          // remove branches
+          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_used_for_branches']);
+
+          // Get all screen options
+
+          $query = db_select('field_data_field_ivr_screen', 's');
+          $result = $query->fields('s', array('entity_id'))
+                          ->condition('s.field_ivr_screen_target_id', $screen_id, '=')
+                          ->execute();
+          $ivr_id = 0;
+          foreach ($result as $row) {
+            $ivr_id = intval($row->entity_id);
+          }
+
+          $variant_options = array();
+          $query = db_select('field_data_field_ivr_screen', 's');
+          $query->join('field_data_field_variants', 'v', 'v.field_variants_target_id = s.field_ivr_screen_target_id');
+          $result = $query->fields('v', array('field_variants_target_id'))
+                     ->condition('s.entity_id', intval($ivr_id), '=')
+                     ->execute();
+          foreach ($result as $row) {
+            $variant_options[] = intval($row->field_variants_target_id);
+          }
+
+          $screen_options = array();
+          $query = db_select('field_data_field_ivr_screen', 's');
+          $query->join('node', 'n', 'n.nid = s.field_ivr_screen_target_id');
+          $result = $query->fields('n', array('nid', 'title'))
+                     ->condition('s.entity_id', intval($ivr_id), '=')
+                     ->execute();
+          foreach ($result as $row) {
+            $screen_options[] = intval($row->nid);
+          }
+
+          if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'])){
+            foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'] as $vkey => $vvalue) {
+              if(is_numeric($vkey) and isset($vvalue['form'])){
+                foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_no_input_goto_screen']['und']['#options'] as $key => $value) {
+                  if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                    unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_no_input_goto_screen']['und']['#options'][$key]);
+                  }
+                }
+
+                foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_prelude_screen_code']['und']['#options'] as $key => $value) {
+                  if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                    unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_prelude_screen_code']['und']['#options'][$key]);
+                  }
+                }
+
+                foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_input_goto_screen']['und']['#options'] as $key => $value) {
+                  if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                    unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_input_goto_screen']['und']['#options'][$key]);
+                  }
+                }
+
+                if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['entities'])){
+                  foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['entities'] as $mkey => $mvalue) {
+                    if(is_numeric($mkey) and isset($mvalue['form']['field_go_to_screen']['und']['#options'])){
+                      foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] as $key => $value) {
+                        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'][$key]);
+                        }
+                      }
+                    }
+                    if(is_numeric($mkey) and isset($mvalue['form']['field_action_delay_screen_code']['und']['#options'])){
+                      foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'] as $key => $value) {
+                        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'][$key]);
+                        }
+                      }
+                    }
+                  }
+                }
+
+                if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['form'])){
+                    if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'])){
+                      foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'] as $key => $value) {
+                        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['form']['field_go_to_screen']['und']['#options'][$key]);
+                        }
+                      }
+                    }
+                    if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'])){
+                      foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'] as $key => $value) {
+                        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_menus']['und']['form']['field_action_delay_screen_code']['und']['#options'][$key]);
+                        }
+                      }
+                    }
+                }
+
+                if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['entities'])){
+                  foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['entities'] as $mkey => $mvalue) {
+                    if(is_numeric($mkey) and isset($mvalue['form']['field_go_to_screen']['und']['#options'])){
+                      foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'] as $key => $value) {
+                        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['field_go_to_screen']['und']['#options'][$key]);
+                        }
+                      }
+                    }
+                    if(is_numeric($mkey) and isset($mvalue['form']['field_action_delay_screen_code']['und']['#options'])){
+                      foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'] as $key => $value) {
+                        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['entities'][$mkey]['form']['field_action_delay_screen_code']['und']['#options'][$key]);
+                        }
+                      }
+                    }
+                  }
+                }
+
+                if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['form'])){
+                    if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['form']['field_go_to_screen']['und']['#options'])){
+                      foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['form']['field_go_to_screen']['und']['#options'] as $key => $value) {
+                        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['form']['field_go_to_screen']['und']['#options'][$key]);
+                        }
+                      }
+                    }
+                    if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['form']['field_action_delay_screen_code']['und']['#options'])){
+                      foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['form']['field_action_delay_screen_code']['und']['#options'] as $key => $value) {
+                        if(is_numeric($key) and !(in_array(intval($key), $screen_options) and !in_array(intval($key), $variant_options))){
+                          unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$vkey]['form']['field_new_verify_options']['und']['form']['field_action_delay_screen_code']['und']['#options'][$key]);
+                        }
+                      }
+                    }
+                }
               }
             }
           }
@@ -613,6 +866,8 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
             }
           }
         }
+
+        unset($form['field_ivr_screen']['und']['form']['field_used_for_branches']);
         
 
         $form['field_ivr_screen']['und']['form']['#fieldgroups']['group_menus']->format_type = 'hidden';
