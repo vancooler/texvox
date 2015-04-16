@@ -465,18 +465,16 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
     // $ivr_id = intval($form['nid']['#value']);
     $screen_code = $form['title_field']['und'][0]['value']['#default_value'];
     $options = $form['field_used_for_branches']['und']['#options'];
-    $query = db_select('field_data_field_ivr_screen', 's');
-    $query->join('field_data_field_used_for_branches', 'b', 'b.entity_id = s.field_ivr_screen_target_id');
-    $query->join('node', 'n', 'n.nid = s.field_ivr_screen_target_id');
-
+    $query = db_select('field_data_field_variants', 'v');
+    $query->join('field_data_field_used_for_branches', 'b', 'b.entity_id = v.field_variants_target_id');
     $result = $query->fields('b', array('field_used_for_branches_target_id'))
-               ->condition('s.entity_id', intval($ivr_id), '=')
-               ->condition('n.title', $screen_code, '=')
+               ->condition('v.entity_id', intval($screen_id), '=')
                ->execute();
     $bad_options = array();
     foreach ($result as $row) {
       $bad_options[] = intval($row->field_used_for_branches_target_id);
     }
+
 
     $query = db_select('field_data_field_only_for_organization', 'ofo');
     $query->join('field_data_field_organization', 'o', 'ofo.field_only_for_organization_target_id = o.field_organization_target_id');
@@ -527,14 +525,10 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
           $ivr_id = intval($form['nid']['#value']);
           $screen_code = $form['field_ivr_screen']['und']['entities'][$skey]['#entity']->title_field['und'][0]['value'];
           $options = $screen['form']['field_used_for_branches']['und']['#options'];
-          $query = db_select('field_data_field_ivr_screen', 's');
-          $query->join('field_data_field_used_for_branches', 'b', 'b.entity_id = s.field_ivr_screen_target_id');
-          $query->join('node', 'n', 'n.nid = s.field_ivr_screen_target_id');
-
+          $query = db_select('field_data_field_variants', 'v');
+          $query->join('field_data_field_used_for_branches', 'b', 'b.entity_id = v.field_variants_target_id');
           $result = $query->fields('b', array('field_used_for_branches_target_id'))
-                     ->condition('s.entity_id', intval($form['nid']['#value']), '=')
-                     ->condition('b.entity_id', $screen_id, '<>')
-                     ->condition('n.title', $screen_code, '=')
+                     ->condition('v.entity_id', intval($screen_id), '=')
                      ->execute();
           $bad_options = array();
           foreach ($result as $row) {
@@ -565,6 +559,40 @@ function texvox_form_alter(&$form, &$form_state, $form_id) {
                 unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_used_for_branches']['und']['#options'][$op]);
               }
             }
+          }
+
+          if(isset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'])){
+            foreach ($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'] as $va_key => $va_value) {
+              if(is_numeric($va_key) and isset($va_value['form']['field_used_for_branches']['und']['#options'])){
+                $options = $va_value['form']['field_used_for_branches']['und']['#options'];
+                if(count($good_options) > 0){
+                  foreach ($options as $op => $option) {
+                    if(is_numeric($op) and !in_array(intval($op), $good_options)){
+                      unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$va_key]['form']['field_used_for_branches']['und']['#options'][$op]);
+                    }
+                  }
+                }
+                $query = db_select('field_data_field_variants', 'v');
+                $query->join('field_data_field_used_for_branches', 'b', 'b.entity_id = v.field_variants_target_id');
+                $result = $query->fields('b', array('field_used_for_branches_target_id'))
+                           ->condition('v.entity_id', intval($screen_id), '=')
+                           ->condition('v.field_variants_target_id', intval($va_value['#entity']->nid), '<>')
+                           ->execute();
+                $bad_variants_options = array();
+                foreach ($result as $row) {
+                  $bad_variants_options[] = intval($row->field_used_for_branches_target_id);
+                }
+                if(count($bad_variants_options) > 0){
+                  foreach ($options as $op => $option) {
+                    if(is_numeric($op) and in_array(intval($op), $bad_variants_options)){
+                      unset($form['field_ivr_screen']['und']['entities'][$skey]['form']['field_variants']['und']['entities'][$va_key]['form']['field_used_for_branches']['und']['#options'][$op]);
+                    }
+                  }
+                }
+                
+              }
+            }
+            // dpm($form);
           }
 
           // remove branches
