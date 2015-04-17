@@ -118,6 +118,7 @@ function texvox_inline_entity_form_table_fields_alter(&$fields, $context) {
       ); 
       
       $fields['title']['label'] = "Screen Code";          // Change the title Label
+      $fields['title']['weight'] = -103;          // Change the title Label
 
     }
 
