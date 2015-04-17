@@ -1262,8 +1262,9 @@ function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
   // 1. Load menus / verify options
   // for each one:
     // 2. unset nid/vid/path
-    // 3. save new node
-    // 4. update relationship
+    // 3. copy fc
+    // 4. save new node
+    // 5. update relationship
   $query = db_select('field_data_field_menus', 'm');
   $result = $query->fields('m', array('field_menus_target_id'))
              ->condition('m.entity_id', intval($form_state['original_nid']), '=')
@@ -1272,14 +1273,62 @@ function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
   foreach ($result as $row) {
     $menuID[] = intval($row->field_menus_target_id);
   }
-  // watchdog("DEB", "<pre>".print_r($menuID, true)."</pre>");
+
   foreach ($menuID as $mkey => $mvalue) {
+    $query = db_select('field_data_field_title_in_multi_languages', 'm');
+    $result = $query->fields('m', array('field_title_in_multi_languages_value'))
+               ->condition('m.entity_id', intval($mvalue), '=')
+               ->execute();
+    $old_fc_ids = array();
+    foreach ($result as $row) {
+      $old_fc_ids[] = intval($row->field_title_in_multi_languages_value);
+    }
+
     $menu = node_load($mvalue);
     unset($menu->nid);
     unset($menu->vid);
     unset($menu->path);
-
     node_save($menu);
+    
+    // update field_collection
+    $language = 'und';
+    $fc_field = 'field_title_in_multi_languages';
+    $entity_wrapper = entity_metadata_wrapper('node', $menu);
+    $old_fc_items = $entity_wrapper->{$fc_field}->value();
+    if (!is_array($old_fc_items)) {
+      $old_fc_items = array($old_fc_items);
+    }
+
+    $field_info_instances = field_info_instances();
+    $field_names = element_children($field_info_instances['field_collection_item'][$fc_field]);
+
+    unset($entity->{$fc_field}[$language]);
+
+    foreach ($old_fc_items as $old_fc_item) {
+      $old_fc_item_wrapper = entity_metadata_wrapper('field_collection_item', $old_fc_item);
+      $new_fc_item = entity_create('field_collection_item', array('field_name' => $fc_field));
+      $new_fc_item->setHostEntity('node', $menu);
+      $new_fc_item_wrapper = entity_metadata_wrapper('field_collection_item', $new_fc_item);
+
+      foreach ($field_names as $field_name) {
+        if (!empty($old_fc_item->{$field_name})){
+            $new_fc_item->{$field_name} = $old_fc_item->{$field_name};
+        }
+      }
+      $new_fc_item_wrapper->save();
+    }
+    node_save($menu);
+    foreach ($old_fc_ids as $ofc_key => $ofc_value) {
+      $variant_deleted = db_delete('field_data_field_title_in_multi_languages')
+        ->condition('entity_id', intval($menu->nid))
+        ->condition('field_title_in_multi_languages_value', $ofc_value, '=')
+        ->execute();
+      $variant_deleted = db_delete('field_revision_field_title_in_multi_languages')
+        ->condition('entity_id', intval($menu->nid))
+        ->condition('field_title_in_multi_languages_value', $ofc_value, '=')
+        ->execute();
+    }
+    
     // watchdog("DEB", "<pre>".print_r($menu, true)."</pre>");
     if(isset($menu->nid)){
       $result = db_update('field_data_field_menus') // Table name no longer needs {}
@@ -1291,7 +1340,85 @@ function texvox_screen_form_submit_link_to_ivr($form, &$form_state){
               ->execute();
     }
     else{
-      // watchdog("DEB", "<pre>".print_r("AAAAAAA", true)."</pre>");
+    }
+  }
+
+  // Verify Options
+  $query = db_select('field_data_field_new_verify_options', 'm');
+  $result = $query->fields('m', array('field_new_verify_options_target_id'))
+             ->condition('m.entity_id', intval($form_state['original_nid']), '=')
+             ->execute();
+  $menuID = array();
+  foreach ($result as $row) {
+    $menuID[] = intval($row->field_menus_target_id);
+  }
+
+  foreach ($menuID as $mkey => $mvalue) {
+    $query = db_select('field_data_field_title_in_multi_languages', 'm');
+    $result = $query->fields('m', array('field_title_in_multi_languages_value'))
+               ->condition('m.entity_id', intval($mvalue), '=')
+               ->execute();
+    $old_fc_ids = array();
+    foreach ($result as $row) {
+      $old_fc_ids[] = intval($row->field_title_in_multi_languages_value);
+    }
+
+    $menu = node_load($mvalue);
+    unset($menu->nid);
+    unset($menu->vid);
+    unset($menu->path);
+    node_save($menu);
+    
+    // update field_collection
+    $language = 'und';
+    $fc_field = 'field_title_in_multi_languages';
+    $entity_wrapper = entity_metadata_wrapper('node', $menu);
+    $old_fc_items = $entity_wrapper->{$fc_field}->value();
+    if (!is_array($old_fc_items)) {
+      $old_fc_items = array($old_fc_items);
+    }
+
+    $field_info_instances = field_info_instances();
+    $field_names = element_children($field_info_instances['field_collection_item'][$fc_field]);
+
+    unset($entity->{$fc_field}[$language]);
+
+    foreach ($old_fc_items as $old_fc_item) {
+      $old_fc_item_wrapper = entity_metadata_wrapper('field_collection_item', $old_fc_item);
+      $new_fc_item = entity_create('field_collection_item', array('field_name' => $fc_field));
+      $new_fc_item->setHostEntity('node', $menu);
+      $new_fc_item_wrapper = entity_metadata_wrapper('field_collection_item', $new_fc_item);
+
+      foreach ($field_names as $field_name) {
+        if (!empty($old_fc_item->{$field_name})){
+            $new_fc_item->{$field_name} = $old_fc_item->{$field_name};
+        }
+      }
+      $new_fc_item_wrapper->save();
+    }
+    node_save($menu);
+    foreach ($old_fc_ids as $ofc_key => $ofc_value) {
+      $variant_deleted = db_delete('field_data_field_title_in_multi_languages')
+        ->condition('entity_id', intval($menu->nid))
+        ->condition('field_title_in_multi_languages_value', $ofc_value, '=')
+        ->execute();
+      $variant_deleted = db_delete('field_revision_field_title_in_multi_languages')
+        ->condition('entity_id', intval($menu->nid))
+        ->condition('field_title_in_multi_languages_value', $ofc_value, '=')
+        ->execute();
+    }
+    
+    // watchdog("DEB", "<pre>".print_r($menu, true)."</pre>");
+    if(isset($menu->nid)){
+      $result = db_update('field_data_field_new_verify_options') // Table name no longer needs {}
+              ->fields(array(   
+                'field_new_verify_options_target_id' => $menu->nid,
+              ))
+              ->condition('field_new_verify_options_target_id', $mvalue, '=')
+              ->condition('entity_id', intval($form_state['values']['nid']), '=')
+              ->execute();
+    }
+    else{
     }
   }
 
